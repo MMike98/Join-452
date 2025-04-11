@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Inter";
+    src: url(./fonts/Inter/Inter-VariableFont_opsz,wght.ttf);
+  }
+
 * {
     margin: 0;
     padding: 0;
@@ -11,3 +16,103 @@ body {
     flex-direction: column;
     align-items: center;
 }
+
+header {
+    max-width: 1920px;
+    width: 100%;
+    height: 200px;
+}
+
+header img {
+    width: 100.03px;
+    height: 121.97px;
+    padding-top: 80px;
+    padding-left: 77px;
+}
+
+main {
+    max-width: 1920px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    position: absolute;
+    width: 100%;
+    bottom: 30px;
+}
+
+footer a {
+    color: #A8A8A8;
+}
+
+h1 {
+    font-size: 61px;
+}
+
+button {
+    border: 0;
+    cursor: pointer;
+    background-color: #2A3647;
+    border-radius: 8px;
+    padding-inline: 25px;
+    padding-block: 15px;
+    font-weight: 700;
+    color: white;
+}
+
+button:hover {
+    transition: 0.2s;
+    box-shadow: 0px 6px 8px rgb(0 0 0 / 20%);
+    background-color: #2aabe2;
+}
+
+a:hover {
+    font-weight: 700;
+    transition: 0.2s;
+    color: #2aabe2;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px
+}
+
+.line {
+    background-color: #2aabe2;
+    width: 150px;
+    height: 3px;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input input {
+    padding-inline: 20px;
+    padding-block: 10px;
+    width: 400px;
+    height: 40px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: 380px;
+    font-size: 20px;
+    font-weight: 200;
+    background-size: 30px;
+}
+
+::placeholder {
+    color: #D1D1D1;
+}
+
+
+

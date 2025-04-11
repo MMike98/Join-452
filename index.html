@@ -5,38 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-
-    <title>join</title>
+    <title>Join</title>
+    <link rel="shortcut icon" href="./assets/icons/Capa 2.svg" type="image/x-icon">
 
     <script src="./script.js"></script>
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
     <div class="splash"></div>
-    <header>
+    <header class="headerIndex" !important>
         <img src="./assets/icons/Capa 2.svg" alt="JoinIcon">
         <div class="signUp_button">
             <p>Not a Join user?</p>
-            <button>Sing up</button>
+            <a href="./pages/signUp.html">
+                <button>Sing up</button>
+            </a>
         </div>
     </header>
     <main>
-        <form>
+        <form class="formIndex">
             <div class="title">
                 <h1>Log in</h1>
                 <div class="line"></div>
             </div>
             <div class="input">
-                <input type="email" required id="email" placeholder="Email">
-                <input type="password" required id="password" placeholder="Password">
+                <input type="email" required id="emailLogIn" placeholder="Email">
+                <input type="password" required id="passwordLogIn" placeholder="Password">
             </div>
             <div class="logBtn">
                 <button id="logInBtn">Log in</button>

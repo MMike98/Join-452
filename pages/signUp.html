@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Join</title>
+    <link rel="shortcut icon" href="./assets/icons/Capa 2.svg" type="image/x-icon">
+
+    <script src="../script.js"></script>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/signUp.css">
+</head>
+
+<body>
+    <header>
+        <img src="../assets/icons/Capa 2.svg" alt="JoinIcon">
+    </header>
+
+    <main>
+        <form class="formSignUp">
+            <div class="title">
+                <h1>Sign up</h1>
+                <div class="line"></div>
+            </div>
+            <div class="input">
+                <input type="text" required id="nameSignUp" placeholder="Name">
+                <input type="email" required id="emailSignUp" placeholder="Email">
+                <input type="password" required id="passwordSignUp" placeholder="Password">
+                <input type="password" required id="confirmSignUp" placeholder="Confirm Password">
+                <div class="checkPP">
+                    <input type="checkbox" class="checkBox" required id="checkSignUp" name="checkPP" value="privacyPolicy">
+                    <label for="checkPP" class="checkText">I accept the <a href="./datenschutz.html" class="linkSignUpPP">Privacy policy</a></label>
+                </div>
+            </div>
+            <div class="signBtn">
+                <button id="signUpBtn">Sign up</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <a id="legal_notice_data" href="./impressum.html">Privacy Policy</a>
+        <a id="legal_notice_data" href="./datenschutz.html">Legal notice</a>
+    </footer>
+</body>
+
+</html>

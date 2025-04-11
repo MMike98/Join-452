@@ -1,0 +1,70 @@
+.formSignUp {
+    position:fixed;
+    top: 0;
+    margin-top: 197px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 14px 3px #0000000A;
+    padding-block: 48px;
+    padding-inline: 88px;
+    border-radius: 30px;
+    gap: 32px
+}
+
+#nameSignUp {
+    background-image: url('../assets/icons/person.svg')
+}
+
+#emailSignUp {
+    background-image: url('../assets/icons/mail.svg');
+}
+
+#passwordSignUp, #confirmSignUp {
+    background-image: url('../assets/icons/lock.svg');
+}
+
+.checkPP {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 24px;
+    padding-top: 14px;
+}
+
+.checkBox {
+    width: 16px !important;
+    border-radius: 3px;
+    border: 2px;
+    border-color: #2A3647;
+    margin: 8px;
+}
+
+.checkText {
+    color: #A8A8A8;
+}
+
+.signBtn {
+    display: flex;
+    gap: 10px;
+}
+
+#signUpBtn {
+    font-size: 21px;
+}
+
+.linkSignUpPP {
+    font-weight: normal !important;
+    color: #29ABE2;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.linkSignUpPP:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transform: scale(1.1) translateX(5%);
+}
+
