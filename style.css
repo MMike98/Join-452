@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background-color: #f5f7f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
