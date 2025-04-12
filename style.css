@@ -93,21 +93,26 @@ a:hover {
 .input {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px;
 }
 
 .input input {
     padding-inline: 20px;
     padding-block: 10px;
-    width: 400px;
-    height: 40px;
+    width: 422px;
+    height: 28px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
     background-repeat: no-repeat;
-    background-position: 380px;
+    background-position: 420px;
     font-size: 20px;
     font-weight: 200;
     background-size: 30px;
+}
+
+.input input:focus {
+    border: 2px solid #007BFF;
+    z-index: 9999;
 }
 
 ::placeholder {
