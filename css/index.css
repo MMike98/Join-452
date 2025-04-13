@@ -7,22 +7,11 @@
     animation-delay: 1s;
 }
 
-.headerIndex {
-    max-width: 1920px;
-    width: 100%;
-    height: 200px;
-    display: flex;
-    justify-content: right;
-}
-
-.headerIndex img {
+.joinIcon img {
+    margin-top: -120px;
     z-index: 9999;
     position: absolute;
-    width: 100.03px;
-    height: 121.97px;
-    padding-top: 80px;
-    padding-left: 77px;
-    animation: moveLogo 3s ease-in-out forwards;
+    animation: moveLogo 3.5s ease-in-out forwards;
 }
 
 @keyframes fadeOut {
@@ -39,14 +28,12 @@
     0% {
         width: 200px;
         height: 240px;
-        top: 50%;
+        top: calc(50% + 200px);
         left: 50%;
         transform: translate(-50%, -50%) scale(1);
     }
 
     100% {
-        width: 100px;
-        height: 120px;
         top: 0;
         left: 0;
         transform: translate(0, 0) scale(1);

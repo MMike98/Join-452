@@ -1,3 +1,7 @@
+header {
+    justify-content: left;
+}
+
 .formSignUp {
     position:fixed;
     top: 0;
