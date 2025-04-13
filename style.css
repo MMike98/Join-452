@@ -121,8 +121,8 @@ a:hover {
 }
 
 .input input:focus {
-    border: 2px solid #007BFF;
-    z-index: 9999;
+    outline: none;
+    border: 2px solid #63c1ea;
 }
 
 ::placeholder {
