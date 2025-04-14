@@ -1,0 +1,85 @@
+/* NAVBAR */
+
+body {
+    margin: 0;
+    display: flex;
+    font-family: 'Inter', sans-serif;
+}
+
+.navbar {
+    width: 232px;
+    background-color: rgb(41, 54, 71);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    top: 0;
+}
+
+.logo {
+    width: 100.03px;
+    height: 121.97px;
+    top: 80px;
+    left: 77px;
+    position: absolute;
+}
+
+.menu {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.navbar-button {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    width: 232px;
+    justify-content: center;
+}
+
+.navbar-button.active {
+    background-color: rgb(9, 25, 49);
+}
+
+.navbar-button:hover {
+    background-color: rgb(9, 25, 49);
+    cursor: pointer;
+}
+
+.navbar-img {
+    width: 30px;
+    height: 30px;
+}
+
+.navbar-text {
+    width: 72px;
+    margin-left: 15px;
+    height: 19px;
+    color: rgb(205, 205, 205);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
+footer {
+    position: absolute;
+    bottom: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.footer-text {
+    width: Hug (121px);
+    height: Hug (35px);
+    padding: 8px;
+    gap: 8px;
+}
+
+.footer-text:hover {
+    background-color: rgb(9, 25, 49);
+    cursor: pointer;
+}
