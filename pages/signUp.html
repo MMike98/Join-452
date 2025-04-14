@@ -36,12 +36,15 @@
                 <input type="password" required id="passwordSignUp" placeholder="Password">
                 <input type="password" required id="confirmSignUp" placeholder="Confirm Password">
                 <div class="checkPP">
-                    <input type="checkbox" class="checkBox" required id="checkPP" name="checkPP" value="privacyPolicy">
-                    <label for="checkPP" class="checkText">I accept the <a href="./datenschutz.html" class="linkSignUpPP">Privacy policy</a></label>
+                    <input type="checkbox" required class="checkBox" id="checkPP" name="checkPP" value="privacyPolicy">
+                    <label for="checkPP" class="custom-checkbox">
+                        <span class="checkbox-icon"></span>
+                        <span class="checkText">I accept the <a href="./datenschutz.html" class="linkSignUpPP">Privacy policy</a></span>
+                    </label>
                 </div>
             </div>
             <div class="signBtn">
-                <button id="signUpBtn">Sign up</button>
+                <button id="signUpBtn" type="submit">Sign up</button>
             </div>
         </form>
     </main>

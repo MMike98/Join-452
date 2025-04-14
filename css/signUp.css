@@ -53,16 +53,40 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 24px;
     padding-top: 14px;
 }
 
 .checkBox {
-    width: 16px !important;
-    border-radius: 3px;
-    border: 2px;
-    border-color: #2A3647;
-    margin: 8px;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox-icon {
+    width: 24px;
+    height: 24px;
+    background-image: url('../assets/icons/checkbox-empty.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+}
+
+.checkBox:not(:checked) + .custom-checkbox:hover .checkbox-icon {
+    background-image: url('../assets/icons/checkbox-hover.svg');
+}
+
+.checkBox:checked + .custom-checkbox .checkbox-icon {
+    background-image: url('../assets/icons/checkbox-checked.svg');
+}
+
+.checkBox:checked + .custom-checkbox:hover .checkbox-icon {
+    background-image: url('../assets/icons/checkbox-checked-hover.svg');
 }
 
 .checkText {
