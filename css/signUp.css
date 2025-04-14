@@ -49,6 +49,17 @@ section {
     background-image: url('../assets/icons/lock.svg');
 }
 
+.errorText {
+   color: #FF8190; 
+   font-size: 12px;
+   font-weight: 400px;
+   height: 14px;
+   width: 422px;
+   text-align: left;
+   position: absolute;
+   top: 460px;
+}
+
 .checkPP {
     display: flex;
     justify-content: center;

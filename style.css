@@ -9,6 +9,10 @@
     text-decoration: none;
 }
 
+.d_none {
+    display: none;
+}
+
 body {
     font-family: "Inter", sans-serif;
     background-color: #f5f7f9;
