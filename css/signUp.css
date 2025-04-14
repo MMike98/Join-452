@@ -52,7 +52,7 @@ section {
 .errorText {
    color: #FF8190; 
    font-size: 12px;
-   font-weight: 400px;
+   font-weight: 400;
    height: 14px;
    width: 422px;
    text-align: left;
