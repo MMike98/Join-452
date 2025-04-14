@@ -83,3 +83,34 @@ footer {
     background-color: rgb(9, 25, 49);
     cursor: pointer;
 }
+
+/** Main **/
+
+.main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    }
+    /* HEADER */
+    header {
+        height: 100px;
+        display: flex;
+        border-bottom: 6px;
+        background-color: white;
+        box-shadow: 2px 2px 0px 0px rgb(0 0 0 / 30%);
+        align-items: center;
+        justify-content: center;
+    }
+    
+    h1 {
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* CONTENT */
+    
+    .content {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+    }
