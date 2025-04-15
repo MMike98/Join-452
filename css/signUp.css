@@ -57,7 +57,7 @@ section {
    border-color: #FF001F !important;
 }
 
-.errorText {
+.errorTextSignUp {
    color: #FF8190; 
    font-size: 12px;
    font-weight: 400;
@@ -65,7 +65,7 @@ section {
    width: 422px;
    text-align: left;
    position: absolute;
-   top: 460px;
+   top: 455px;
    font-family: "Poppins", sans-serif;
 }
 

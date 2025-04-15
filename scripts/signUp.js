@@ -18,7 +18,7 @@ function saveNewUser() {
   }
 }
 
-/** Get user information entered from the form*/
+/** Get user information from the form*/
 function getUserInformation() {
   let name = document.getElementById("nameSignUp").value;
   let mail = document.getElementById("emailSignUp").value;
@@ -41,10 +41,12 @@ function userAlreadyExists(message) {
   document.getElementById("checkPP").checked = false;
 
   document.getElementById("errorSignUp").classList.remove("d_none");
+  document.getElementById("confirmSignUp").classList.remove("passwordInput");
+  document.getElementById("passwordSignUp").classList.remove("passwordInput");
   document.getElementById("errorSignUp").textContent = message;
 }
 
-/** If all information is correct an can be pushed to the database, reset the sign up form */
+/** If all information is correct and can be pushed to the API: reset the sign up form */
 function resetSignUpForm() {
   document.getElementById("nameSignUp").value = "";
   document.getElementById("emailSignUp").value = "";
@@ -53,6 +55,8 @@ function resetSignUpForm() {
   document.getElementById("checkPP").checked = false;
 
   document.getElementById("errorSignUp").classList.add("d_none");
+  document.getElementById("confirmSignUp").classList.remove("passwordInput");
+  document.getElementById("passwordSignUp").classList.remove("passwordInput");
 }
 
 /** If the password and the confirmation of the password are not the same, display error */

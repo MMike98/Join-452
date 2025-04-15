@@ -1,110 +1,111 @@
 .splash {
-    position: fixed;
-    inset: 0;
-    background-color: white;
-    z-index: 9998;
-    animation: fadeOut 2s ease forwards;
-    animation-delay: 1s;
+  position: fixed;
+  inset: 0;
+  background-color: white;
+  z-index: 9998;
+  animation: fadeOut 2s ease forwards;
+  animation-delay: 1s;
 }
 
 .joinIcon img {
-    margin-top: -120px;
-    z-index: 9999;
-    position: absolute;
-    animation: moveLogo 3.5s ease-in-out forwards;
+  margin-top: -120px;
+  z-index: 9999;
+  position: absolute;
+  animation: moveLogo 3.5s ease-in-out forwards;
 }
 
 @keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        visibility: hidden;
-    }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 @keyframes moveLogo {
-    0% {
-        width: 200px;
-        height: 240px;
-        top: calc(50% + 200px);
-        left: 50%;
-        transform: translate(-50%, -50%) scale(1);
-    }
+  0% {
+    width: 200px;
+    height: 240px;
+    top: calc(50% + 200px);
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+  }
 
-    100% {
-        top: 0;
-        left: 0;
-        transform: translate(0, 0) scale(1);
-    }
+  100% {
+    top: 0;
+    left: 0;
+    transform: translate(0, 0) scale(1);
+  }
 }
 
 .signUp_button {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    padding-right: 80px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding-right: 80px;
 }
 
 .signUp_button button {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .signUp_button p {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .formIndex {
-    margin-top: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 14px 3px #0000000A;
-    padding-block: 50px;
-    padding-inline: 110px;
-    border-radius: 30px;
-    gap: 35px
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0px 0px 14px 3px #0000000a;
+  padding-block: 50px;
+  padding-inline: 110px;
+  border-radius: 30px;
+  gap: 35px;
 }
 
 #emailLogIn {
-    background-image: url('../assets/icons/mail.svg');
+  background-image: url("../assets/icons/mail.svg");
 }
 
 #passwordLogIn {
-    background-image: url('../assets/icons/lock.svg');
+  background-image: url("../assets/icons/lock.svg");
 }
 
 .logBtn {
-    display: flex;
-    gap: 35px;
+  display: flex;
+  gap: 35px;
 }
 
 #logInBtn {
-    font-size: 21px;
+  font-size: 21px;
 }
 
 #guestBtn {
-    border: 1px solid #2A3647;
-    background-color: white;
-    color: #2A3647;
-    font-size: 21px;
+  border: 1px solid #2a3647;
+  background-color: white;
+  color: #2a3647;
+  font-size: 21px;
 }
 
 #guestBtn:hover {
-    border: 1px solid #2aabe2;
-    color: #2aabe2;
+  border: 1px solid #2aabe2;
+  color: #2aabe2;
 }
 
-.errorText {
-    color: #FF8190; 
-    font-size: 12px;
-    font-weight: 400;
-    height: 14px;
-    width: 422px;
-    text-align: left;
-    position: absolute;
-    top: 410px;
+.errorTextLogIn {
+  color: #ff8190;
+  font-size: 12px;
+  font-weight: 400;
+  height: 14px;
+  width: 422px;
+  text-align: left;
+  position: absolute;
+  top: 409px;
+  font-family: "Poppins", sans-serif;
 }
