@@ -33,7 +33,7 @@ function isUsernameTaken(name) {
   return users.some((user) => user.name === name);
 }
 
-/** If the user already exists: Resets the form fields and displays an error message */
+/** If the user already exists: Resets the form and displays an error message */
 function userAlreadyExists(message) {
   document.getElementById("nameSignUp").value = "";
   document.getElementById("passwordSignUp").value = "";
@@ -46,7 +46,7 @@ function userAlreadyExists(message) {
   document.getElementById("errorSignUp").textContent = message;
 }
 
-/** If all information is correct and can be pushed to the API: reset the sign up form */
+/** If all information is correct and could be pushed to the API: reset the sign up form */
 function resetSignUpForm() {
   document.getElementById("nameSignUp").value = "";
   document.getElementById("emailSignUp").value = "";
@@ -59,7 +59,7 @@ function resetSignUpForm() {
   document.getElementById("passwordSignUp").classList.remove("passwordInput");
 }
 
-/** If the password and the confirmation of the password are not the same, display error */
+/** If the password and the confirmation of the password are not the same: display error */
 function handlePasswordMismatch() {
   document.getElementById("errorSignUp").classList.remove("d_none");
   document.getElementById("errorSignUp").textContent = "Your passwords don't match. Please try again.";
@@ -69,7 +69,7 @@ function handlePasswordMismatch() {
   document.getElementById("checkPP").checked = false;
 }
 
-/** Check if the password under "confirm password" is the same than unter "password" */
+/** Check if the password under "confirm password" is the same than under "password" */
 function checkPassword() {
   let { password, confirm } = getUserInformation();
 
@@ -83,7 +83,7 @@ function checkPassword() {
   }
 }
 
-/** Change the icon of the confirm/password input field, when typing in the password resp. the confirmation */
+/** Change the icon of the "confirm/password" input field, when typing in the password resp. the confirmation */
 function changeIcon(inputId) {
   document.getElementById(inputId).classList.add("passwordInput");
 }
