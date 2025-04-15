@@ -33,14 +33,14 @@
             <div class="input">
                 <input type="text" required id="nameSignUp" placeholder="Name">
                 <input type="email" required id="emailSignUp" placeholder="Email">
-                <input type="password" required id="passwordSignUp" placeholder="Password">
-                <input type="password" required id="confirmSignUp" placeholder="Confirm Password">
+                <input type="password" required id="passwordSignUp" placeholder="Password" oninput="changeIcon('passwordSignUp')">
+                <input type="password" required id="confirmSignUp" placeholder="Confirm Password" oninput="checkPassword(), changeIcon('confirmSignUp')">
                 <div class="errorText d_none" id="errorSignUp"></div>
                 <div class="checkPP">
                     <input type="checkbox" required class="checkBox" id="checkPP" name="checkPP" value="privacyPolicy">
                     <label for="checkPP" class="custom-checkbox">
                         <span class="checkbox-icon"></span>
-                        <span class="checkText">I accept the <a href="./datenschutz.html" class="linkSignUpPP">Privacy policy</a></span>
+                        <span class="checkText">I accept the <a href="./privacypolicy.html" class="linkSignUpPP">Privacy policy</a></span>
                     </label>
                 </div>
             </div>

@@ -8,33 +8,17 @@ function saveNewUser() {
     userAlreadyExists("This username is already taken. Please try again.");
   } else {
     if (confirm === password) {
-      let newUser = {
-        name: name,
-        mail: mail,
-        password: password,
-      };
-
-      document.getElementById("nameSignUp").value = "";
-      document.getElementById("emailSignUp").value = "";
-      document.getElementById("passwordSignUp").value = "";
-      document.getElementById("confirmSignUp").value = "";
-      document.getElementById("checkPP").checked = false;
-
-      document.getElementById("errorSignUp").classList.add("d_none");
+      let newUser = { name, mail, password };
 
       users.push(newUser);
+      resetSignUpForm();
     } else {
-      document.getElementById("errorSignUp").classList.remove("d_none");
-      document.getElementById("errorSignUp").textContent = "Your passwords don't match. Please try again.";
-
-      document.getElementById("passwordSignUp").value = "";
-      document.getElementById("confirmSignUp").value = "";
-      document.getElementById("checkPP").checked = false;
+      handlePasswordMismatch();
     }
   }
 }
 
-/**Get user information entered from the form*/
+/** Get user information entered from the form*/
 function getUserInformation() {
   let name = document.getElementById("nameSignUp").value;
   let mail = document.getElementById("emailSignUp").value;
@@ -58,4 +42,44 @@ function userAlreadyExists(message) {
 
   document.getElementById("errorSignUp").classList.remove("d_none");
   document.getElementById("errorSignUp").textContent = message;
+}
+
+/** If all information is correct an can be pushed to the database, reset the sign up form */
+function resetSignUpForm() {
+  document.getElementById("nameSignUp").value = "";
+  document.getElementById("emailSignUp").value = "";
+  document.getElementById("passwordSignUp").value = "";
+  document.getElementById("confirmSignUp").value = "";
+  document.getElementById("checkPP").checked = false;
+
+  document.getElementById("errorSignUp").classList.add("d_none");
+}
+
+/** If the password and the confirmation of the password are not the same, display error */
+function handlePasswordMismatch() {
+  document.getElementById("errorSignUp").classList.remove("d_none");
+  document.getElementById("errorSignUp").textContent = "Your passwords don't match. Please try again.";
+
+  document.getElementById("passwordSignUp").value = "";
+  document.getElementById("confirmSignUp").value = "";
+  document.getElementById("checkPP").checked = false;
+}
+
+/** Check if the password under "confirm password" is the same than unter "password" */
+function checkPassword() {
+  let { password, confirm } = getUserInformation();
+
+  if (confirm !== password) {
+    document.getElementById("errorSignUp").classList.remove("d_none");
+    document.getElementById("errorSignUp").textContent = "Your passwords don't match. Please try again.";
+    document.getElementById("confirmSignUp").classList.add("confirmError");
+  } else {
+    document.getElementById("errorSignUp").classList.add("d_none");
+    document.getElementById("confirmSignUp").classList.remove("confirmError");
+  }
+}
+
+/** Change the icon of the confirm/password input field, when typing in the password resp. the confirmation */
+function changeIcon(inputId) {
+  document.getElementById(inputId).classList.add("passwordInput");
 }

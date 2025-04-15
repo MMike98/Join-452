@@ -3,6 +3,11 @@
     src: url(./fonts/Inter/Inter-VariableFont_opsz,wght.ttf);
   }
 
+  @font-face {
+    font-family: "Poppins";
+    src: url(./fonts/Inter/Poppins-Regular.ttf);
+  }
+
 * {
     margin: 0;
     padding: 0;
