@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="./assets/icons/Capa 2.svg" type="image/x-icon">
 
     <script src="./script.js"></script>
+    <script src="./scripts/logIn.js"></script>
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./css/index.css">
@@ -36,10 +37,11 @@
             <div class="input">
                 <input type="email" required id="emailLogIn" placeholder="Email">
                 <input type="password" required id="passwordLogIn" placeholder="Password">
+                <div class="errorText d_none" id="errorSignUp"></div>
             </div>
             <div class="logBtn">
-                <button id="logInBtn">Log in</button>
-                <button id="guestBtn">Guest Log in</button>
+                <button id="logInBtn" type="button" onclick="logIn()">Log in</button>
+                <button id="guestBtn" type="button" onclick="logInGuest()">Guest Log in</button>
             </div>
         </form>
     </main>

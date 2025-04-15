@@ -66,7 +66,7 @@
     padding-block: 50px;
     padding-inline: 110px;
     border-radius: 30px;
-    gap: 30px
+    gap: 35px
 }
 
 #emailLogIn {
@@ -98,3 +98,13 @@
     color: #2aabe2;
 }
 
+.errorText {
+    color: #FF8190; 
+    font-size: 12px;
+    font-weight: 400;
+    height: 14px;
+    width: 422px;
+    text-align: left;
+    position: absolute;
+    top: 410px;
+}
