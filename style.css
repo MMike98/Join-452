@@ -134,6 +134,10 @@ input {
   border: 1px solid #29abe2;
 }
 
+.inputError {
+  border: 1px solid #ff8190 !important;
+}
+
 ::placeholder {
   color: #d1d1d1;
 }

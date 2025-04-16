@@ -22,6 +22,7 @@ function logIn() {
     } else {
         document.getElementById("errorLogIn").classList.remove("d_none");
         document.getElementById("errorLogIn").textContent = "Check your email and password. Please try again.";
+        document.getElementById('passwordLogIn').classList.add("inputError");
     }
 }
 
