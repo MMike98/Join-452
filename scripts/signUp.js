@@ -107,6 +107,7 @@ function changeIcon() {
       icon.classList.add("d_none");
       passwordSignUp.type = "password";
       passwordSignUp.classList.remove("password");
+      icon.style.backgroundImage = "url('../assets/icons/visibility_off.svg')";
   } else {
       passwordSignUp.classList.add("password");
       icon.classList.remove("d_none");
@@ -136,6 +137,7 @@ function changeIconConfirm() {
       icon.classList.add("d_none");
       passwordInput.type = "password";
       passwordInput.classList.remove("password")
+      icon.style.backgroundImage = "url('../assets/icons/visibility_off.svg')";
   } else {
       passwordInput.classList.add("password")
       icon.classList.remove("d_none");

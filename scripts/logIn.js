@@ -47,6 +47,7 @@ function changeIcon() {
         icon.classList.add("d_none");
         passwordLogIn.type = "password";
         passwordLogIn.classList.remove("password");
+        icon.style.backgroundImage = "url('../assets/icons/visibility_off.svg')";
     } else {
         passwordLogIn.classList.add("password");
         icon.classList.remove("d_none");
