@@ -1,137 +1,137 @@
 section {
-    justify-content: left;
+  justify-content: left;
 }
 
 .formSignUp {
-    position:fixed;
-    top: 0;
-    margin-top: 197px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 14px 3px #0000000A;
-    padding-block: 48px;
-    padding-inline: 88px;
-    border-radius: 30px;
-    gap: 32px
+  position: fixed;
+  top: 0;
+  margin-top: 197px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0px 0px 14px 3px #0000000a;
+  padding-block: 48px;
+  padding-inline: 88px;
+  border-radius: 30px;
+  gap: 32px;
 }
 
 .vectorPosition {
-    position: absolute;
-    top: 70px;
-    left: 48px;
+  position: absolute;
+  top: 70px;
+  left: 48px;
 }
 
 .vector {
-    padding: 5px;
-    transition: transform 0s ease;
+  padding: 5px;
+  transition: transform 0s ease;
 }
 
 .vector:hover {
-    background-color: #f5f7f9;
-    height: 21px;
-    width: 24px;
-    border-radius: 100px;
-    transform: scale(1) translateX(-10%);
+  background-color: #f5f7f9;
+  height: 21px;
+  width: 24px;
+  border-radius: 100px;
+  transform: scale(1) translateX(-10%);
 }
 
 #nameSignUp {
-    background-image: url('../assets/icons/person.svg')
+  background-image: url("../assets/icons/person.svg");
 }
 
 #emailSignUp {
-    background-image: url('../assets/icons/mail.svg');
+  background-image: url("../assets/icons/mail.svg");
 }
 
-#passwordSignUp, #confirmSignUp {
-    background-image: url('../assets/icons/lock.svg');
+#passwordSignUp,
+#confirmSignUp {
+  background-image: url("../assets/icons/lock.svg");
 }
 
 .passwordInput {
-    background-image: url('../assets/icons/visibility_off.svg') !important;
+  background-image: url("../assets/icons/visibility_off.svg") !important;
 }
 
 .confirmError:focus {
-   border-color: #FF001F !important;
+  border-color: #ff001f !important;
 }
 
 .errorTextSignUp {
-   color: #FF8190; 
-   font-size: 12px;
-   font-weight: 400;
-   height: 14px;
-   width: 422px;
-   text-align: left;
-   position: absolute;
-   top: 455px;
-   font-family: "Poppins", sans-serif;
+  color: #ff8190;
+  font-size: 12px;
+  font-weight: 400;
+  height: 14px;
+  width: 422px;
+  text-align: left;
+  position: absolute;
+  top: 455px;
+  font-family: "Poppins", sans-serif;
 }
 
 .checkPP {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 14px;
 }
 
 .checkBox {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .custom-checkbox {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .checkbox-icon {
-    width: 24px;
-    height: 24px;
-    background-image: url('../assets/icons/checkbox-empty.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-right: 8px;
+  width: 24px;
+  height: 24px;
+  background-image: url("../assets/icons/checkbox-empty.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 8px;
 }
 
 .checkBox:not(:checked) + .custom-checkbox:hover .checkbox-icon {
-    background-image: url('../assets/icons/checkbox-hover.svg');
+  background-image: url("../assets/icons/checkbox-hover.svg");
 }
 
 .checkBox:checked + .custom-checkbox .checkbox-icon {
-    background-image: url('../assets/icons/checkbox-checked.svg');
+  background-image: url("../assets/icons/checkbox-checked.svg");
 }
 
 .checkBox:checked + .custom-checkbox:hover .checkbox-icon {
-    background-image: url('../assets/icons/checkbox-checked-hover.svg');
+  background-image: url("../assets/icons/checkbox-checked-hover.svg");
 }
 
 .checkText {
-    color: #A8A8A8;
+  color: #a8a8a8;
 }
 
 .signBtn {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 #signUpBtn {
-    font-size: 21px;
+  font-size: 21px;
 }
 
 .linkSignUpPP {
-    font-weight: normal !important;
-    color: #29ABE2;
-    display: inline-block;
-    transition: transform 0s ease;
+  font-weight: normal !important;
+  color: #29abe2;
+  display: inline-block;
+  transition: transform 0s ease;
 }
 
 .linkSignUpPP:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    transform: scale(1.05) translateX(3%);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transform: scale(1.05) translateX(3%);
 }
-

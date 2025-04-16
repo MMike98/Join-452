@@ -1,15 +1,3 @@
-let users = [];
-const BASE_URL = 'https://join-gruppenarbeit-a540b-default-rtdb.europe-west1.firebasedatabase.app';
-
-
-// fetches all users from the server and stores the result in the global users variable.
-async function getAllUseers() {
-    let response = await fetch(`${BASE_URL}/users.json`);
-    let data = await response.json();
-
-    users = data
-}
-
 // checks if the entered email and password match an existing user. If a match is found, it redirects to the summary page. Otherwise, it displays an error message.
 function logIn(event) {
     event.preventDefault();
@@ -69,4 +57,3 @@ function togglePassword() {
     }
 }
 
-getAllUseers();
