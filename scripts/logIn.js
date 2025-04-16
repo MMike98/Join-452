@@ -11,21 +11,27 @@ async function getAllUseers() {
 }
 
 // checks if the entered email and password match an existing user. If a match is found, it redirects to the summary page. Otherwise, it displays an error message.
-function logIn() {
-    let email = document.getElementById('emailLogIn').value;
-    let password = document.getElementById('passwordLogIn').value;
+function logIn(event) {
+    event.preventDefault();
+    
+    const emailInput = document.getElementById('emailLogIn');
+    const passwordInput = document.getElementById('passwordLogIn');
+
+    let email = emailInput.value;
+    let password = passwordInput.value;
 
     const user = Object.values(users).find(u => u.email === email && u.password === password);
 
     if (user) {
         window.location.href = 'pages/summary.html';
     } else {
-        document.getElementById('passwordLogIn').value = ""
+        passwordInput.value = "";
         document.getElementById("errorLogIn").classList.remove("d_none");
         document.getElementById("errorLogIn").textContent = "Check your email and password. Please try again.";
-        document.getElementById('passwordLogIn').classList.add("inputError");
+        passwordInput.classList.add("inputError");
     }
 }
+
 
 // This function logs in the user as a guest by redirecting them to the summary page.
 function logInGuest() {

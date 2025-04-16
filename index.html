@@ -29,7 +29,7 @@
         <div class="joinIcon">
             <img src="./assets/icons/Capa 2.svg" alt="JoinIcon">
         </div>
-        <form class="formIndex">
+        <form class="formIndex" onsubmit="logIn(event)">
             <div class="title">
                 <h1>Log in</h1>
                 <div class="line"></div>
@@ -43,7 +43,7 @@
                 <div class="errorTextLogIn d_none" id="errorLogIn"></div>
             </div>
             <div class="logBtn">
-                <button id="logInBtn" type="button" onclick="logIn()">Log in</button>
+                <button id="logInBtn" type="submit">Log in</button>
                 <button id="guestBtn" type="button" onclick="logInGuest()">Guest Log in</button>
             </div>
         </form>
