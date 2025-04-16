@@ -1,13 +1,20 @@
 let users = [];
 
 /**Saves new user into the API*/
-function saveNewUser() {
+function saveNewUser(event) {
   event.preventDefault();
 
   let { name, mail, password, confirm } = getUserInformation();
 
   if (isUsernameTaken(name)) {
+    document.getElementById("nameSignUp").classList.add("inputError")
     userAlreadyExists("This username is already taken. Please try again.");
+    return
+  }
+  if (isEmailTaken(mail)) {
+    document.getElementById("emailSignUp").classList.add("inputError")
+    userAlreadyExists("This Email is already taken. Please try again.");
+    return
   } else {
     if (confirm === password) {
       let newUser = { name, mail, password };
@@ -28,6 +35,11 @@ function getUserInformation() {
   let confirm = document.getElementById("confirmSignUp").value;
 
   return { name, mail, password, confirm };
+}
+
+/** Checks if the Email already exists */
+function isEmailTaken(mail) {
+  return users.some((user) => user.mail === mail);
 }
 
 /** Checks if the username already exists */
@@ -66,6 +78,7 @@ function handlePasswordMismatch() {
   document.getElementById("errorSignUp").classList.remove("d_none");
   document.getElementById("errorSignUp").textContent = "Your passwords don't match. Please try again.";
 
+  document.getElementById("passwordSignUp").classList.add("inputError")
   document.getElementById("passwordSignUp").value = "";
   document.getElementById("confirmSignUp").value = "";
   document.getElementById("checkPP").checked = false;

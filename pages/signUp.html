@@ -20,7 +20,7 @@
         <img src="../assets/icons/Capa 2.svg" alt="JoinIcon">
     </section>
     <main>
-        <form class="formSignUp">
+        <form class="formSignUp"  onsubmit="saveNewUser(event)">
             <div class="vectorPosition">
                 <a href="../index.html">
                     <img class="vector" src="../assets/icons/Vector.svg" alt="Pfeil">
@@ -30,7 +30,7 @@
                 <h1>Sign up</h1>
                 <div class="line"></div>
             </div>
-            <div class="input" onsubmit="saveNewUser(event)">
+            <div class="input">
                 <input type="text" required id="nameSignUp" placeholder="Name">
                 <input type="email" required id="emailSignUp" placeholder="Email">
                 <input type="password" required id="passwordSignUp" placeholder="Password" oninput="changeIcon('passwordSignUp')">
