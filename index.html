@@ -36,7 +36,10 @@
             </div>
             <div class="input">
                 <input type="email" required id="emailLogIn" placeholder="Email">
-                <input type="password" required id="passwordLogIn" placeholder="Password">
+                <div class="password-wrapper">
+                    <input type="password" required id="passwordLogIn" placeholder="Password" oninput="changeIcon()">
+                    <span id="togglePasswordIcon" onclick="togglePassword()" class="password-icon d_none"></span>
+                </div>
                 <div class="errorTextLogIn d_none" id="errorLogIn"></div>
             </div>
             <div class="logBtn">

@@ -77,6 +77,28 @@
   background-image: url("../assets/icons/lock.svg");
 }
 
+#passwordLogIn.passwordLogIn {
+  background-image: unset !important;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  background-image: url("../assets/icons/visibility_off.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
 .logBtn {
   display: flex;
   gap: 35px;
