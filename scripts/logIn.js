@@ -20,6 +20,7 @@ function logIn() {
     if (user) {
         window.location.href = 'pages/summary.html';
     } else {
+        document.getElementById('passwordLogIn').value = ""
         document.getElementById("errorLogIn").classList.remove("d_none");
         document.getElementById("errorLogIn").textContent = "Check your email and password. Please try again.";
         document.getElementById('passwordLogIn').classList.add("inputError");
