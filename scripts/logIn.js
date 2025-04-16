@@ -40,29 +40,30 @@ function logInGuest() {
 
 // Shows the visibility toggle icon and updates the password input style when text is entered.
 function changeIcon() {
-    let passwordInput = document.getElementById('passwordLogIn');
+    let passwordLogIn = document.getElementById('passwordLogIn');
     let icon = document.getElementById('togglePasswordIcon');
 
-    if (passwordInput.value === "") {
+    if (passwordLogIn.value == "") {
         icon.classList.add("d_none");
-        passwordInput.type = "password";
-        passwordInput.classList.remove("passwordLogIn")
+        passwordLogIn.type = "password";
+        passwordLogIn.classList.remove("password");
     } else {
-        passwordInput.classList.add("passwordLogIn")
+        passwordLogIn.classList.add("password");
         icon.classList.remove("d_none");
     }
 }
 
 // Toggles the password visibility and updates the icon accordingly.
 function togglePassword() {
-    let passwordInput = document.getElementById('passwordLogIn');
+    let passwordLogIn = document.getElementById('passwordLogIn');
+
     let icon = document.getElementById('togglePasswordIcon');
 
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
+    if (passwordLogIn.type === "password") {
+        passwordLogIn.type = "text";
         icon.style.backgroundImage = "url('../assets/icons/visibility.svg')";
     } else {
-        passwordInput.type = "password";
+        passwordLogIn.type = "password";
         icon.style.backgroundImage = "url('../assets/icons/visibility_off.svg')";
     }
 }

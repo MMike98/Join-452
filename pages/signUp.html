@@ -20,7 +20,7 @@
         <img src="../assets/icons/Capa 2.svg" alt="JoinIcon">
     </section>
     <main>
-        <form class="formSignUp"  onsubmit="saveNewUser(event)">
+        <form class="formSignUp" onsubmit="saveNewUser(event)">
             <div class="vectorPosition">
                 <a href="../index.html">
                     <img class="vector" src="../assets/icons/Vector.svg" alt="Pfeil">
@@ -33,8 +33,14 @@
             <div class="input">
                 <input type="text" required id="nameSignUp" placeholder="Name">
                 <input type="email" required id="emailSignUp" placeholder="Email">
-                <input type="password" required id="passwordSignUp" placeholder="Password" oninput="changeIcon('passwordSignUp')">
-                <input type="password" required id="confirmSignUp" placeholder="Confirm Password" oninput="checkPassword(), changeIcon('confirmSignUp')">
+                <div class="password-wrapper">
+                    <input type="password" required id="passwordSignUp" placeholder="Password" oninput="changeIcon()">
+                    <span id="togglePasswordIcon" onclick="togglePassword()" class="password-icon d_none"></span>
+                </div>
+                <div class="password-wrapper">
+                    <input type="password" required id="confirmSignUp" placeholder="Confirm Password" oninput="checkPassword(), changeIconConfirm()">
+                    <span id="togglePasswordIconConfirm" onclick="togglePasswordConfirm()" class="password-icon d_none"></span>
+                </div>
                 <div class="errorTextSignUp d_none" id="errorSignUp"></div>
                 <div class="checkPP">
                     <input type="checkbox" required class="checkBox" id="checkPP" name="checkPP" value="privacyPolicy">

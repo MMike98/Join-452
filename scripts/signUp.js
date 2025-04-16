@@ -98,7 +98,59 @@ function checkPassword() {
   }
 }
 
-/** Change the icon of the "confirm/password" input field, when typing in the password resp. the confirmation */
-function changeIcon(inputId) {
-  document.getElementById(inputId).classList.add("passwordInput");
+// Shows the visibility toggle icon and updates the password input style when text is entered.
+function changeIcon() {
+  let passwordSignUp = document.getElementById('passwordSignUp');
+  let icon = document.getElementById('togglePasswordIcon');
+
+  if (passwordSignUp.value === "") {
+      icon.classList.add("d_none");
+      passwordSignUp.type = "password";
+      passwordSignUp.classList.remove("password");
+  } else {
+      passwordSignUp.classList.add("password");
+      icon.classList.remove("d_none");
+  }
+}
+
+// Toggles the password visibility and updates the icon accordingly.
+function togglePassword() {
+  let passwordSignUp = document.getElementById('passwordSignUp');
+
+  let icon = document.getElementById('togglePasswordIcon');
+
+  if (passwordSignUp.type === "password") {
+      passwordSignUp.type = "text";
+      icon.style.backgroundImage = "url('../assets/icons/visibility.svg')";
+  } else {
+      passwordSignUp.type = "password";
+      icon.style.backgroundImage = "url('../assets/icons/visibility_off.svg')";
+  }
+}
+
+function changeIconConfirm() {
+  let passwordInput = document.getElementById('confirmSignUp');
+  let icon = document.getElementById('togglePasswordIconConfirm');
+
+  if (passwordInput.value === "") {
+      icon.classList.add("d_none");
+      passwordInput.type = "password";
+      passwordInput.classList.remove("password")
+  } else {
+      passwordInput.classList.add("password")
+      icon.classList.remove("d_none");
+  }
+}
+
+function togglePasswordConfirm() {
+  let passwordInput = document.getElementById('confirmSignUp');
+  let icon = document.getElementById('togglePasswordIconConfirm');
+
+  if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      icon.style.backgroundImage = "url('../assets/icons/visibility.svg')";
+  } else {
+      passwordInput.type = "password";
+      icon.style.backgroundImage = "url('../assets/icons/visibility_off.svg')";
+  }
 }
