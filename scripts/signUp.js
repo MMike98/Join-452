@@ -2,6 +2,8 @@ let users = [];
 
 /**Saves new user into the API*/
 function saveNewUser() {
+  event.preventDefault();
+
   let { name, mail, password, confirm } = getUserInformation();
 
   if (isUsernameTaken(name)) {

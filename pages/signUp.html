@@ -30,7 +30,7 @@
                 <h1>Sign up</h1>
                 <div class="line"></div>
             </div>
-            <div class="input">
+            <div class="input" onsubmit="saveNewUser(event)">
                 <input type="text" required id="nameSignUp" placeholder="Name">
                 <input type="email" required id="emailSignUp" placeholder="Email">
                 <input type="password" required id="passwordSignUp" placeholder="Password" oninput="changeIcon('passwordSignUp')">
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="signBtn">
-                <button id="signUpBtn" type="button" onclick="saveNewUser()">Sign up</button>
+                <button id="signUpBtn" type="submit">Sign up</button>
             </div>
         </form>
     </main>
