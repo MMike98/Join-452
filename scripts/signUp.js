@@ -13,8 +13,17 @@ async function saveNewUser(event) {
   const newUser = { name, email, password };
   await loadIntoAPI(newUser);
   resetSignUpForm();
+  successSingUp()
 }
 
+
+function successSingUp() {
+  document.getElementById("singUpMsg").classList.remove("d_none")
+  document.getElementById("content").classList.add("slide-up")
+  setTimeout(() => {
+    window.location.href = "../index.html?"
+  }, 2000)
+}
 
 function isUserOrEmailTaken(name, email) {
   let taken = false;

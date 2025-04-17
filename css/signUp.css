@@ -135,3 +135,47 @@ section {
   text-underline-offset: 4px;
   transform: scale(1.05) translateX(3%);
 }
+
+.singUpMsg {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.10);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.singUpMsg .content {
+  background-color: #2A3647;
+  position: relative;
+  border-radius: 20px;
+  height: 74px;
+  width: 312px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.singUpMsg p {
+  color: white;
+  font-size: 20px;
+  height: 24px;
+  width: 262px;
+  text-align: center;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out forwards
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
