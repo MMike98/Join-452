@@ -32,6 +32,7 @@ body {
     flex-direction: column;
 }
 
+
 .navbar-button {
     display: flex;
     align-items: center;
@@ -65,21 +66,27 @@ body {
 }
 
 footer {
+    width: 232px;
     position: absolute;
+    flex-direction: column;
     bottom: 50px;
+}
+
+.footer-button {
+    width: 100%;
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    align-items: center;
 }
 
 .footer-text {
-    width: Hug (121px);
-    height: Hug (35px);
+    width: 121px;
+    height: 35px;
     padding: 8px;
     gap: 8px;
 }
 
-.footer-text:hover {
+.footer-button:hover {
     background-color: rgb(9, 25, 49);
     cursor: pointer;
 }
