@@ -4,26 +4,31 @@ async function saveNewUser(event) {
 
   let { name, email, password, confirm } = getUserInformation();
 
+  if (isUserOrEmailTaken(name, email)) {
+    return;
+  }
+  if (password !== confirm) {
+    return handlePasswordMismatch();
+  }
+  const newUser = { name, email, password };
+  await loadIntoAPI(newUser);
+  resetSignUpForm();
+}
+
+
+function isUserOrEmailTaken(name, email) {
+  let taken = false;
   if (isUsernameTaken(name)) {
     document.getElementById("nameSignUp").classList.add("inputError");
     userAlreadyExists("This username is already taken. Please try again.");
-    return;
+    return taken = true;
   }
-
   if (isEmailTaken(email)) {
     document.getElementById("emailSignUp").classList.add("inputError");
     userAlreadyExists("This Email is already taken. Please try again.");
-    return;
-  } else {
-    if (confirm === password) {
-      let newUser = { name, email, password };
-
-      await loadIntoAPI(newUser);
-      resetSignUpForm();
-    } else {
-      handlePasswordMismatch();
-    }
+    return taken = true;
   }
+  return taken;
 }
 
 /** Loads data into the API */
