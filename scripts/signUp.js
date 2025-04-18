@@ -4,7 +4,7 @@ async function saveNewUser(event) {
 
   let { name, email, password, confirm } = getUserInformation();
 
-  if (isUserOrEmailTaken(name, email)) {
+  if (await isEmailTaken(email)) {
     return;
   }
   if (password !== confirm) {
@@ -16,7 +16,7 @@ async function saveNewUser(event) {
   successSingUp()
 }
 
-
+// Shows success message and redirects to login after 2s
 function successSingUp() {
   document.getElementById("singUpMsg").classList.remove("d_none")
   document.getElementById("content").classList.add("slide-up")
@@ -25,33 +25,37 @@ function successSingUp() {
   }, 2000)
 }
 
-function isUserOrEmailTaken(name, email) {
-  let taken = false;
-  if (isUsernameTaken(name)) {
-    document.getElementById("nameSignUp").classList.add("inputError");
-    userAlreadyExists("This username is already taken. Please try again.");
-    return taken = true;
-  }
-  if (isEmailTaken(email)) {
+/** Checks if the Email already exists */
+async function isEmailTaken(email) {
+  let taken = false
+  const users = await getUserByEmail(email);
+  const user = Object.values(users)[0];
+  if (user) {
     document.getElementById("emailSignUp").classList.add("inputError");
     userAlreadyExists("This Email is already taken. Please try again.");
-    return taken = true;
+    taken = true
+    return taken;
   }
   return taken;
 }
 
 /** Loads data into the API */
 async function loadIntoAPI(newUser) {
-  let userNumbers = Object.keys(users).map((k) => parseInt(k.replace("user", ""))).filter((n) => !isNaN(n));
-  let nextNumber = userNumbers.length > 0 ? Math.max(...userNumbers) + 1 : 1;
-  let newUserKey = `user${nextNumber}`;
+  let lastIdRes = await fetch(`${BASE_URL}/users/lastUserId.json`);
+  let lastId = parseInt(await lastIdRes.json()) || 0;
+
+  let nextId = lastId + 1;
+  let newUserKey = `user${nextId}`;
 
   await fetch(`${BASE_URL}/users/${newUserKey}.json`, {
     method: "PUT",
-    body: JSON.stringify(newUser),
+    body: JSON.stringify(newUser)
   });
 
-  await getAllUsers();
+  await fetch(`${BASE_URL}/users/lastUserId.json`, {
+    method: "PUT",
+    body: JSON.stringify(nextId)
+  });
 }
 
 /** Get user information from the form */
@@ -62,16 +66,6 @@ function getUserInformation() {
   let confirm = document.getElementById("confirmSignUp").value;
 
   return { name, email, password, confirm };
-}
-
-/** Checks if the Email already exists */
-function isEmailTaken(email) {
-  return Object.values(users || {}).some((user) => user.email === email);
-}
-
-/** Checks if the username already exists */
-function isUsernameTaken(name) {
-  return Object.values(users || {}).some((user) => user.name === name);
 }
 
 /** If the user already exists: Resets the form and displays an error message */

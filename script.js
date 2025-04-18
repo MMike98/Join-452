@@ -1,11 +1,9 @@
-let users = [];
 const BASE_URL = 'https://join-gruppenarbeit-a540b-default-rtdb.europe-west1.firebasedatabase.app';
 
-
-/** fetches all users from the server and stores the result in the global users variable. */ 
-async function getAllUsers() {
-    let response = await fetch(`${BASE_URL}/users.json`);
-    let data = await response.json();
-    
-    users = data
+/** Fetches a user from Firebase by email */
+async function getUserByEmail(email) {
+    const url = `${BASE_URL}/users.json?orderBy=%22email%22&equalTo=%22${email}%22`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
 }
