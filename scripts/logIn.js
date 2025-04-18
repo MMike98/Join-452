@@ -1,16 +1,13 @@
 // checks if the entered email and password match an existing user. If a match is found, it redirects to the summary page. Otherwise, it displays an error message.
-function logIn(event) {
+async function logIn(event) {
     event.preventDefault();
-    
     const emailInput = document.getElementById('emailLogIn');
     const passwordInput = document.getElementById('passwordLogIn');
-
     let email = emailInput.value;
     let password = passwordInput.value;
-
-    const user = Object.values(users).find(u => u.email === email && u.password === password);
-
-    if (user) {
+    const users = await getUserByEmail(email);
+    const user = Object.values(users)[0];
+    if (user && user.password === password) {
         window.location.href = 'pages/summary.html';
     } else {
         passwordInput.value = "";
@@ -19,7 +16,6 @@ function logIn(event) {
         passwordInput.classList.add("inputError");
     }
 }
-
 
 // This function logs in the user as a guest by redirecting them to the summary page.
 function logInGuest() {
