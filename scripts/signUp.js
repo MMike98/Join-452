@@ -13,11 +13,11 @@ async function saveNewUser(event) {
   const newUser = { name, email, password };
   await loadIntoAPI(newUser);
   resetSignUpForm();
-  successSingUp()
+  successSignUp()
 }
 
 // Shows success message and redirects to login after 2s
-function successSingUp() {
+function successSignUp() {
   document.getElementById("singUpMsg").classList.remove("d_none")
   document.getElementById("content").classList.add("slide-up")
   setTimeout(() => {
@@ -68,9 +68,9 @@ function getUserInformation() {
   return { name, email, password, confirm };
 }
 
-/** If the user already exists: Resets the form and displays an error message */
+/** If the mail already exists: Resets the form and displays an error message */
 function userAlreadyExists(message) {
-  document.getElementById("nameSignUp").value = "";
+  document.getElementById("emailSignUp").value = "";
   document.getElementById("passwordSignUp").value = "";
   document.getElementById("confirmSignUp").value = "";
   document.getElementById("checkPP").checked = false;
