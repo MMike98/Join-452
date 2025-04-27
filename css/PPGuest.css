@@ -1,0 +1,121 @@
+header {
+    max-width: 1920px;
+    width: 100%;
+    height: 96px;
+    box-shadow: 0px 4px 4px 0px #0000001A;
+    display: flex;
+    align-items: center;
+}
+
+header>p {
+    padding-left: 350px;
+    font-size: 20px;
+}
+
+main {
+    justify-content: left;
+}
+
+.nav-bar {
+    display: flex;
+    flex-direction: column;
+    height: 89vh;
+    width: 232px;
+    padding-top: 64px;
+    padding-bottom: 64px;
+    justify-content: space-between;
+    background: #2A3647;
+    position: fixed;
+    top: 0;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+}
+
+.nav-bar-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 277.96px;
+    justify-content: space-between;
+}
+
+.nav-bar-logo>img {
+    margin-top: unset;
+    padding-left: 65.98px;
+}
+
+.nav-bar-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    height: 46px;
+}
+
+.nav-bar-header>a {
+    text-decoration: none;
+    color: #CDCDCD;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.nav-bar-header>a:hover {
+    background-color: #2A3D59;
+    transition: 0.2s;
+    color: #CDCDCD;
+    font-weight: 400;
+}
+
+.nav-bar-button>img {
+    width: 30px;
+    height: 30px;
+    margin-top: unset;
+    padding-left: 56px;
+}
+
+.nav-bar-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-bar-footer>p {
+    display: flex;
+    padding-left: 52px;
+    color: #A8A8A8;
+    font-size: 16px;
+    font-weight: 400;
+    height: 35px;
+    align-items: center;
+}
+
+.nav-bar-footer>a {
+    display: flex;
+    height: 35px;
+    padding-left: 52px;
+    text-decoration: none;
+    color: #A8A8A8;
+    align-items: center;
+}
+
+.nav-bar-footer>a:hover {
+    color: #29ABE2;
+}
+
+.PrivacyPolicy {
+    display: flex;
+    flex-direction: column;
+    padding-left: 328px;
+    padding-right: calc(328px - 232px);
+    padding-top: calc(206px - 96px);
+    gap: 35px;
+}
+
+.PrivacyPolicy>h1 {
+    padding-bottom: 35px;
+}
+
+.PrivacyPolicy>div>h2 {
+    padding-bottom: 10px;
+}
