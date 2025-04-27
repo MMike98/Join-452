@@ -77,6 +77,10 @@ h2 {
   font-size: 27px;
 }
 
+h3 {
+  font-size: 20px;
+}
+
 button {
   border: 0;
   cursor: pointer;
