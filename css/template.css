@@ -1,131 +1,143 @@
 /* NAVBAR */
 
 body {
-    margin: 0;
-    display: flex;
-    font-family: 'Inter', sans-serif;
+  margin: 0;
+  display: flex;
+  font-family: "Inter", sans-serif;
 }
 
 .navbar {
-    width: 232px;
-    background-color: rgb(41, 54, 71);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 232px;
+  background-color: rgb(41, 54, 71);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    top: 0;
+  top: 0;
 }
 
 .logo {
-    width: 100.03px;
-    height: 121.97px;
-    top: 80px;
-    left: 77px;
-    position: absolute;
+  width: 100.03px;
+  height: 121.97px;
+  top: 80px;
+  left: 77px;
+  position: absolute;
 }
 
 .menu {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
-
 .navbar-button {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    width: 232px;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  width: 232px;
+  justify-content: center;
 }
 
 .navbar-button.active {
-    background-color: rgb(9, 25, 49);
+  background-color: rgb(9, 25, 49);
 }
 
 .navbar-button:hover {
-    background-color: rgb(9, 25, 49);
-    cursor: pointer;
+  background-color: rgb(9, 25, 49);
+  cursor: pointer;
 }
 
 .navbar-img {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .navbar-text {
-    width: 72px;
-    margin-left: 15px;
-    height: 19px;
-    color: rgb(205, 205, 205);
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19.2px;
+  width: 72px;
+  margin-left: 15px;
+  height: 19px;
+  color: rgb(205, 205, 205);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.2px;
 }
 
 footer {
-    width: 232px;
-    position: absolute;
-    flex-direction: column;
-    bottom: 50px;
+  width: 232px;
+  position: absolute;
+  flex-direction: column;
+  bottom: 50px;
 }
 
 .footer-button {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .footer-text {
-    width: 121px;
-    height: 35px;
-    padding: 8px;
-    gap: 8px;
+  width: 121px;
+  height: 35px;
+  padding: 8px;
+  gap: 8px;
 }
 
 .footer-button:hover {
-    background-color: rgb(9, 25, 49);
-    cursor: pointer;
+  background-color: rgb(9, 25, 49);
+  cursor: pointer;
 }
 
 /** Main **/
 
 .main {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-    /* HEADER */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+/** HEADER **/
 header {
-    position: relative;
-        height: 100px;
-        display: flex;
-        background-color: white;
-        box-shadow: 0px 4px 4px 0px #0000001a;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px 40px 20px 348px;
-        box-sizing: border-box;
-    }
+  position: relative;
+  height: 100px;
+  display: flex;
+  background-color: white;
+  box-shadow: 0px 4px 4px 0px #0000001a;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px 20px 348px;
+  box-sizing: border-box;
+}
 
-    .header-left {
-        font-size: 20px;
-    }
-    
+.header-left {
+  font-size: 20px;
+}
 
-    
-    /* CONTENT */
-    
+.header-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.help-img {
+  height: 20px;
+  width: 20px;
+}
+
+.user-img {
+  height: 56px;
+  width: 56px;
+}
+
+/* CONTENT */
+
 .content {
-        display: flex;
-        flex: 1;
-        flex-direction: row;
-        background-color: #f6f7f8;
-    }
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  background-color: #f6f7f8;
+}
 
-
-    /**  RESPONSIVE **/
-
+/**  RESPONSIVE **/
