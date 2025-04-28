@@ -7,3 +7,8 @@ async function getUserByEmail(email) {
     const data = await response.json();
     return data;
 }
+
+
+function toggleDropdown() {
+    document.getElementById("myDropdown").classList.toggle("d_none");
+}
