@@ -1,4 +1,4 @@
-/** NAVBAR **/
+/** NAVBAR */
 
 body {
   margin: 0;
@@ -139,7 +139,7 @@ header {
   width: 56px;
 }
 
-/** CONTENT **/
+/** CONTENT */
 
 .content {
   display: flex;
