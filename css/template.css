@@ -4,6 +4,13 @@ body {
   margin: 0;
   display: flex;
   font-family: "Inter", sans-serif;
+  background-color: #f6f7f8;
+}
+
+h1 {
+  font-size: 61px;
+  font-weight: 700;
+  margin: 0;
 }
 
 .navbar {
@@ -13,7 +20,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
   top: 0;
 }
 
@@ -138,6 +144,10 @@ header {
   flex: 1;
   flex-direction: row;
   background-color: #f6f7f8;
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 120px 120px;
 }
 
 /**  RESPONSIVE **/
