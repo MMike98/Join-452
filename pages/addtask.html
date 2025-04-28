@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,10 @@
     <link rel="stylesheet" href="../css/template.css">
     <link rel="stylesheet" href="../css/addTask.css">
 </head>
+
 <body>
-     <!-- Navigation Anfang -->
-     <navbar class="navbar">
+    <!-- Navigation Anfang -->
+    <navbar class="navbar">
         <img class="logo" src="../assets/icons/logo.png" alt="logo">
         <div class="menu">
 
@@ -37,30 +39,57 @@
 
         <footer>
             <div class="footer-button">
-            <img class="footer-text" src="../assets/icons/privacyPolicy.png">
+                <img class="footer-text" src="../assets/icons/privacyPolicy.png">
             </div>
             <div class="footer-button">
-            <img class="footer-text" src="../assets/icons/legalNotice.png">
-            <div>
+                <img class="footer-text" src="../assets/icons/legalNotice.png">
+                <div>
         </footer>
 
-        </navbar>
-        <!-- Navigation Ende -->
-         <main class="main">
-            <header>
-                <div class="header-left">
+    </navbar>
+    <!-- Navigation Ende -->
+    <main class="main">
+        <header>
+            <div class="header-left">
                 <p>Kanban Project Management Tool</p>
-                  </div>
-
-                <div class="header-right">
-                    <div class="header-help-div"><img src="../assets/icons/help.svg" alt="" class="help-img"></div>
-                
-                 <div class="header-user-div"><img src="../assets/icons/temp-user.svg" alt="user-img"></div>
-                </div>               
-            </header>
-            <div class="content">
-                <h1>Add Task</h1>
             </div>
-         </main>
+
+            <div class="header-right">
+                <div class="header-help-div"><img src="../assets/icons/help.svg" alt="" class="help-img"></div>
+
+                <div class="header-user-div"><img src="../assets/icons/temp-user.svg" alt="user-img"></div>
+            </div>
+        </header>
+        <div class="content">
+            <h1>Add Task</h1>
+            <form class="addTaskAlignment">
+                <div class="addTaskInfos">
+                    <label for="addTaskTitle">Title<span class="requiredStar">*</span></label>
+                    <input type="text" required id="addTaskTitle" name="addTaskTitle" placeholder="Enter a title">
+                    <label for="addTaskDescription">Description</label>
+                    <textarea id="addTaskDescription" name="addTaskDescription" placeholder="Enter a Description"></textarea>
+                    <label for="addTaskDate">Due date<span class="requiredStar">*</span></label>
+                    <input type="text" required id="addTaskDate" name="addTaskDate" placeholder="dd/mm/yyyy">
+                </div>
+                <div class="line"></div>
+                <div class="addTaskInfos addTaskFurtherInfosHeight">
+                    <span>Priority</span>
+                    <div class="addTaskbuttonAlignment">
+                        <button>Urgent <img src="../assets/icons/urgent.svg" alt="red arrow"></button>
+                        <button>Medium <img src="../assets/icons/medium.svg" alt="orange equal sign"></button>
+                        <button>Low <img src="../assets/icons/low.svg" alt="green arrow"></button>
+                    </div>
+                    <label for="addTaskContact">Assigned to</label>
+                    <select id="addTaskContact"><option value="" disabled selected>Select contacts to assign</option></select>
+                    <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
+                    <select id="addTaskCategory" required><option value="" disabled selected>Select task category</option></select>
+                    <label for="addTaskSubtasks">Subtasks</label>
+                    <input type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask">
+
+                </div>
+            </form>
+        </div>
+    </main>
 </body>
+
 </html>

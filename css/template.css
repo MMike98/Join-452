@@ -5,12 +5,15 @@ body {
   display: flex;
   font-family: "Inter", sans-serif;
   background-color: #f6f7f8;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 h1 {
   font-size: 61px;
   font-weight: 700;
   margin: 0;
+  padding-bottom: 51px;
 }
 
 .navbar {
@@ -149,7 +152,8 @@ header {
   max-width: 1920px;
   width: 100%;
   margin: 0 auto;
-  padding: 120px 120px;
+  padding: 106px 96px;
+  flex-direction: column;
 }
 
 /**  RESPONSIVE **/

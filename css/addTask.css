@@ -1,3 +1,132 @@
-.addTaskAllignment {
-
+.addTaskAlignment {
+  display: flex;
 }
+
+.addTaskInfos {
+  display: flex;
+  flex-direction: column;
+  width: 440px;
+  height: 376px;
+  gap: 8px;
+  justify-content: space-around;
+}
+
+.addTaskFurtherInfosHeight {
+    height: 400px;
+}
+
+.requiredStar {
+  color: #ff8190;
+}
+
+input {
+  margin-bottom: 13px;
+  padding: 12px 21px;
+  width: 396px;
+  height: 22px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  background-repeat: no-repeat;
+  background-size: 18px 20px;
+  position: relative;
+  background-position: 400px;
+}
+
+input::placeholder {
+  color: #d1d1d1;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #29abe2;
+}
+
+textarea {
+  margin-bottom: 13px;
+  padding: 18px 16px;
+  width: 406px;
+  height: 82px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+}
+
+textarea::placeholder {
+  color: #d1d1d1;
+  font-family: "Inter", sans-serif;
+}
+
+#addTaskDate {
+  background-image: url("../assets/icons/event.svg");
+}
+
+textarea:focus {
+  outline: none;
+  border: 1px solid #29abe2;
+}
+
+.line {
+  height: 424px;
+  background-color: #d1d1d1;
+  width: 1px;
+  margin: 0 48.25px;
+}
+
+.addTaskbuttonAlignment {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  border-radius: 10px;
+  height: 56px;
+  width: 136px;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  background-color: white;
+  border: 1px solid #d1d1d1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 13px;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+select {
+  margin-bottom: 13px;
+  padding: 10px 16px;
+  width: 440px;
+  height: 48px;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('../assets/icons/arrow_drop_down.svg') no-repeat right center; /* Pfeil-Icon */
+  background-size: 7.21; /* Größe des Pfeils */
+  background-color: white;
+  background-position: 414px;
+  position: relative;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border: 1px solid #29abe2;
+  }
