@@ -28,6 +28,7 @@ main {
 
 
 .header-profile-dropdown {
+    display: none;
     height: 158px;
     width: 150px;
     background-color: #2A3647;

@@ -10,5 +10,12 @@ async function getUserByEmail(email) {
 
 
 function toggleDropdown() {
-    document.getElementById("myDropdown").classList.toggle("d_none");
+    document.getElementById("myDropdown").style.display = "block";
 }
+
+ window.addEventListener('mouseup',function(event){
+        let menu = document.getElementById('myDropdown');
+        if(event.target != menu && event.target.parentNode != menu){
+            menu.style.display = 'none';
+        }
+  });
