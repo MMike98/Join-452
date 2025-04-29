@@ -12,7 +12,7 @@
 }
 
 .addTaskFurtherInfosHeight {
-    height: 400px;
+  height: 400px;
 }
 
 .requiredStar {
@@ -81,7 +81,7 @@ textarea:focus {
   justify-content: space-between;
 }
 
-button {
+.addTaskButtonPriority {
   border-radius: 10px;
   height: 56px;
   width: 136px;
@@ -97,7 +97,7 @@ button {
   margin-bottom: 13px;
 }
 
-button:hover {
+.addTaskButtonPriority:hover {
   cursor: pointer;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
@@ -115,18 +115,98 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: url('../assets/icons/arrow_drop_down.svg') no-repeat right center; /* Pfeil-Icon */
-  background-size: 7.21; /* Größe des Pfeils */
+  background: url("../assets/icons/arrow_drop_down.svg") no-repeat right center;
+  background-size: 7.21;
   background-color: white;
   background-position: 414px;
   position: relative;
 }
 
 select:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 select:focus {
-    outline: none;
-    border: 1px solid #29abe2;
-  }
+  outline: none;
+  border: 1px solid #29abe2;
+}
+
+#addTaskSubtasks {
+  background-image: url("../assets/icons/add.svg");
+}
+
+.addTaskButtonRequiredAlignment {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding-top: 87px;
+}
+
+.addTaskConfirmAlignment {
+  display: flex;
+  gap: 16px;
+}
+
+.addTaskButtonClear {
+  border-radius: 10px;
+  border: 1px solid #2A3647;
+  height: 56px;
+  width: 110px;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #2A3647;
+  padding: 16px;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right 15px center;
+  background-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.addTaskButtonClear:hover {
+  border: 2px solid #29ABE2;
+  color: #29ABE2;
+  padding: 15px;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat right 14px center;
+  background-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.addTaskButtonCreateTask {
+  height: 56px;
+  width: 183px;
+  border-radius: 10px;
+  border: 1px solid #2A3647;
+  font-family: "Inter", sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  color: #FFFFFF;
+  padding: 16px;
+  background: #2A3647 url("../assets/icons/check.svg") no-repeat right 16px center;
+  background-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.addTaskButtonCreateTask:hover {
+  border: 2px solid #29ABE2;
+  padding: 15px;
+  background: #29ABE2 url("../assets/icons/check.svg") no-repeat right 14px center;
+  background-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+
+
+
