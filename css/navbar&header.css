@@ -8,6 +8,7 @@ header {
     position: fixed;
     z-index: 1000;
     background-color: white;
+    justify-content: space-between;
 }
 
 header>p {
@@ -15,9 +16,67 @@ header>p {
     font-size: 20px;
 }
 
+.header-profile-div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
 main {
     justify-content: left;
 }
+
+
+.header-profile-dropdown {
+    height: 158px;
+    width: 150px;
+    background-color: #2A3647;
+    position: absolute;
+    top: 96px;
+    right: 20px;
+    padding: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.header-profile-dropdown>a {
+    padding-inline: 16px;
+    padding-block: 3px;
+    text-decoration: none;
+    color: #CDCDCD;
+    height: 46px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.header-profile-dropdown>a:hover {
+    background-color: #2A3D59;
+    transition: 0.2s;
+    color: #CDCDCD;
+    font-weight: 400;
+}
+
+.header-profile {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    border: 3px;
+    border-style: solid;
+    border-color: #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.header-profile>strong {
+    font-size: 20px;
+    color: #29ABE2;
+    font-weight: 600;
+}
+
 .nav-bar {
     z-index: 2000;
     display: flex;
@@ -61,7 +120,8 @@ main {
     gap: 15px;
 }
 
-.nav-bar-body>a {
+.nav-bar-body>a,
+.nav-bar-body>p {
     text-decoration: none;
     color: #CDCDCD;
     height: 46px;
