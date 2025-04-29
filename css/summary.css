@@ -1,0 +1,40 @@
+/** SUMMARY **/
+
+.summary {
+    display: flex;
+    flex-direction: row;
+}
+
+.summary-left {
+display: flex;
+flex-direction: column;
+width: 560px;
+height: 562px;
+}
+
+.summary-left_header {
+display: flex;
+flex-direction: row;
+}
+
+.summary-divider {
+    height: 59px;
+    background-color: #29ABE2;
+    width: 3px;
+}
+
+
+
+.summary-left_todo-done {
+display: flex;
+flex-direction: row;
+}
+
+.summary-left_urgency {
+
+}
+
+.summary-left_status {
+display: flex;
+flex-direction: row;
+}
