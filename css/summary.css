@@ -3,12 +3,13 @@
 .summary {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  margin-left: 100px;
 }
 
 .summary-left {
   display: flex;
   flex-direction: column;
-  position: absolute;
   left: 328px;
   gap: 29px;
 }
@@ -185,4 +186,22 @@
   line-height: 120%;
   display: inline-block;
   text-align: center;
+}
+
+.summary-right {
+display: flex;
+flex-direction: column;
+}
+
+.summary-right_greeting-top {
+font-weight: 500;
+font-size: 47px;
+line-height: 120%;
+}
+
+.summary-right_greeting-bottom {
+font-weight: 700;
+font-size: 64px;
+line-height: 120%;
+color: #29ABE2;
 }
