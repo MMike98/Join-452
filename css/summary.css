@@ -71,26 +71,26 @@
 }
 
 .todo-done-img {
-    height: 69px;
-    width: 69px;
+  height: 69px;
+  width: 69px;
 }
 
 .summary-left_todo-done_counter {
-    display: flex;
-    flex-direction: column;
-    align-items: ;
+  display: flex;
+  flex-direction: column;
+  align-items: ;
 }
 
 .todo-done_counter_top {
-font-weight: 600;
-font-size: 64px;
-line-height: 120%;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 120%;
 }
 
 .todo-done_counter_bottom {
-font-weight: 400;
-font-size: 20px;
-line-height: 120%;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
 }
 
 .summary-left_urgency {
@@ -102,58 +102,57 @@ line-height: 120%;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
   align-items: center;
-  justify-content: space-evenly
+  justify-content: space-evenly;
 }
 
 .urgency_left {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .urgency_left img {
-    height: 60px;
-    width: 60px;
-    background-color: white;
+  height: 60px;
+  width: 60px;
+  background-color: white;
 }
 
 .urgency_left_counter {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .urgency_left_counter_top {
-font-weight: 600;
-font-size: 64px;
-line-height: 120%;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 120%;
 }
 
 .urgency_left_counter_bottom {
-
 }
 
 .urgency_mid {
-    height: 102.02px;
-    background-color: #D1D1D1;
-    width: 2px;
+  height: 102.02px;
+  background-color: #d1d1d1;
+  width: 2px;
 }
 
 .urgency_right {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .urgency_right_top {
-font-weight: 700;
-font-size: 21px;
-line-height: 120%;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 120%;
 }
 
 .urgency_right_bottom {
-font-weight: 400;
-font-size: 16px;
-line-height: 120%;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
 }
 
 .summary-left_status {
@@ -175,15 +174,16 @@ line-height: 120%;
 }
 
 .status-child_top {
-font-weight: 600;
-font-size: 64px;
-line-height: 120%;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 120%;
 }
 
 .status-child_bottom {
-font-weight: 400;
-font-size: 20px;
-line-height: 120%;
-display: inline-block;
-text-align: center;
+  height: 24px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+  display: inline-block;
+  text-align: center;
 }
