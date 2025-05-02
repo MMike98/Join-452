@@ -1,23 +1,33 @@
-
 /** Check if the required input is available */
-function checkField(fieldId, errorId) {
+function checkField(fieldId, errorId, isDiv = false) {
     let field = document.getElementById(fieldId);
     let error = document.getElementById(errorId);
-
-    if (field.value === "") {
+  
+    if (isDiv) {
+      let checkboxContainer = document.getElementById("addTaskCategory");
+      let checked = checkboxContainer.querySelectorAll('input[type="checkbox"]:checked');
+  
+      if (checked.length === 0) {
         showError(field, error);
         return false;
+      }
     } else {
-        hideError(field, error);
-        return true;
+      if (!field.value.trim()) {
+        showError(field, error);
+        return false;
+      }
     }
-}
+  
+    hideError(field, error);
+    return true;
+  }
+  
 
 /** If the required information is missing, display an error message */
 function showError(field, errorElement) {
     field.classList.add("inputError");
     errorElement.style.display = "block";
-}
+  }
 
 /** If the required information is available, remove the error message */
 function hideError(field, errorElement) {
@@ -29,44 +39,34 @@ function hideError(field, errorElement) {
 function required(event) {
     let isTitleValid = checkField("addTaskTitle", "addTaskTextError");
     let isDateValid = checkField("addTaskDate", "addTaskDateError");
-    let isCategoryValid = checkField("addTaskCategory", "addTaskCategoryError");
-
+    let isCategoryValid = checkField("categorySelector", "addTaskCategoryError", true);
+  
     let isValid = isTitleValid && isDateValid && isCategoryValid;
-
+  
     if (!isValid) {
-        event.preventDefault();
+      event.preventDefault();
     }
-
+  
     return isValid;
-}
+  }
 
 /** Activates the priority of the task by adding CSS */
 function activate(priority) {
-    let priorities = ['urgent', 'medium', 'low'];
-  
-    priorities.forEach(prio => {
-      let button = document.getElementById(prio);
-      let notActiveImg = document.getElementById(prio + 'NotActive');
-      let activeImg = document.getElementById(prio + 'Active');
-  
-      notActiveImg.classList.remove('d_none');
-      activeImg.classList.add('d_none');
-      button.classList.remove(prio);
-  
-      if (prio === priority) {
-        notActiveImg.classList.add('d_none');
-        activeImg.classList.remove('d_none');
-        button.classList.add(prio);
-      }
-    });
-  }
+  let priorities = ["urgent", "medium", "low"];
 
-  
-  
-  
-  
-  
+  priorities.forEach((prio) => {
+    let button = document.getElementById(prio);
+    let notActiveImg = document.getElementById(prio + "NotActive");
+    let activeImg = document.getElementById(prio + "Active");
 
+    notActiveImg.classList.remove("d_none");
+    activeImg.classList.add("d_none");
+    button.classList.remove(prio);
 
-
-
+    if (prio === priority) {
+      notActiveImg.classList.add("d_none");
+      activeImg.classList.remove("d_none");
+      button.classList.add(prio);
+    }
+  });
+}

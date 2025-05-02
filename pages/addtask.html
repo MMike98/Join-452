@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/addTask.css">
 
     <script src="../scripts/addTask.js"></script>
+    <script src="../script.js"></script>
 </head>
 
 <body>
@@ -84,10 +85,16 @@
                             <button type="button" class="addTaskButtonPriority" id="medium" onclick="activate('medium')">Medium <img id="mediumNotActive" src="../assets/icons/medium.svg" alt="orange equal sign"><img id="mediumActive" class="d_none" src="../assets/icons/white_equal_sign.svg" alt="white equal sign"></button>
                             <button type="button" class="addTaskButtonPriority" id="low" onclick="activate('low')">Low <img  id="lowNotActive" src="../assets/icons/low.svg" alt="green arrow"><img id="lowActive" class="d_none" src="../assets/icons/white_arrow_down.svg" alt="white arrow"></button>
                         </div>
-                        <label for="addTaskContact">Assigned to</label>
-                        <select id="addTaskContact"><option value="" disabled selected>Select contacts to assign</option></select>
-                        <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
-                        <select id="addTaskCategory"><option value="" disabled selected>Select task category</option></select>
+                        <label class="addTaskSelect">Assigned to</label>
+                        <div>
+                            <div class="addTaskSelectBox" tabindex="0" onclick="toggleCheckboxDropdown()">Select contacts to assign</div>
+                            <div class="d_none addTaskDropDown" id="addTaskContact"></div>
+                        </div>                       
+                        <label>Category<span class="requiredStar">*</span></label>
+                        <div>
+                            <div class="addTaskSelectBox" id="categorySelector" tabindex="0" onclick="toggleCheckboxDropdown()">Select task category</div>
+                            <div class="d_none addTaskDropDown" id="addTaskCategory"></div>
+                        </div>
                         <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
                         <label for="addTaskSubtasks">Subtasks</label>
                         <input type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask">
