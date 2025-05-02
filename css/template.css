@@ -1,3 +1,22 @@
+@font-face {
+  font-family: "Inter";
+  src: url(../fonts/Inter/Inter-VariableFont_opsz\,wght.ttf);
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url(../fonts/Poppins/Poppins-Regular.ttf);
+}
+
+.d_none {
+  display: none;
+}
+
+input:-webkit-autofill {
+  background-color: transparent !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 /** NAVBAR */
 
 body {

@@ -61,7 +61,8 @@ textarea::placeholder {
 }
 
 #addTaskDate {
-  background-image: url("../assets/icons/event.svg");
+  font-family: "Inter", sans-serif;
+  color: #d1d1d1;;
 }
 
 textarea:focus {
@@ -149,15 +150,16 @@ select:focus {
 
 .addTaskButtonClear {
   border-radius: 10px;
-  border: 1px solid #2A3647;
+  border: 1px solid #2a3647;
   height: 56px;
   width: 110px;
   font-family: "Inter", sans-serif;
   font-size: 20px;
   font-weight: 400;
-  color: #2A3647;
+  color: #2a3647;
   padding: 16px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right 15px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right
+    15px center;
   background-size: 25px;
   display: flex;
   align-items: center;
@@ -165,10 +167,11 @@ select:focus {
 }
 
 .addTaskButtonClear:hover {
-  border: 2px solid #29ABE2;
-  color: #29ABE2;
+  border: 2px solid #29abe2;
+  color: #29abe2;
   padding: 15px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat right 14px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat
+    right 14px center;
   background-size: 25px;
   display: flex;
   align-items: center;
@@ -181,13 +184,14 @@ select:focus {
   height: 56px;
   width: 183px;
   border-radius: 10px;
-  border: 1px solid #2A3647;
+  border: 1px solid #2a3647;
   font-family: "Inter", sans-serif;
   font-size: 21px;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #ffffff;
   padding: 16px;
-  background: #2A3647 url("../assets/icons/check.svg") no-repeat right 16px center;
+  background: #2a3647 url("../assets/icons/check.svg") no-repeat right 16px
+    center;
   background-size: 24px;
   display: flex;
   align-items: center;
@@ -195,9 +199,10 @@ select:focus {
 }
 
 .addTaskButtonCreateTask:hover {
-  border: 2px solid #29ABE2;
+  border: 2px solid #29abe2;
   padding: 15px;
-  background: #29ABE2 url("../assets/icons/check.svg") no-repeat right 14px center;
+  background: #29abe2 url("../assets/icons/check.svg") no-repeat right 14px
+    center;
   background-size: 25px;
   display: flex;
   align-items: center;
@@ -206,7 +211,54 @@ select:focus {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.inputError {
+  border: 1px solid #ff8190 !important;
+}
 
+.errorTextAddTask {
+  color: #ff8190;
+  font-size: 12px;
+  font-weight: 400;
+  height: 12px;
+  width: 440px;
+  font-family: "Poppins", sans-serif;
+}
 
+.errorTextAddTaskAlignmentTitle {
+  text-align: left;
+  position: absolute;
+  top: 413px;
+}
 
+.errorTextAddTaskAlignmentDate {
+  text-align: left;
+  position: absolute;
+  top: 693px;
+}
 
+.errorTextAddTaskAlignmentCategory {
+  text-align: left;
+  position: absolute;
+  top: 617px;
+}
+
+.urgent {
+  background-color: #FF3D00;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.medium {
+  background-color: #FFA800;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.low {
+  background-color: #7AE229;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 20px;
+}
