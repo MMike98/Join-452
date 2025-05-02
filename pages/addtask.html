@@ -58,7 +58,8 @@
             </div>
 
             <div class="header-right">
-                <a href="./help.html" class="header-help-div"><img src="../assets/icons/help.svg" alt="Questionmark" class="help-img"></a>
+                <a href="./help.html" class="header-help-div"><img src="../assets/icons/help.svg" alt="Questionmark"
+                        class="help-img"></a>
                 <div class="header-user-div"><img src="../assets/icons/temp-user.svg" alt="user-img"></div>
             </div>
         </header>
@@ -70,32 +71,49 @@
                     <div class="addTaskInfos">
                         <label for="addTaskTitle">Title<span class="requiredStar">*</span></label>
                         <input type="text" id="addTaskTitle" name="addTaskTitle" placeholder="Enter a title">
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentTitle" id="addTaskTextError">This field is required</div>
+                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentTitle" id="addTaskTextError">This
+                            field is required</div>
                         <label for="addTaskDescription">Description</label>
-                        <textarea id="addTaskDescription" name="addTaskDescription" placeholder="Enter a Description"></textarea>
+                        <textarea id="addTaskDescription" name="addTaskDescription"
+                            placeholder="Enter a Description"></textarea>
                         <label for="addTaskDate">Due date<span class="requiredStar">*</span></label>
                         <input type="date" id="addTaskDate" name="addTaskDate" placeholder="dd/mm/yyyy">
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentDate" id="addTaskDateError">This field is required</div>
+                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentDate" id="addTaskDateError">This
+                            field is required</div>
                     </div>
                     <div class="line"></div>
                     <div class="addTaskInfos addTaskFurtherInfosHeight">
                         <span>Priority</span>
                         <div class="addTaskbuttonAlignment">
-                            <button type="button" class="addTaskButtonPriority" id="urgent" onclick="activate('urgent')">Urgent <img id="urgentNotActive" src="../assets/icons/urgent.svg" alt="red arrow"><img id="urgentActive" class="d_none" src="../assets/icons/white_arrow_up.svg" alt="white arrow"></button>
-                            <button type="button" class="addTaskButtonPriority" id="medium" onclick="activate('medium')">Medium <img id="mediumNotActive" src="../assets/icons/medium.svg" alt="orange equal sign"><img id="mediumActive" class="d_none" src="../assets/icons/white_equal_sign.svg" alt="white equal sign"></button>
-                            <button type="button" class="addTaskButtonPriority" id="low" onclick="activate('low')">Low <img  id="lowNotActive" src="../assets/icons/low.svg" alt="green arrow"><img id="lowActive" class="d_none" src="../assets/icons/white_arrow_down.svg" alt="white arrow"></button>
+                            <button type="button" class="addTaskButtonPriority" id="urgent"
+                                onclick="activate('urgent')">Urgent <img id="urgentNotActive"
+                                    src="../assets/icons/urgent.svg" alt="red arrow"><img id="urgentActive"
+                                    class="d_none" src="../assets/icons/white_arrow_up.svg" alt="white arrow"></button>
+                            <button type="button" class="addTaskButtonPriority" id="medium"
+                                onclick="activate('medium')">Medium <img id="mediumNotActive"
+                                    src="../assets/icons/medium.svg" alt="orange equal sign"><img id="mediumActive"
+                                    class="d_none" src="../assets/icons/white_equal_sign.svg"
+                                    alt="white equal sign"></button>
+                            <button type="button" class="addTaskButtonPriority" id="low" onclick="activate('low')">Low
+                                <img id="lowNotActive" src="../assets/icons/low.svg" alt="green arrow"><img
+                                    id="lowActive" class="d_none" src="../assets/icons/white_arrow_down.svg"
+                                    alt="white arrow"></button>
                         </div>
                         <label class="addTaskSelect">Assigned to</label>
                         <div>
-                            <div class="addTaskSelectBox" tabindex="0" onclick="toggleCheckboxDropdown()">Select contacts to assign</div>
+                            <div class="addTaskSelectBox" tabindex="0" onclick="toggleContactDropdown()">Select contacts
+                                to assign</div>
                             <div class="d_none addTaskDropDown" id="addTaskContact"></div>
-                        </div>                       
-                        <label>Category<span class="requiredStar">*</span></label>
+                        </div>
+
+                        <label class="addTaskSelect">Category<span class="requiredStar">*</span></label>
                         <div>
-                            <div class="addTaskSelectBox" id="categorySelector" tabindex="0" onclick="toggleCheckboxDropdown()">Select task category</div>
+                            <div class="addTaskSelectBox" tabindex="0" onclick="toggleCategoryDropdown()">Select task
+                                category</div>
                             <div class="d_none addTaskDropDown" id="addTaskCategory"></div>
                         </div>
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
+                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory"
+                            id="addTaskCategoryError">This field is required</div>
                         <label for="addTaskSubtasks">Subtasks</label>
                         <input type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask">
                     </div>

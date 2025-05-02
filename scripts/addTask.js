@@ -70,3 +70,97 @@ function activate(priority) {
     }
   });
 }
+
+
+
+
+
+
+
+
+
+// Funktion zum Laden der Kontakte
+async function loadContactsIntoDropdown() {
+    const url = `${BASE_URL}/contacts.json`; // Beispiel-URL für Kontakte
+    const response = await fetch(url);
+    const contacts = await response.json();
+  
+    const dropdown = document.getElementById('addTaskContact');
+    dropdown.innerHTML = ''; // Leeren des Dropdowns
+  
+    for (const key in contacts) {
+      const contact = contacts[key];
+      if (contact.name) {
+        const label = document.createElement('label');
+        label.innerHTML = `
+          <input type="checkbox" value="${contact.name}"> ${contact.name}
+        `;
+        dropdown.appendChild(label);
+      }
+    }
+  }
+  
+  // Funktion zum Öffnen und Schließen des "Assigned to" Dropdowns
+  function toggleContactDropdown() {
+    const dropdown = document.getElementById('addTaskContact');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  }
+  
+  // Funktion zum Laden der Kategorien (Tasks)
+  async function loadCategoriesIntoDropdown() {
+    const url = `${BASE_URL}/tasks.json`; // Beispiel-URL für Aufgaben
+    const response = await fetch(url);
+    const tasks = await response.json();
+  
+    const dropdown = document.getElementById('addTaskCategory');
+    dropdown.innerHTML = ''; // Leeren des Dropdowns
+  
+    for (const key in tasks) {
+      const task = tasks[key];
+      if (task.title) {
+        const label = document.createElement('label');
+        label.innerHTML = `
+          <input type="checkbox" value="${task.title}"> ${task.title}
+        `;
+        dropdown.appendChild(label);
+      }
+    }
+  }
+  
+  // Funktion zum Öffnen und Schließen des "Category" Dropdowns
+  function toggleCategoryDropdown() {
+    const dropdown = document.getElementById('addTaskCategory');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  }
+  
+  // Dropdowns schließen, wenn außerhalb geklickt wird
+// Dropdowns schließen, wenn außerhalb geklickt wird
+window.addEventListener('click', function(e) {
+    const dropdownContact = document.getElementById('addTaskContact');
+    const selectBoxContact = document.querySelector('.addTaskSelectBox:nth-of-type(1)'); // "Assigned to"
+    
+    const dropdownCategory = document.getElementById('addTaskCategory');
+    const selectBoxCategory = document.querySelector('.addTaskSelectBox:nth-of-type(2)'); // "Category"
+  
+    // Debugging: Überprüfe, ob die Elemente korrekt gefunden werden
+    console.log(selectBoxContact, selectBoxCategory);
+  
+    // Wenn das Contact-Dropdown vorhanden ist und der Klick außerhalb des Dropdowns erfolgt
+    if (selectBoxContact && dropdownContact && !selectBoxContact.contains(e.target) && !dropdownContact.contains(e.target)) {
+      dropdownContact.style.display = 'none';
+    }
+  
+    // Wenn das Category-Dropdown vorhanden ist und der Klick außerhalb des Dropdowns erfolgt
+    if (selectBoxCategory && dropdownCategory && !selectBoxCategory.contains(e.target) && !dropdownCategory.contains(e.target)) {
+      dropdownCategory.style.display = 'none';
+    }
+  });
+  
+  
+  // Beim Laden der Seite die Dropdowns mit den Daten füllen
+  document.addEventListener('DOMContentLoaded', function() {
+    loadContactsIntoDropdown();  // Lädt die Kontakte in das Dropdown
+    loadCategoriesIntoDropdown(); // Lädt die Aufgaben (Tasks) in das Dropdown
+  });
+  
+  
