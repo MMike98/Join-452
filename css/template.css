@@ -41,8 +41,10 @@ h1 {
   height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  top: 0;
+  flex-direction: column;
+  gap: 50px;
+  padding-top: 50px;
+  
 }
 
 .logo {
@@ -50,11 +52,9 @@ h1 {
   height: 121.97px;
   top: 80px;
   left: 77px;
-  position: absolute;
 }
 
 .menu {
-  position: relative;
   display: flex;
   justify-content: space-between;
   flex-direction: column;

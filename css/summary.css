@@ -3,7 +3,8 @@
 .summary {
   display: flex;
   flex-direction: column;
-  margin-left: 100px;
+  margin-left: 45px;
+  margin-top: 50px;
 }
 
 .summary-left {
@@ -30,7 +31,7 @@
   height: 59px;
   background-color: #29abe2;
   width: 3px;
-  margin: 40px;
+  margin: 45px;
 }
 
 .summary-left_header_span_right {
@@ -79,9 +80,24 @@
   gap: 10px;
 }
 
-.todo-done-img {
+.summary-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 69px;
   width: 69px;
+  background-color: rgb(41, 54, 71);
+  border-radius: 50%;
+}
+
+.todo-done-img-left {
+  height: 24.33px;
+  width: 24.37px;
+}
+
+.todo-done-img-right {
+  height: 22.13px;
+  width: 29.94px;
 }
 
 .summary-left_todo-done_counter {
