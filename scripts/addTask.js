@@ -78,7 +78,6 @@ function activate(priority) {
 
 
 
-
 // Funktion zum Laden der Kontakte
 async function loadContactsIntoDropdown() {
     const url = `${BASE_URL}/contacts.json`; // Beispiel-URL für Kontakte
@@ -136,25 +135,22 @@ async function loadContactsIntoDropdown() {
   // Dropdowns schließen, wenn außerhalb geklickt wird
 // Dropdowns schließen, wenn außerhalb geklickt wird
 window.addEventListener('click', function(e) {
-    const dropdownContact = document.getElementById('addTaskContact');
-    const selectBoxContact = document.querySelector('.addTaskSelectBox:nth-of-type(1)'); // "Assigned to"
-    
-    const dropdownCategory = document.getElementById('addTaskCategory');
-    const selectBoxCategory = document.querySelector('.addTaskSelectBox:nth-of-type(2)'); // "Category"
+  const dropdownContact = document.getElementById('addTaskContact');
+  const selectBoxContact = document.querySelector('.addTaskSelectBox[onclick="toggleContactDropdown()"]');
   
-    // Debugging: Überprüfe, ob die Elemente korrekt gefunden werden
-    console.log(selectBoxContact, selectBoxCategory);
+  const dropdownCategory = document.getElementById('addTaskCategory');
+  const selectBoxCategory = document.querySelector('.addTaskSelectBox[onclick="toggleCategoryDropdown()"]');
   
-    // Wenn das Contact-Dropdown vorhanden ist und der Klick außerhalb des Dropdowns erfolgt
-    if (selectBoxContact && dropdownContact && !selectBoxContact.contains(e.target) && !dropdownContact.contains(e.target)) {
-      dropdownContact.style.display = 'none';
-    }
-  
-    // Wenn das Category-Dropdown vorhanden ist und der Klick außerhalb des Dropdowns erfolgt
-    if (selectBoxCategory && dropdownCategory && !selectBoxCategory.contains(e.target) && !dropdownCategory.contains(e.target)) {
-      dropdownCategory.style.display = 'none';
-    }
-  });
+  if (selectBoxContact && dropdownContact &&
+      !selectBoxContact.contains(e.target) && !dropdownContact.contains(e.target)) {
+    dropdownContact.style.display = 'none';
+  }
+
+  if (selectBoxCategory && dropdownCategory &&
+      !selectBoxCategory.contains(e.target) && !dropdownCategory.contains(e.target)) {
+    dropdownCategory.style.display = 'none';
+  }
+});
   
   
   // Beim Laden der Seite die Dropdowns mit den Daten füllen
@@ -162,5 +158,3 @@ window.addEventListener('click', function(e) {
     loadContactsIntoDropdown();  // Lädt die Kontakte in das Dropdown
     loadCategoriesIntoDropdown(); // Lädt die Aufgaben (Tasks) in das Dropdown
   });
-  
-  
