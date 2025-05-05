@@ -87,13 +87,13 @@
                         </div>
                         <label class="addTaskSelect">Assigned to</label>
                         <div>
-                            <div class="addTaskSelectBox" tabindex="0" onclick="toggleContactDropdown()">Select contacts to assign</div>
+                            <div class="addTaskSelectBox" tabindex="0" onclick="toggleDropdownById('addTaskContact')">Select contacts to assign</div>
                             <div class="d_none addTaskDropDown" id="addTaskContact"></div>
                         </div>
                         <label>Category<span class="requiredStar">*</span></label>
                         <div>
                             <div class="addTaskSelectBox" id="categorySelector" tabindex="0"
-                                onclick="toggleCategoryDropdown()">Select task category</div>
+                                onclick="toggleDropdownById('addTaskCategory')">Select task category</div>
                             <div class="d_none addTaskDropDown" id="addTaskCategory"></div>
                         </div>
                         <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
