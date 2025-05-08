@@ -85,16 +85,15 @@
                             <button type="button" class="addTaskButtonPriority" id="medium" onclick="activate('medium')">Medium <img id="mediumNotActive" src="../assets/icons/medium.svg" alt="orange equal sign"><img id="mediumActive" class="d_none" src="../assets/icons/white_equal_sign.svg" alt="white equal sign"></button>
                             <button type="button" class="addTaskButtonPriority" id="low" onclick="activate('low')">Low <img id="lowNotActive" src="../assets/icons/low.svg" alt="green arrow"><img id="lowActive" class="d_none" src="../assets/icons/white_arrow_down.svg" alt="white arrow"></button>
                         </div>
-                        <label class="addTaskSelect">Assigned to</label>
+                        <label>Assigned to</label>
                         <div>
                             <div class="addTaskSelectBox" tabindex="0" onclick="toggleDropdownById('addTaskContact')">Select contacts to assign</div>
                             <div class="d_none addTaskDropDown" id="addTaskContact"></div>
                         </div>
                         <label>Category<span class="requiredStar">*</span></label>
                         <div>
-                            <div class="addTaskSelectBox" id="categorySelector" tabindex="0"
-                                onclick="toggleDropdownById('addTaskCategory')">Select task category</div>
-                            <div class="d_none addTaskDropDown" id="addTaskCategory"></div>
+                            <div class="addTaskSelectBox addTaskSelectBoxCategory" id="categorySelector" tabindex="0" onclick="toggleDropdownById('addTaskCategory')">Select task category</div>
+                            <div class="d_none addTaskDropDown addTaskDropDownCategory" id="addTaskCategory"></div>
                         </div>
                         <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
                         <label for="addTaskSubtasks">Subtasks</label>

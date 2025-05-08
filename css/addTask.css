@@ -115,6 +115,7 @@ textarea:focus {
   background-size: 7.21;
   background-position: 414px;
   position: relative;
+  z-index: 2000;
 }
 
 .addTaskSelectBox:hover {
@@ -126,21 +127,37 @@ textarea:focus {
   border: 1px solid #29abe2;
 }
 
+.addTaskSelectBoxCategory {
+  z-index: 500;
+}
+
 .addTaskDropDown {
   position: absolute;
   width: 440px;
   background-color: white;
-  max-height: 288px;
+  max-height: 278px;
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   overflow-y: auto;
   z-index: 1000;
+  top: 515px;
+  padding-top: 4px;
+}
+
+.addTaskDropDownCategory {
+  top: 615px;
+  z-index: 400;
 }
 
 input[type="checkbox"] {
 height: 16px;
 width: 16px;
+margin: 0;
+}
+
+.label:hover {
+  background-color: #2A3647;
 }
 
 .addTaskDropDown label {

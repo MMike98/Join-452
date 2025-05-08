@@ -81,46 +81,22 @@ function toggleDropdownById(dropdownId) {
   }
 }
 
+/** Fill the dropdowns with the data when loading the page */
+window.onload = function() {
+  loadContactsIntoDropdown();
+  loadCategoriesIntoDropdown();
+};
 
+/** Closes all dropdowns when clicking somewhere else outside the menu */
+window.onclick = function(event) {
+  let dropdowns = document.querySelectorAll('.addTaskDropDown');
+  
+  dropdowns.forEach(function(dropdown) {
+    let selectBox = dropdown.previousElementSibling; // Das Eingabefeld (die Box, die das Dropdown auslöst)
 
-
-
-
-
-
-// Dropdowns schließen, wenn außerhalb geklickt wird
-window.addEventListener("click", function (e) {
-  const dropdownContact = document.getElementById("addTaskContact");
-  const selectBoxContact = document.querySelector(
-    '.addTaskSelectBox[onclick="toggleContactDropdown()"]'
-  );
-
-  const dropdownCategory = document.getElementById("addTaskCategory");
-  const selectBoxCategory = document.querySelector(
-    '.addTaskSelectBox[onclick="toggleCategoryDropdown()"]'
-  );
-
-  if (
-    selectBoxContact &&
-    dropdownContact &&
-    !selectBoxContact.contains(e.target) &&
-    !dropdownContact.contains(e.target)
-  ) {
-    dropdownContact.style.display = "none";
-  }
-
-  if (
-    selectBoxCategory &&
-    dropdownCategory &&
-    !selectBoxCategory.contains(e.target) &&
-    !dropdownCategory.contains(e.target)
-  ) {
-    dropdownCategory.style.display = "none";
-  }
-});
-
-// Beim Laden der Seite die Dropdowns mit den Daten füllen
-document.addEventListener("DOMContentLoaded", function () {
-  loadContactsIntoDropdown(); // Lädt die Kontakte in das Dropdown
-  loadCategoriesIntoDropdown(); // Lädt die Aufgaben (Tasks) in das Dropdown
-});
+    // Wenn der Klick außerhalb des Eingabefelds und des Dropdowns war, schließen wir das Dropdown
+    if (!selectBox.contains(event.target) && !dropdown.contains(event.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+};
