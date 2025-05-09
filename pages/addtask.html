@@ -90,11 +90,8 @@
                             <div class="addTaskSelectBox" tabindex="0" onclick="toggleDropdownById('addTaskContact')">Select contacts to assign</div>
                             <div class="d_none addTaskDropDown" id="addTaskContact"></div>
                         </div>
-                        <label>Category<span class="requiredStar">*</span></label>
-                        <div>
-                            <div class="addTaskSelectBox addTaskSelectBoxCategory" id="categorySelector" tabindex="0" onclick="toggleDropdownById('addTaskCategory')">Select task category</div>
-                            <div class="d_none addTaskDropDown addTaskDropDownCategory" id="addTaskCategory"></div>
-                        </div>
+                        <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
+                        <select id="addTaskCategory"><option value="">Select task category</option></select>
                         <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
                         <label for="addTaskSubtasks">Subtasks</label>
                         <input type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask">

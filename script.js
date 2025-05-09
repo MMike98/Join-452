@@ -45,14 +45,14 @@ async function loadCategoriesIntoDropdown() {
   let tasks = await response.json();
 
   let dropdown = document.getElementById("addTaskCategory");
-  dropdown.innerHTML = "";
-
+ 
   for (let key in tasks) {
     let task = tasks[key];
     if (task.title) {
-      let label = document.createElement("label");
-      label.innerHTML = `<input type="checkbox" value="${task.title}"> ${task.title}`;
-      dropdown.appendChild(label);
+      let option = document.createElement("option");
+      option.value = task.title;
+      option.textContent = task.title;
+      dropdown.appendChild(option);
     }
   }
 }

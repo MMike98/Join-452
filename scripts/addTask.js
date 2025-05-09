@@ -3,19 +3,9 @@ function checkField(fieldId, errorId, isDiv = false) {
   let field = document.getElementById(fieldId);
   let error = document.getElementById(errorId);
 
-  if (isDiv) {
-    let checkboxContainer = document.getElementById("addTaskCategory");
-    let checked = checkboxContainer.querySelectorAll('input[type="checkbox"]:checked');
-
-    if (checked.length === 0) {
-      showError(field, error);
-      return false;
-    }
-  } else {
-    if (field.value === "") {
-      showError(field, error);
-      return false;
-    }
+  if (!field || field.value === "") {
+    showError(field, error);
+    return false;
   }
 
   hideError(field, error);
@@ -38,7 +28,7 @@ function hideError(field, errorElement) {
 function required(event) {
   let isTitleValid = checkField("addTaskTitle", "addTaskTextError");
   let isDateValid = checkField("addTaskDate", "addTaskDateError");
-  let isCategoryValid = checkField("categorySelector", "addTaskCategoryError", true);
+  let isCategoryValid = checkField("addTaskCategory", "addTaskCategoryError");
 
   let isValid = isTitleValid && isDateValid && isCategoryValid;
 
@@ -82,16 +72,16 @@ function toggleDropdownById(dropdownId) {
 }
 
 /** Fill the dropdowns with the data when loading the page */
-window.onload = function() {
+window.onload = function () {
   loadContactsIntoDropdown();
   loadCategoriesIntoDropdown();
 };
 
 /** Closes all dropdowns when clicking somewhere else outside the menu */
-window.onclick = function(event) {
-  let dropdowns = document.querySelectorAll('.addTaskDropDown');
-  
-  dropdowns.forEach(function(dropdown) {
+window.onclick = function (event) {
+  let dropdowns = document.querySelectorAll(".addTaskDropDown");
+
+  dropdowns.forEach(function (dropdown) {
     let selectBox = dropdown.previousElementSibling; // Das Eingabefeld (die Box, die das Dropdown auslöst)
 
     // Wenn der Klick außerhalb des Eingabefelds und des Dropdowns war, schließen wir das Dropdown
