@@ -1,9 +1,11 @@
 .content {
     display: flex;
     flex-direction: column;
+    max-width: 977.5px;
     padding-left: 328px;
     padding-right: calc(328px - 232px);
     padding-top: 206px;
+    margin: 0 auto;
 }
 
 .content>h1 {
@@ -22,12 +24,29 @@
     padding-top: 16px;
 }
 
+strong{
+    color: #29ABE2;
+    font-weight: 400;
+}
 
 ul {
     padding-left: 20px;
 }
 
-strong{
-    color: #29ABE2;
+ol {
+    font-size: 27px;
+    font-weight: 700;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+ol>li {
+    padding-left: 35px;
+}
+
+ol>li>p {
+    font-size: 16px;
     font-weight: 400;
 }

@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>addtask</title>
 
-    <link rel="stylesheet" href="../css/template.css">
+    <title>Join</title>
+    <link rel="shortcut icon" href="./assets/icons/Capa 2.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/navbar&header.css">
     <link rel="stylesheet" href="../css/addTask.css">
 
     <script src="../scripts/addTask.js"></script>
@@ -14,55 +17,34 @@
 </head>
 
 <body>
-    <!-- Navigation Anfang -->
-    <navbar class="navbar">
-        <img class="logo" src="../assets/icons/logo.png" alt="logo">
-        <div class="menu">
-
-            <div class="navbar-button">
-                <img class="navbar-img" src="../assets/icons/summeyIcon.png">
-                <p class="navbar-text">Summary</p>
-            </div>
-
-            <a href="../pages/addtask.html" class="navbar-button">
-                <img class="navbar-img" src="../assets/icons/addTaskIcon.png">
-                <p class="navbar-text">Add Task</p>
-            </a>
-
-            <div class="navbar-button">
-                <img class="navbar-img" src="../assets/icons/boardIcon.png">
-                <p class="navbar-text">Board</p>
-            </div>
-
-            <div class="navbar-button">
-                <img class="navbar-img" src="../assets/icons/contactIcon.png">
-                <p class="navbar-text">Contacts</p>
-            </div>
+    <header>
+        <p>Kanban Project Management Tool</p>
+        <div class="header-profile-div">
+            <a href="./help.html"><img src="../assets/icons/help.svg"></a>
+            <div class="header-profile" onclick="toggleDropdown()"><strong>SM</strong></div>
         </div>
-
-        <footer>
-            <div class="footer-button">
-                <img class="footer-text" src="../assets/icons/privacyPolicy.png">
+        <div id="myDropdown" class="header-profile-dropdown">
+            <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
+            <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
+            <a href="../index.html" class="nav-bar-button">Log Out</a>
+        </div>
+    </header>
+    <main>
+        <section class="nav-bar">
+            <div class="nav-bar-header">
+                <div class="nav-bar-logo"><img src="../assets/icons/Capa 1.svg" alt="JoinIcon"></div>
             </div>
-            <div class="footer-button">
-                <img class="footer-text" src="../assets/icons/legalNotice.png">
-                <div>
-        </footer>
-
-    </navbar>
-    <!-- Navigation Ende -->
-    <main class="main">
-        <header>
-            <div class="header-left">
-                <p>Kanban Project Management Tool</p>
+            <div class="nav-bar-body">
+                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg" alt="LogIn">Summary</a>
+                <a href="./addtask.html" class="nav-bar-button"><img src="../assets/icons/AddTask.svg" alt="LogIn">Add Task</a>
+                <a href="./board.html" class="nav-bar-button"><img src="../assets/icons/Board.svg" alt="LogIn">Board</a>
+                <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg" alt="LogIn">Contacts</a>
             </div>
-
-            <div class="header-right">
-                <a href="./help.html" class="header-help-div"><img src="../assets/icons/help.svg" alt="Questionmark" class="help-img"></a>
-                <div class="header-user-div"><img src="../assets/icons/temp-user.svg" alt="user-img"></div>
+            <div class="nav-bar-footer">
+                <a href="./PrivacyPolicy.html"><p>Privacy Policy</p></a>
+                <a href="./legalnotice.html"><p>Legal Notice</p></a>
             </div>
-        </header>
-
+        </section>
         <div class="content">
             <h1>Add Task</h1>
             <form onsubmit="return required(event)">
@@ -70,29 +52,46 @@
                     <div class="addTaskInfos">
                         <label for="addTaskTitle">Title<span class="requiredStar">*</span></label>
                         <input type="text" id="addTaskTitle" name="addTaskTitle" placeholder="Enter a title">
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentTitle" id="addTaskTextError">This field is required</div>
+                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentTitle" id="addTaskTextError">This
+                            field is required</div>
                         <label for="addTaskDescription">Description</label>
-                        <textarea id="addTaskDescription" name="addTaskDescription" placeholder="Enter a Description"></textarea>
+                        <textarea id="addTaskDescription" name="addTaskDescription"
+                            placeholder="Enter a Description"></textarea>
                         <label for="addTaskDate">Due date<span class="requiredStar">*</span></label>
                         <input type="date" id="addTaskDate" name="addTaskDate" placeholder="dd/mm/yyyy">
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentDate" id="addTaskDateError">This field is required</div>
+                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentDate" id="addTaskDateError">This
+                            field is required</div>
                     </div>
                     <div class="line"></div>
                     <div class="addTaskInfos addTaskFurtherInfosHeight">
                         <span>Priority</span>
                         <div class="addTaskbuttonAlignment">
-                            <button type="button" class="addTaskButtonPriority" id="urgent" onclick="activate('urgent')">Urgent <img id="urgentNotActive" src="../assets/icons/urgent.svg" alt="red arrow"><img id="urgentActive" class="d_none" src="../assets/icons/white_arrow_up.svg" alt="white arrow"></button>
-                            <button type="button" class="addTaskButtonPriority" id="medium" onclick="activate('medium')">Medium <img id="mediumNotActive" src="../assets/icons/medium.svg" alt="orange equal sign"><img id="mediumActive" class="d_none" src="../assets/icons/white_equal_sign.svg" alt="white equal sign"></button>
-                            <button type="button" class="addTaskButtonPriority" id="low" onclick="activate('low')">Low <img id="lowNotActive" src="../assets/icons/low.svg" alt="green arrow"><img id="lowActive" class="d_none" src="../assets/icons/white_arrow_down.svg" alt="white arrow"></button>
+                            <button type="button" class="addTaskButtonPriority" id="urgent"
+                                onclick="activate('urgent')">Urgent <img id="urgentNotActive"
+                                    src="../assets/icons/urgent.svg" alt="red arrow"><img id="urgentActive"
+                                    class="d_none" src="../assets/icons/white_arrow_up.svg" alt="white arrow"></button>
+                            <button type="button" class="addTaskButtonPriority" id="medium"
+                                onclick="activate('medium')">Medium <img id="mediumNotActive"
+                                    src="../assets/icons/medium.svg" alt="orange equal sign"><img id="mediumActive"
+                                    class="d_none" src="../assets/icons/white_equal_sign.svg"
+                                    alt="white equal sign"></button>
+                            <button type="button" class="addTaskButtonPriority" id="low" onclick="activate('low')">Low
+                                <img id="lowNotActive" src="../assets/icons/low.svg" alt="green arrow"><img
+                                    id="lowActive" class="d_none" src="../assets/icons/white_arrow_down.svg"
+                                    alt="white arrow"></button>
                         </div>
                         <label>Assigned to</label>
                         <div>
-                            <div class="addTaskSelectBox" tabindex="0" onclick="toggleDropdownById('addTaskContact')">Select contacts to assign</div>
+                            <div class="addTaskSelectBox" tabindex="0" onclick="toggleDropdownById('addTaskContact')">
+                                Select contacts to assign</div>
                             <div class="d_none addTaskDropDown" id="addTaskContact"></div>
                         </div>
                         <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
-                        <select id="addTaskCategory"><option value="">Select task category</option></select>
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
+                        <select id="addTaskCategory">
+                            <option value="">Select task category</option>
+                        </select>
+                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory"
+                            id="addTaskCategoryError">This field is required</div>
                         <label for="addTaskSubtasks">Subtasks</label>
                         <input type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask">
                     </div>
@@ -108,6 +107,25 @@
 
         </div>
     </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>
