@@ -79,7 +79,7 @@ input {
   position: relative;
 }
 
-.input input:focus {
+:focus {
   outline: none;
   border: 1px solid #29abe2;
 }
