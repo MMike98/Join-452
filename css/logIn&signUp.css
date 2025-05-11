@@ -33,6 +33,16 @@
   position: relative;
 }
 
+.formBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0px 0px 14px 3px #0000000a;
+  border-radius: 30px;
+}
+
 .footerLogInSignUp {
   display: flex;
   justify-content: center;
@@ -59,3 +69,13 @@
   height: 3px;
 }
 
+.errorText {
+  color: #ff8190;
+  font-size: 12px;
+  font-weight: 400;
+  height: 14px;
+  width: 422px;
+  text-align: left;
+  position: absolute;
+  font-family: "Poppins", sans-serif;
+}

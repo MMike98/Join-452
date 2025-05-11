@@ -61,15 +61,8 @@
 
 .formIndex {
   margin-top: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background: #ffffff;
-  box-shadow: 0px 0px 14px 3px #0000000a;
   padding-block: 50px;
   padding-inline: 110px;
-  border-radius: 30px;
   gap: 35px;
 }
 
@@ -103,15 +96,7 @@
 }
 
 .errorTextLogIn {
-  color: #ff8190;
-  font-size: 12px;
-  font-weight: 400;
-  height: 14px;
-  width: 422px;
-  text-align: left;
-  position: absolute;
   top: 409px;
-  font-family: "Poppins", sans-serif;
 }
 
 .password {

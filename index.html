@@ -30,7 +30,7 @@
         <div class="joinIcon">
             <img src="./assets/icons/Capa 2.svg" alt="JoinIcon">
         </div>
-        <form class="formIndex" onsubmit="logIn(event)">
+        <form class="formBox formIndex" onsubmit="logIn(event)">
             <div class="title">
                 <h1>Log in</h1>
                 <div class="line"></div>
@@ -41,7 +41,7 @@
                     <input type="password" required id="passwordLogIn" placeholder="Password" oninput="changeIcon()">
                     <span id="togglePasswordIcon" onclick="togglePassword()" class="password-icon d_none"></span>
                 </div>
-                <div class="errorTextLogIn d_none" id="errorLogIn"></div>
+                <div class="errorText errorTextLogIn d_none" id="errorLogIn"></div>
             </div>
             <div class="logBtn">
                 <button id="logInBtn" type="submit">Log in</button>

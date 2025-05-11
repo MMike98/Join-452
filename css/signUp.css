@@ -6,16 +6,9 @@
   position: fixed;
   top: 0;
   margin-top: 197px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background: #ffffff;
-  box-shadow: 0px 0px 14px 3px #0000000a;
+  gap: 32px;
   padding-block: 48px;
   padding-inline: 88px;
-  border-radius: 30px;
-  gap: 32px;
 }
 
 .vectorPosition {
@@ -59,15 +52,7 @@
 }
 
 .errorTextSignUp {
-  color: #ff8190;
-  font-size: 12px;
-  font-weight: 400;
-  height: 14px;
-  width: 422px;
-  text-align: left;
-  position: absolute;
   top: 455px;
-  font-family: "Poppins", sans-serif;
 }
 
 .checkPP {
@@ -140,14 +125,14 @@
   position: fixed;
   inset: 0;
   z-index: 9998;
-  background-color: rgba(0, 0, 0, 0.10);
+  background-color: rgba(0, 0, 0, 0.1);
   justify-content: center;
   align-items: center;
   display: flex;
 }
 
 .singUpMsg .content {
-  background-color: #2A3647;
+  background-color: #2a3647;
   position: relative;
   border-radius: 20px;
   height: 74px;
@@ -166,7 +151,7 @@
 }
 
 .slide-up {
-  animation: slideUp 0.5s ease-out forwards
+  animation: slideUp 0.5s ease-out forwards;
 }
 
 @keyframes slideUp {

@@ -26,7 +26,7 @@
         <img src="../assets/icons/Capa 2.svg" alt="JoinIcon">
     </section>
     <main class="mainLogInSignUp">
-        <form class="formSignUp" onsubmit="saveNewUser(event)">
+        <form class="formBox formSignUp" onsubmit="saveNewUser(event)">
             <div class="vectorPosition">
                 <a href="../index.html">
                     <img class="vector" src="../assets/icons/Vector.svg" alt="Pfeil">
@@ -47,7 +47,7 @@
                     <input type="password" required id="confirmSignUp" placeholder="Confirm Password" oninput="checkPassword(), changeIconConfirm()">
                     <span id="togglePasswordIconConfirm" onclick="togglePasswordConfirm()" class="password-icon d_none"></span>
                 </div>
-                <div class="errorTextSignUp d_none" id="errorSignUp"></div>
+                <div class="errorText errorTextSignUp d_none" id="errorSignUp"></div>
                 <div class="checkPP">
                     <input type="checkbox" required class="checkBox" id="checkPP" name="checkPP" value="privacyPolicy">
                     <label for="checkPP" class="custom-checkbox">
