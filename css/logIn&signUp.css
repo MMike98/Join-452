@@ -1,3 +1,4 @@
+/* ---------------- GENERAL LAYOUT ---------------- */
 .bodyLogInSignUp {
   display: flex;
   flex-direction: column;
@@ -11,13 +12,8 @@
   display: flex;
 }
 
-.sectionLogInSignUp img {
-  width: 100.03px;
-  height: 121.97px;
-  margin-top: 80px;
-  padding-left: 77px;
-}
-
+/* Logo Styling */
+.sectionLogInSignUp img,
 .joinIcon img {
   width: 100.03px;
   height: 121.97px;
@@ -25,6 +21,49 @@
   padding-left: 77px;
 }
 
+/* Splash Screen */
+.splash {
+  position: fixed;
+  inset: 0;
+  background-color: white;
+  z-index: 9998;
+  animation: fadeOut 2s ease forwards;
+  animation-delay: 1s;
+}
+
+.joinIcon img {
+  margin-top: -120px;
+  z-index: 9999;
+  position: absolute;
+  animation: moveLogo 2.5s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes moveLogo {
+  0% {
+    width: 200px;
+    height: 240px;
+    top: calc(50% + 200px);
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    top: 0;
+    left: 0;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* ---------------- LOGIN ---------------- */
 .mainLogInSignUp {
   max-width: 1920px;
   width: 100%;
@@ -80,4 +119,252 @@
   font-family: "Poppins", sans-serif;
 }
 
+.errorTextLogIn {
+  top: 409px;
+}
 
+.sectionAlignmentLogIn {
+  justify-content: right;
+}
+
+.signUp_button {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding-right: 80px;
+}
+
+.signUp_button button {
+  font-size: 16px;
+}
+
+.signUp_button p {
+  font-size: 20px;
+}
+
+.formIndex {
+  margin-top: 100px;
+  padding-block: 50px;
+  padding-inline: 110px;
+  gap: 35px;
+}
+
+#emailLogIn {
+  background-image: url("../assets/icons/mail.svg");
+}
+
+#passwordLogIn {
+  background-image: url("../assets/icons/lock.svg");
+}
+
+.logBtn {
+  display: flex;
+  gap: 35px;
+}
+
+#logInBtn {
+  font-size: 21px;
+}
+
+#guestBtn {
+  border: 1px solid #2a3647;
+  background-color: white;
+  color: #2a3647;
+  font-size: 21px;
+}
+
+#guestBtn:hover {
+  border: 1px solid #2aabe2;
+  color: #2aabe2;
+}
+
+.password {
+  background-image: unset !important;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  background-image: url("../assets/icons/visibility_off.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
+/* ---------------- SIGN-UP ---------------- */
+.sectionAlignmentSignUp {
+  justify-content: left;
+}
+
+.formSignUp {
+  position: fixed;
+  top: 0;
+  margin-top: 197px;
+  gap: 32px;
+  padding-block: 48px;
+  padding-inline: 88px;
+}
+
+.vectorPosition {
+  position: absolute;
+  top: 70px;
+  left: 48px;
+}
+
+.vector {
+  padding: 5px;
+  transition: transform 0s ease;
+}
+
+.vector:hover {
+  background-color: #f5f7f9;
+  height: 21px;
+  width: 24px;
+  border-radius: 100px;
+  transform: scale(1) translateX(-10%);
+}
+
+#nameSignUp {
+  background-image: url("../assets/icons/person.svg");
+}
+
+#emailSignUp {
+  background-image: url("../assets/icons/mail.svg");
+}
+
+#passwordSignUp,
+#confirmSignUp {
+  background-image: url("../assets/icons/lock.svg");
+}
+
+.passwordInput {
+  background-image: url("../assets/icons/visibility_off.svg") !important;
+}
+
+.confirmError:focus {
+  border-color: #ff001f !important;
+}
+
+.errorTextSignUp {
+  top: 455px;
+}
+
+.checkPP {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 14px;
+}
+
+.checkBox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox-icon {
+  width: 24px;
+  height: 24px;
+  background-image: url("../assets/icons/checkbox-empty.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 8px;
+}
+
+.checkBox:not(:checked) + .custom-checkbox:hover .checkbox-icon {
+  background-image: url("../assets/icons/checkbox-hover.svg");
+}
+
+.checkBox:checked + .custom-checkbox .checkbox-icon {
+  background-image: url("../assets/icons/checkbox-checked.svg");
+}
+
+.checkBox:checked + .custom-checkbox:hover .checkbox-icon {
+  background-image: url("../assets/icons/checkbox-checked-hover.svg");
+}
+
+.checkText {
+  color: #a8a8a8;
+}
+
+.signBtn {
+  display: flex;
+  gap: 10px;
+}
+
+#signUpBtn {
+  font-size: 21px;
+}
+
+.linkSignUpPP {
+  font-weight: normal !important;
+  color: #29abe2;
+  display: inline-block;
+  transition: transform 0s ease;
+}
+
+.linkSignUpPP:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transform: scale(1.05) translateX(3%);
+}
+
+/* Sign-Up Success Message */
+.singUpMsg {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.singUpMsg .content {
+  background-color: #2a3647;
+  position: relative;
+  border-radius: 20px;
+  height: 74px;
+  width: 312px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.singUpMsg p {
+  color: white;
+  font-size: 20px;
+  height: 24px;
+  width: 262px;
+  text-align: center;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
