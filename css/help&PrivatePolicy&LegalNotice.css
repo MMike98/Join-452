@@ -2,29 +2,22 @@
     display: flex;
     flex-direction: column;
     max-width: 977.5px;
-    padding-left: 328px;
-    padding-right: calc(328px - 232px);
-    padding-top: 206px;
+    padding: 206px 96px 110px 328px;
     margin: 0 auto;
 }
 
-.content>h1 {
+.content > h1 {
     padding-bottom: 35px;
 }
 
-.content>div>h2 {
-    padding-block: 16px;
+.content h2,
+.content h3,
+.content h4 {
+    margin-top: 16px;
+    margin-bottom: 0;
 }
 
-.content>div>h3 {
-    padding-top: 16px;
-}
-
-.content>div>h4 {
-    padding-top: 16px;
-}
-
-strong{
+strong {
     color: #29ABE2;
     font-weight: 400;
 }
@@ -34,19 +27,17 @@ ul {
 }
 
 ol {
-    font-size: 27px;
-    font-weight: 700;
+    font: 700 27px inherit;
     padding-left: 30px;
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-ol>li {
+ol li {
     padding-left: 35px;
 }
 
-ol>li>p {
-    font-size: 16px;
-    font-weight: 400;
+ol li p {
+    font: 400 16px inherit;
 }
