@@ -93,6 +93,17 @@ input:-webkit-autofill {
   border: 1px solid #ff8190 !important;
 }
 
+.errorText {
+  color: #ff8190;
+  font-size: 12px;
+  font-weight: 400;
+  height: 14px;
+  width: 422px;
+  text-align: left;
+  position: absolute;
+  font-family: "Poppins", sans-serif;
+}
+
 ::placeholder {
   color: #d1d1d1;
 }

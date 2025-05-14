@@ -27,25 +27,19 @@
   inset: 0;
   background-color: white;
   z-index: 9998;
-  animation: fadeOut 2s ease forwards;
-  animation-delay: 1s;
+  animation: fadeOut 2s ease forwards 1s;
 }
 
 .joinIcon img {
   margin-top: -120px;
-  z-index: 9999;
   position: absolute;
+  z-index: 9999;
   animation: moveLogo 2.5s ease-in-out forwards;
 }
 
 @keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
+  0% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
 }
 
 @keyframes moveLogo {
@@ -106,17 +100,6 @@
   background-color: #2aabe2;
   width: 150px;
   height: 3px;
-}
-
-.errorText {
-  color: #ff8190;
-  font-size: 12px;
-  font-weight: 400;
-  height: 14px;
-  width: 422px;
-  text-align: left;
-  position: absolute;
-  font-family: "Poppins", sans-serif;
 }
 
 .errorTextLogIn {
@@ -207,8 +190,7 @@
 
 .formSignUp {
   position: fixed;
-  top: 0;
-  margin-top: 197px;
+  top: 197px;
   gap: 32px;
   padding-block: 48px;
   padding-inline: 88px;
