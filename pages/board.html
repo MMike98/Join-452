@@ -9,25 +9,25 @@
     <link rel="shortcut icon" href="./assets/icons/Capa 2.svg" type="image/x-icon">
 
     <script src="../script.js"></script>
+    <script src="../scripts/header.js"></script>
     <script src="../scripts/template.js"></script>
-    <script src=""></script>
 
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../css/navbar&header.css">
     <link rel="stylesheet" href="../css/board.css">
 </head>
 
-<body>
+<body onload="showUserInitial()">
     <header>
         <p>Kanban Project Management Tool</p>
         <div class="header-profile-div">
             <a href="./help.html"><img src="../assets/icons/help.svg"></a>
-            <div class="header-profile" onclick="toggleDropdown()"><strong>SM</strong></div>
+            <div class="header-profile" onclick="toggleDropdown()" id="userIcon"></div>
         </div>
         <div id="myDropdown" class="header-profile-dropdown">
             <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
             <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
-            <a href="../index.html" class="nav-bar-button">Log Out</a>
+            <a href="../index.html" class="nav-bar-button" onclick="logOut()">Log Out</a>
         </div>
     </header>
     <main>

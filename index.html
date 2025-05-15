@@ -10,12 +10,13 @@
 
     <script src="./script.js"></script>
     <script src="./scripts/logIn.js"></script>
+    <script src="../scripts/header.js"></script>
 
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./css/logIn&signUp.css">
 </head>
 
-<body class="bodyLogInSignUp">
+<body class="bodyLogInSignUp" onload="logOut()">
     <div class="splash"></div>
     <section class="headerIndex sectionLogInSignUp sectionAlignmentLogIn">
         <div class="signUp_button">
@@ -43,7 +44,7 @@
                 <div class="errorText errorTextLogIn d_none" id="errorLogIn"></div>
             </div>
             <div class="logBtn">
-                <button id="logInBtn" type="submit">Log in</button>
+                <button id="logInBtn" type="submit" onclick="logInUser()">Log in</button>
                 <button id="guestBtn" type="button" onclick="logInGuest()">Guest Log in</button>
             </div>
         </form>

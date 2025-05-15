@@ -17,9 +17,17 @@ async function logIn(event) {
     }
 }
 
-// This function logs in the user as a guest by redirecting them to the summary page.
+/** This function logs in the users as a guest by redirecting them to the summary page and stores the user role "guest" in the local storage. */ 
 function logInGuest() {
+    localStorage.setItem("userRole", "guest");
     window.location.href = 'pages/summary.html';
+}
+
+/** This function stores the email and the role "user" in the local storage in order to add the initials in the header later. */ 
+function logInUser() {
+    let email = document.getElementById("emailLogIn").value;
+    localStorage.setItem("userRole", "user");
+    localStorage.setItem("userEmail", email);
 }
 
 // Shows the visibility toggle icon and updates the password input style when text is entered.
