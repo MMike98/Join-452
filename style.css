@@ -113,6 +113,11 @@ input:-webkit-autofill {
   cursor: unset;
 }
 
+.active:hover {
+  background-color: #091931 !important; /* bleibt gleich */
+  color: inherit !important; /* optional: falls Hoverfarbe überschrieben wird */
+}
+
 
 
 

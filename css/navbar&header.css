@@ -331,3 +331,13 @@ main {
 .nav-bar-footer>a:hover {
     color: #29ABE2;
 }
+
+.active {
+  background-color: #091931;
+  cursor: unset;
+}
+
+.active:hover {
+  background-color: #091931 !important;
+  color: #CDCDCD !important;
+}
