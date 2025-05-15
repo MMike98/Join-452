@@ -1,69 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>contacts</title>
 
+    <title>Join</title>
+    <link rel="shortcut icon" href="./assets/icons/Capa 2.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/navbar&header.css">
+
+    <script src="../script.js"></script>
     <script src="../scripts/template.js"></script>
-
-    <link rel="stylesheet" href="../css/template.css">
 </head>
-<body>
-     <!-- Navigation Anfang -->
-     <navbar class="navbar">
-        <img class="logo" src="../assets/icons/logo.png" alt="logo">
-        <div class="menu">
 
-            <div class="navbar-button">
-                <img class="navbar-img" src="../assets/icons/summeyIcon.png">
-                <p class="navbar-text">Summary</p>
-            </div>
-
-            <a href="../pages/addtask.html" class="navbar-button">
-                <img class="navbar-img" src="../assets/icons/addTaskIcon.png">
-                <p class="navbar-text">Add Task</p>
-            </a>
-
-            <div class="navbar-button">
-                <img class="navbar-img" src="../assets/icons/boardIcon.png">
-                <p class="navbar-text">Board</p>
-            </div>
-
-            <div class="navbar-button">
-                <img class="navbar-img" src="../assets/icons/contactIcon.png">
-                <p class="navbar-text">Contacts</p>
-            </div>
+<body class="bodyAddTask">
+    <header>
+        <p>Kanban Project Management Tool</p>
+        <div class="header-profile-div">
+            <a href="./help.html"><img src="../assets/icons/help.svg"></a>
+            <div class="header-profile" onclick="toggleDropdown()"><strong>SM</strong></div>
         </div>
-
-        <footer>
-            <div class="footer-button">
-            <img class="footer-text" src="../assets/icons/privacyPolicy.png">
+        <div id="myDropdown" class="header-profile-dropdown">
+            <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
+            <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
+            <a href="../index.html" class="nav-bar-button">Log Out</a>
+        </div>
+    </header>
+    <main>
+        <section class="nav-bar">
+            <div class="nav-bar-header">
+                <div class="nav-bar-logo"><img src="../assets/icons/Capa 1.svg" alt="JoinIcon"></div>
             </div>
-            <div class="footer-button">
-            <img class="footer-text" src="../assets/icons/legalNotice.png">
-            <div>
-        </footer>
+            <div class="nav-bar-body">
+                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg" alt="Summary">Summary</a>
+                <a href="./addtask.html" class="nav-bar-button"><img src="../assets/icons/AddTask.svg" alt="Add Task">Add Task</a>
+                <a href="./board.html" class="nav-bar-button"><img src="../assets/icons/Board.svg" alt="Board">Board</a>
+                <a href="./contacts.html" class="nav-bar-button active"><img src="../assets/icons/Contacts.svg" alt="Contacts">Contacts</a>
+            </div>
+            <div class="nav-bar-footer">
+                <a href="./PrivacyPolicy.html"><p>Privacy Policy</p></a>
+                <a href="./legalnotice.html"><p>Legal Notice</p></a>
+            </div>
+        </section>
+    </main>
 
-        </navbar>
-        <!-- Navigation Ende -->
-        <main class="main">
-            <main class="main">
-                <header>
-                    <div class="header-left">
-                    <p>Kanban Project Management Tool</p>
-                      </div>
-    
-                    <div class="header-right">
-                        <a href="./help.html" class="header-help-div"><img src="../assets/icons/help.svg" alt="" class="help-img"></a>
-                    
-                     <div class="header-user-div"><img src="../assets/icons/temp-user.svg" alt="user-img"></div>
-                    </div>
-                    
-    
-                    
-                </header>
-                <div class="content"></div>
-         </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
+
 </html>
