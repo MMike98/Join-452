@@ -12,13 +12,14 @@
     <link rel="stylesheet" href="../css/navbar&header.css">
     <link rel="stylesheet" href="../css/addTask.css">
 
-    <script src="../scripts/addTask.js"></script>
+
     <script src="../script.js"></script>
+    <script src="../scripts/addTask.js"></script>
     <script src="../scripts/header.js"></script>
     <script src="../scripts/template.js"></script>
 </head>
 
-<body class="bodyAddTask" onload="showUserInitial()">
+<body class="bodyAddTask" onload="init()">
     <header>
         <p>Kanban Project Management Tool</p>
         <div class="header-profile-div">
@@ -37,14 +38,21 @@
                 <div class="nav-bar-logo"><img src="../assets/icons/Capa 1.svg" alt="JoinIcon"></div>
             </div>
             <div class="nav-bar-body">
-                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg" alt="Summary">Summary</a>
-                <a href="./addtask.html" class="nav-bar-button active"><img src="../assets/icons/AddTask.svg" alt="Add Task">Add Task</a>
+                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg"
+                        alt="Summary">Summary</a>
+                <a href="./addtask.html" class="nav-bar-button active"><img src="../assets/icons/AddTask.svg"
+                        alt="Add Task">Add Task</a>
                 <a href="./board.html" class="nav-bar-button"><img src="../assets/icons/Board.svg" alt="Board">Board</a>
-                <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg" alt="Contacts">Contacts</a>
+                <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg"
+                        alt="Contacts">Contacts</a>
             </div>
             <div class="nav-bar-footer">
-                <a href="./PrivacyPolicy.html"><p>Privacy Policy</p></a>
-                <a href="./legalnotice.html"><p>Legal Notice</p></a>
+                <a href="./PrivacyPolicy.html">
+                    <p>Privacy Policy</p>
+                </a>
+                <a href="./legalnotice.html">
+                    <p>Legal Notice</p>
+                </a>
             </div>
         </section>
         <div class="content">
@@ -82,18 +90,21 @@
                                     id="lowActive" class="d_none" src="../assets/icons/white_arrow_down.svg"
                                     alt="white arrow"></button>
                         </div>
-                        <label>Assigned to</label>
-                        <div>
-                            <div class="addTaskSelectBox" tabindex="0" onclick="toggleDropdownById('addTaskContact')">
-                                Select contacts to assign</div>
-                            <div class="d_none addTaskDropDown" id="addTaskContact"></div>
+                        <label for="addTaskContacts">Assigned to</label>
+                        <input type="text" id="addTaskContacts" name="addTaskContacts" placeholder="Select contacts to assign" onclick="toggleDropdownById('contacts')">
+                        <div  class="d_none" id="contacts">
+                            <div class="addTaskDropDownShadow addTaskDropDownShadowAlignmentContacts"></div>
+                            <div class="addTaskDropDownpaddingTop addTaskDropDownpaddingTopAlignmentContacts"></div>
+                            <div class="addTaskDropDown addTaskDropDownAlignmentContacts" id="addTaskContactDropDown"></div>
                         </div>
                         <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
-                        <select id="addTaskCategory">
-                            <option value="">Select task category</option>
-                        </select>
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory"
-                            id="addTaskCategoryError">This field is required</div>
+                        <input type="text" id="addTaskCategory" name="addTaskCategory" placeholder="Select task category" onclick="toggleDropdownById('category')">
+                        <div  class="d_none" id="category">
+                            <div class="addTaskDropDownShadow addTaskDropDownShadowAlignmentCategory"></div>
+                            <div class="addTaskDropDownpaddingTop addTaskDropDownpaddingTopAlignmentCategory"></div>
+                            <div class="addTaskDropDown addTaskDropDownAlignmentCategory" id="addTaskCategoryDropDown"></div>
+                        </div>
+                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
                         <label for="addTaskSubtasks">Subtasks</label>
                         <input type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask">
                     </div>

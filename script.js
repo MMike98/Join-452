@@ -26,14 +26,14 @@ async function loadContactsIntoDropdown() {
   let response = await fetch(url);
   let contacts = await response.json();
 
-  let dropdown = document.getElementById("addTaskContact");
+  let dropdown = document.getElementById("addTaskContactDropDown");
   dropdown.innerHTML = "";
 
   for (let key in contacts) {
     let contact = contacts[key];
     if (contact.name) {
       let label = document.createElement("label");
-      label.innerHTML = `<input type="checkbox" value="${contact.name}"> ${contact.name}`;
+      label.innerHTML = `<div>${contact.name}</div>`;
       dropdown.appendChild(label);
     }
   }
@@ -45,15 +45,15 @@ async function loadCategoriesIntoDropdown() {
   let response = await fetch(url);
   let tasks = await response.json();
 
-  let dropdown = document.getElementById("addTaskCategory");
+  let dropdown = document.getElementById("addTaskCategoryDropDown");
+  dropdown.innerHTML = "";
 
   for (let key in tasks) {
     let task = tasks[key];
     if (task.title) {
-      let option = document.createElement("option");
-      option.value = task.title;
-      option.textContent = task.title;
-      dropdown.appendChild(option);
+      let label = document.createElement("label");
+      label.innerHTML = `<div>${task.title}</div>`;
+      dropdown.appendChild(label);
     }
   }
 }

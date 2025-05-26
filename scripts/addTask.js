@@ -1,3 +1,10 @@
+/** Init data*/
+function init() {
+  showUserInitial();
+  loadContactsIntoDropdown(); 
+  loadCategoriesIntoDropdown();
+}
+
 /** Check if the required input is available */
 function checkField(fieldId, errorId, isDiv = false) {
   let field = document.getElementById(fieldId);
@@ -64,29 +71,22 @@ function activate(priority) {
 function toggleDropdownById(dropdownId) {
   let dropdown = document.getElementById(dropdownId);
 
-  if (dropdown.style.display === "block") {
-    dropdown.style.display = "none";
-  } else {
-    dropdown.style.display = "block";
-  }
+  dropdown.classList.toggle("d_none");
 }
 
-/** Fill the dropdowns with the data when loading the page */
-window.onload = function () {
-  loadContactsIntoDropdown();
-  loadCategoriesIntoDropdown();
-};
-
 /** Closes all dropdowns when clicking somewhere else outside the menu */
-window.onclick = function (event) {
-  let dropdowns = document.querySelectorAll(".addTaskDropDown");
+window.onclick = function(event) {
+  let dropdowns = [
+    { inputId: "addTaskContacts", wrapperId: "contacts" },
+    { inputId: "addTaskCategory", wrapperId: "category" }
+  ];
 
-  dropdowns.forEach(function (dropdown) {
-    let selectBox = dropdown.previousElementSibling; // Das Eingabefeld (die Box, die das Dropdown auslöst)
+  dropdowns.forEach(({ inputId, wrapperId }) => {
+    let input = document.getElementById(inputId);
+    let wrapper = document.getElementById(wrapperId);
 
-    // Wenn der Klick außerhalb des Eingabefelds und des Dropdowns war, schließen wir das Dropdown
-    if (!selectBox.contains(event.target) && !dropdown.contains(event.target)) {
-      dropdown.style.display = "none";
+    if (input && wrapper && !input.contains(event.target) && !wrapper.contains(event.target)) {
+      wrapper.classList.add("d_none");
     }
   });
 };

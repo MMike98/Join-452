@@ -39,13 +39,8 @@ input {
   padding: 12px 21px;
   width: 396px;
   height: 22px;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  font-size: 20px;
   font-weight: 400;
-  background-repeat: no-repeat;
   background-size: 18px 20px;
-  position: relative;
   background-position: 400px;
 }
 
@@ -98,69 +93,105 @@ textarea {
 .addTaskButtonPriority:hover {
   cursor: pointer;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-}
-
-.addTaskSelectBox {
-  width: 406px;
-  height: 26px;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  margin-bottom: 13px;
-  padding: 10px 16px;
-  background: url("../assets/icons/arrow_drop_down.svg") no-repeat right center;
+  color: inherit;
   background-color: white;
-  background-size: 7.21;
-  background-position: 414px;
-  position: relative;
-  z-index: 2000;
 }
 
-.addTaskSelectBox:hover {
+#addTaskContacts,
+#addTaskCategory {
+  background-image: url("../assets/icons/arrow_drop_down.svg");
+  background-size: 7.21px;
+  background-position: 414px;
   cursor: pointer;
 }
 
-.addTaskDropDown {
+#addTaskContacts {
+  z-index: 2002;
+}
+
+#addTaskCategory {
+  z-index: 1002;
+}
+
+#addTaskContacts::placeholder,
+#addTaskCategory::placeholder {
+  color: black;
+}
+
+#contacts {
   position: absolute;
-  width: 440px;
+  top: 0;
+  z-index: 2000;
+}
+
+#category {
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+}
+
+.addTaskDropDown {
+  width: 438px;
   background-color: white;
-  max-height: 278px;
+  max-height: 281px;
+  overflow-y: auto;
+  margin: 0 1px;
+  position: absolute;
+}
+
+.addTaskDropDownAlignmentContacts {
+  top: 494px;
+  z-index: 2002;
+}
+
+.addTaskDropDownAlignmentCategory {
+  top: 597px;
+  z-index: 1002;
+}
+
+.addTaskDropDownpaddingTop {
+  height: 20px;
+  width: 438px;
+  background-color: white;
+  margin: 0 1px;
+  position: absolute;
+}
+
+.addTaskDropDownpaddingTopAlignmentContacts {
+  top: 480px;
+  z-index: 2001;
+}
+
+.addTaskDropDownpaddingTopAlignmentCategory {
+  top: 587px;
+  z-index: 1001;
+}
+
+.addTaskDropDownShadow {
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  overflow-y: auto;
-  z-index: 1000;
-  top: 515px;
-  padding-top: 4px;
+  width: 438px;
+  margin: 0 1px;
+  background-color: #ffffff;
+  position: absolute;
+}
+
+.addTaskDropDownShadowAlignmentContacts {
+  top: 480px;
+  height: 305px;
+}
+
+.addTaskDropDownShadowAlignmentCategory {
+  top: 587px;
+  height: 130px;
+  z-index: 2;
 }
 
 input[type="checkbox"] {
   height: 16px;
   width: 16px;
   margin: 0;
-}
-
-select {
-  width: 440px;
-  height: 48px;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  margin-bottom: 13px;
-  padding: 10px 16px;
-  font-size: 20px;
-  font-weight: 400;
-  font-family: "Inter", sans-serif;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: url("../assets/icons/arrow_drop_down.svg") no-repeat right center;
-  background-color: white;
-  background-size: 7.21;
-  background-position: 414px;
-  position: relative;
-}
-
-select:hover {
-  cursor: pointer;
 }
 
 .addTaskDropDown label {
@@ -199,7 +230,8 @@ select:hover {
   font-weight: 400;
   color: #2a3647;
   padding: 16px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right 15px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right
+    15px center;
   background-size: 25px;
   display: flex;
   align-items: center;
@@ -209,27 +241,28 @@ select:hover {
 .addTaskButtonClear:hover {
   border: 2px solid #29abe2;
   color: #29abe2;
-  padding: 15px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat right 14px center;
+  padding-left: 15px;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat
+    right 14px center;
   background-size: 25px;
   display: flex;
   align-items: center;
   justify-content: left;
   cursor: pointer;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  transition: 0s;
 }
 
 .addTaskButtonCreateTask {
   height: 56px;
   width: 183px;
   border-radius: 10px;
-  border: 1px solid #2a3647;
   font-family: "Inter", sans-serif;
   font-size: 21px;
   font-weight: 700;
-  color: #ffffff;
   padding: 16px;
-  background: #2a3647 url("../assets/icons/check.svg") no-repeat right 16px center;
+  background: #2a3647 url("../assets/icons/check.svg") no-repeat right 16px
+    center;
   background-size: 24px;
   display: flex;
   align-items: center;
@@ -237,19 +270,14 @@ select:hover {
 }
 
 .addTaskButtonCreateTask:hover {
-  border: 2px solid #29abe2;
-  padding: 15px;
-  background: #29abe2 url("../assets/icons/check.svg") no-repeat right 14px center;
-  background-size: 25px;
+  background: #29abe2 url("../assets/icons/check.svg") no-repeat right 16px
+    center;
+  background-size: 24px;
   display: flex;
   align-items: center;
   justify-content: left;
   cursor: pointer;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.inputError {
-  border: 1px solid #ff8190 !important;
 }
 
 .errorTextAddTask {
@@ -286,6 +314,11 @@ select:hover {
   font-size: 20px;
 }
 
+.urgent:hover {
+  background-color: #ff3d00;
+  color: #ffffff;
+}
+
 .medium {
   background-color: #ffa800;
   color: #ffffff;
@@ -293,9 +326,19 @@ select:hover {
   font-size: 20px;
 }
 
+.medium:hover {
+  background-color: #ffa800;
+  color: #ffffff;
+}
+
 .low {
   background-color: #7ae229;
   color: #ffffff;
   font-weight: 400;
   font-size: 20px;
+}
+
+.low:hover {
+  background-color: #7ae229;
+  color: #ffffff;
 }

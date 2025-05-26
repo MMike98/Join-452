@@ -84,6 +84,11 @@ input:focus {
   border: 1px solid #29abe2;
 }
 
+textarea:focus {
+  outline: none;
+  border: 1px solid #29abe2;
+}
+
 input:-webkit-autofill {
   background-color: transparent !important;
   transition: background-color 9999s ease-in-out 0s;
