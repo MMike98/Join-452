@@ -6,7 +6,7 @@ function init() {
 }
 
 /** Check if the required input is available */
-function checkField(fieldId, errorId, isDiv = false) {
+function checkField(fieldId, errorId) {
   let field = document.getElementById(fieldId);
   let error = document.getElementById(errorId);
 
@@ -21,14 +21,20 @@ function checkField(fieldId, errorId, isDiv = false) {
 
 /** If the required information is missing, display an error message */
 function showError(field, errorElement) {
-  field.classList.add("inputError");
-  errorElement.style.display = "block";
+  if (field) field.classList.add("inputError");
+  if (errorElement) {
+    errorElement.classList.remove("d_none");
+    errorElement.style.display = "block";
+  }
 }
 
 /** If the required information is available, remove the error message */
 function hideError(field, errorElement) {
-  field.classList.remove("inputError");
-  errorElement.style.display = "none";
+  if (field) field.classList.remove("inputError");
+  if (errorElement) {
+    errorElement.style.display = "none";
+    errorElement.classList.add("d_none");
+  }
 }
 
 /** Calls for the necessary information and prevents the submission of the form, if the required information is missing*/
@@ -67,11 +73,16 @@ function activate(priority) {
   });
 }
 
-/** Displays dropdown menu for contacts and category */
+/** Displays dropdown menu for contacts and category and change arrow*/
 function toggleDropdownById(dropdownId) {
   let dropdown = document.getElementById(dropdownId);
 
   dropdown.classList.toggle("d_none");
+
+  let inputId = dropdownId === "contacts" ? "addTaskContacts" : "addTaskCategory";
+  let input = document.getElementById(inputId);
+  
+  input.classList.toggle("open", !dropdown.classList.contains("d_none"));
 }
 
 /** Closes all dropdowns when clicking somewhere else outside the menu */
@@ -87,6 +98,8 @@ window.onclick = function(event) {
 
     if (input && wrapper && !input.contains(event.target) && !wrapper.contains(event.target)) {
       wrapper.classList.add("d_none");
+      input.classList.remove("open");
     }
   });
 };
+

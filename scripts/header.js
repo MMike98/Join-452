@@ -11,19 +11,6 @@ async function getUserInitialsFromStorage() {
   }
 }
 
-/** Extracts the initials of the signed up name */
-function getInitials(name) {
-  let nameParts = name.split(" ");
-
-  if (nameParts.length === 1) {
-    return nameParts[0].charAt(0).toUpperCase();
-  }
-
-  let firstInitial = nameParts[0]?.charAt(0).toUpperCase();
-  let secondInitial = nameParts[1]?.charAt(0).toUpperCase();
-  return firstInitial + secondInitial;
-}
-
 /** Displays the initials of the signed up user in the header, if the user is a guest dispaly "G" */
 async function showUserInitial() {
   let userRole = localStorage.getItem("userRole");

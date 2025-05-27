@@ -33,7 +33,7 @@ async function loadContactsIntoDropdown() {
     let contact = contacts[key];
     if (contact.name) {
       let label = document.createElement("label");
-      label.innerHTML = `<div>${contact.name}</div>`;
+      label.innerHTML = `<div id="contactChecked"><span class="circle">${getInitials(contact.name)}</span>${contact.name}</div>`;
       dropdown.appendChild(label);
     }
   }
@@ -56,4 +56,17 @@ async function loadCategoriesIntoDropdown() {
       dropdown.appendChild(label);
     }
   }
+}
+
+/** Extracts the initials of the signed up name */
+function getInitials(name) {
+  let nameParts = name.split(" ");
+
+  if (nameParts.length === 1) {
+    return nameParts[0].charAt(0).toUpperCase();
+  }
+
+  let firstInitial = nameParts[0]?.charAt(0).toUpperCase();
+  let secondInitial = nameParts[1]?.charAt(0).toUpperCase();
+  return firstInitial + secondInitial;
 }

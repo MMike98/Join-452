@@ -92,17 +92,13 @@
                         </div>
                         <label for="addTaskContacts">Assigned to</label>
                         <input type="text" id="addTaskContacts" name="addTaskContacts" placeholder="Select contacts to assign" onclick="toggleDropdownById('contacts')">
-                        <div  class="d_none" id="contacts">
-                            <div class="addTaskDropDownShadow addTaskDropDownShadowAlignmentContacts"></div>
-                            <div class="addTaskDropDownpaddingTop addTaskDropDownpaddingTopAlignmentContacts"></div>
-                            <div class="addTaskDropDown addTaskDropDownAlignmentContacts" id="addTaskContactDropDown"></div>
+                        <div  class="d_none addTaskDropDownShadow" id="contacts">
+                            <div class="addTaskDropDown" id="addTaskContactDropDown"></div>
                         </div>
                         <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
                         <input type="text" id="addTaskCategory" name="addTaskCategory" placeholder="Select task category" onclick="toggleDropdownById('category')">
-                        <div  class="d_none" id="category">
-                            <div class="addTaskDropDownShadow addTaskDropDownShadowAlignmentCategory"></div>
-                            <div class="addTaskDropDownpaddingTop addTaskDropDownpaddingTopAlignmentCategory"></div>
-                            <div class="addTaskDropDown addTaskDropDownAlignmentCategory" id="addTaskCategoryDropDown"></div>
+                        <div  class="d_none addTaskDropDownShadow" id="category">
+                            <div class="addTaskDropDown" id="addTaskCategoryDropDown"></div>
                         </div>
                         <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
                         <label for="addTaskSubtasks">Subtasks</label>
