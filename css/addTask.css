@@ -182,6 +182,7 @@ label.contactSelected {
   background: #2a3647;
   border: 1px solid white;
   width: calc(100% - 17px - 17px);
+  height: 54px;
 }
 
 label.contactSelected:hover {
