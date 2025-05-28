@@ -91,10 +91,11 @@
                                     alt="white arrow"></button>
                         </div>
                         <label for="addTaskContacts">Assigned to</label>
-                        <input type="text" id="addTaskContacts" name="addTaskContacts" placeholder="Select contacts to assign" onclick="toggleDropdownById('contacts')">
+                        <input type="text" id="addTaskContacts" name="addTaskContacts" placeholder="Select contacts to assign" onclick="toggleDropdownById('contacts')" oninput="filterContacts()">
                         <div  class="d_none addTaskDropDownShadow" id="contacts">
                             <div class="addTaskDropDown" id="addTaskContactDropDown"></div>
                         </div>
+                        <div id="addTaskContaktsSelected" class="d_none contactsSelectedAlignment"></div>
                         <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
                         <input type="text" id="addTaskCategory" name="addTaskCategory" placeholder="Select task category" onclick="toggleDropdownById('category')">
                         <div  class="d_none addTaskDropDownShadow" id="category">

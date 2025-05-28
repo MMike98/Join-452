@@ -20,42 +20,20 @@ window.addEventListener("mouseup", function (event) {
   }
 });
 
-/** Loads Contacts for dropdown menu for the addTask page */
-async function loadContactsIntoDropdown() {
+/** Fetchs Contacts from API */
+async function fetchContacts() {
   let url = `${BASE_URL}/contacts.json`;
   let response = await fetch(url);
   let contacts = await response.json();
-
-  let dropdown = document.getElementById("addTaskContactDropDown");
-  dropdown.innerHTML = "";
-
-  for (let key in contacts) {
-    let contact = contacts[key];
-    if (contact.name) {
-      let label = document.createElement("label");
-      label.innerHTML = `<div id="contactChecked"><span class="circle">${getInitials(contact.name)}</span>${contact.name}</div>`;
-      dropdown.appendChild(label);
-    }
-  }
+  return contacts;
 }
 
-/** Loads Categories for dropdown menu for the addTask page */
-async function loadCategoriesIntoDropdown() {
-  let url = `${BASE_URL}/tasks.json`;
-  let response = await fetch(url);
-  let tasks = await response.json();
-
-  let dropdown = document.getElementById("addTaskCategoryDropDown");
-  dropdown.innerHTML = "";
-
-  for (let key in tasks) {
-    let task = tasks[key];
-    if (task.title) {
-      let label = document.createElement("label");
-      label.innerHTML = `<div>${task.title}</div>`;
-      dropdown.appendChild(label);
-    }
-  }
+/** Fetchs Categories from API */
+async function fetchTasks() {
+  const url = `${BASE_URL}/tasks.json`;
+  const response = await fetch(url);
+  const tasks = await response.json();
+  return tasks;
 }
 
 /** Extracts the initials of the signed up name */
@@ -70,3 +48,11 @@ function getInitials(name) {
   let secondInitial = nameParts[1]?.charAt(0).toUpperCase();
   return firstInitial + secondInitial;
 }
+
+
+
+
+
+
+
+
