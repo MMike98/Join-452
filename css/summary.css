@@ -45,7 +45,7 @@
   flex-direction: row;
   align-items: center;
   margin-left: 96px;
-  gap: 29px;
+  gap: 80px;
 }
 
 .summary-left_todo-done {
@@ -53,8 +53,6 @@
   flex-direction: row;
   gap: 32px;
 }
-
-
 
 .summary-left_todo {
   display: flex;
@@ -67,13 +65,14 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  transition: transform 0.5s ease;
 }
 
 /* HOVER EFFEKTE */
 
 .summary-left_todo:hover {
- background-color: rgb(41, 54, 71);
-
+  background-color: rgb(41, 54, 71);
+  transform: scale(1.1);
 }
 .summary-left_todo:hover .summary-circle {
   background-color: white;
@@ -101,12 +100,14 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  transition: transform 0.5s ease;
 }
 
 /* HOVER-EFFEKTE */
 
 .summary-left_done:hover {
   background-color: rgb(41, 54, 71);
+  transform: scale(1.1);
 }
 
 .summary-left_done:hover .summary-circle {
@@ -132,19 +133,20 @@
   height: 69px;
   width: 69px;
   background-color: rgb(41, 54, 71);
+  transition: color 0.3s;
   border-radius: 50%;
 }
 
-
-
 .todo-done-img-left {
   color: white;
+  transition: color 0.3s;
   height: 24.33px;
   width: 24.37px;
 }
 
 .todo-done-img-right {
   color: white;
+  transition: color 0.3s;
   height: 22.13px;
   width: 29.94px;
 }
@@ -156,12 +158,14 @@
 }
 
 .todo-done_counter_top {
+  transition: color 0.3s;
   font-weight: 600;
   font-size: 64px;
   line-height: 120%;
 }
 
 .todo-done_counter_bottom {
+  transition: color 0.3s;
   font-weight: 400;
   font-size: 20px;
   line-height: 120%;
@@ -177,6 +181,32 @@
   border-radius: 30px;
   align-items: center;
   justify-content: space-evenly;
+  transition: transform 0.5s ease;
+}
+
+.summary-left_urgency:hover {
+  background-color: rgb(41, 54, 71);
+  transform: scale(1.1);
+}
+
+.summary-left_urgency:hover .urgency_left_counter_top {
+  color: white;
+}
+
+.summary-left_urgency:hover .urgency_left_counter_bottom {
+  color: white;
+}
+
+.summary-left_urgency:hover .urgency_mid {
+  color: white;
+}
+
+.summary-left_urgency:hover .urgency_right_top {
+  color: white;
+}
+
+.summary-left_urgency:hover .urgency_right_bottom {
+  color: white;
 }
 
 .urgency_left {
@@ -184,7 +214,7 @@
   align-items: center;
 }
 
-.urgency_left img {
+.urgency_left-logo {
   height: 60px;
   width: 60px;
   background-color: white;
@@ -245,7 +275,22 @@
   border-radius: 30px;
   align-items: center;
   justify-content: center;
+  transition: transform 0.5s ease;
 }
+
+.summary-left_status-child:hover {
+  background-color: rgb(41, 54, 71);
+  transform: scale(1.1);
+}
+
+.summary-left_status-child:hover .status-child_top {
+  color: white;
+}
+
+.summary-left_status-child:hover .status-child_bottom {
+  color: white;
+}
+
 
 .status-child_top {
   font-weight: 600;
@@ -262,19 +307,19 @@
 }
 
 .summary-right {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .summary-right_greeting-top {
-font-weight: 500;
-font-size: 47px;
-line-height: 120%;
+  font-weight: 500;
+  font-size: 47px;
+  line-height: 120%;
 }
 
 .summary-right_greeting-bottom {
-font-weight: 700;
-font-size: 64px;
-line-height: 120%;
-color: #29ABE2;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 120%;
+  color: #29abe2;
 }
