@@ -1,114 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>summary</title>
 
     <script src="../scripts/summary.js"></script>
     <script src="../scripts/template.js"></script>
 
-    <link rel="stylesheet" href="../css/template.css">
-    <link rel="stylesheet" href="../css/summary.css">
-    <link rel="stylesheet" href="../css/navbar&header.css">
-
-</head>
-<body>
-   <header>
-        <p>Kanban Project Management Tool</p>
-        <div class="header-profile-div">
-            <a href="./help.html"><img src="../assets/icons/help.svg"></a>
-            <div class="header-profile" onclick="toggleDropdown()" id="userIcon"></div>
-        </div>
-        <div id="myDropdown" class="header-profile-dropdown">
-            <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
-            <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
-            <a href="../index.html" class="nav-bar-button" onclick="logOut()">Log Out</a>
-        </div>
+    <link rel="stylesheet" href="../css/template.css" />
+    <link rel="stylesheet" href="../css/summary.css" />
+    <link rel="stylesheet" href="../css/navbar&header.css" />
+  </head>
+  <body>
+    <header>
+      <p>Kanban Project Management Tool</p>
+      <div class="header-profile-div">
+        <a href="./help.html"><img src="../assets/icons/help.svg" /></a>
+        <div
+          class="header-profile"
+          onclick="toggleDropdown()"
+          id="userIcon"
+        ></div>
+      </div>
+      <div id="myDropdown" class="header-profile-dropdown">
+        <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
+        <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
+        <a href="../index.html" class="nav-bar-button" onclick="logOut()"
+          >Log Out</a
+        >
+      </div>
     </header>
     <main>
-        <section class="nav-bar">
-            <div class="nav-bar-header">
-                <div class="nav-bar-logo"><img src="../assets/icons/Capa 1.svg" alt="JoinIcon"></div>
-            </div>
-            <div class="nav-bar-body">
-                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg" alt="Summary">Summary</a>
-                <a href="./addtask.html" class="nav-bar-button"><img src="../assets/icons/AddTask.svg" alt="Add Task">Add Task</a>
-                <a href="./board.html" class="nav-bar-button active"><img src="../assets/icons/Board.svg" alt="Board">Board</a>
-                <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg" alt="Contacts">Contacts</a>
-            </div>
-            <div class="nav-bar-footer">
-                <a href="./PrivacyPolicy.html"><p>Privacy Policy</p></a>
-                <a href="./legalnotice.html"><p>Legal Notice</p></a>
-            </div>
-        </section>
-                <div class="summary">
-                    <!-- LEFT -->
-                    <div class="summary-left_header">
-                        <span class="summary-left_header_span_left">Join 360</span><div class="summary-divider"></div> <span class="summary-left_header_span_right">Key Metrics at a Glance</span>
-                       </div>
-                    <div class="summary-bottom">
-                    <div class="summary-left">
-
-                       <div class="summary-left_todo-done">
-                        <div class="summary-left_todo">
-                            <div class="summary-circle">
-                            <img src="../assets/icons/summary-pencil-vector.svg" alt="" class="todo-done-img-left">
-                        </div>
-                            <div class="summary-left_todo-done_counter">
-                                <span class="todo-done_counter_top">1</span>
-                                <span class="todo-done_counter_bottom">To-Do</span>
-                            </div>
-                        </div>
-                        <div class="summary-left_done">
-                            <div class="summary-circle">
-                            <img src="../assets/icons/summary-checkmark-vector.svg" alt="" class="todo-done-img-right">
-                        </div>
-                            <div class="summary-left_todo-done_counter">
-                                <span class="todo-done_counter_top">1</span>
-                                <span class="todo-done_counter_bottom">Done</span>
-                            </div>
-                        </div>
-                       </div>
-
-                       <div class="summary-left_urgency">
-                     <div class="urgency_left">
-                        
-                        <img src="../assets/icons/summary-urgent2.svg" alt="">
-                        
-                        <div class="urgency_left_counter">
-                            <span class="urgency_left_counter_top">1</span>
-                            <span class="urgency_left_counter_bottom">Urgent</span>
-                        </div>
-                     </div>
-                     <div class="urgency_mid"></div>
-                     <div class="urgency_right">
-                        <span class="urgency_right_top">October 16, 2025</span>
-                        <span class="urgency_right_bottom">Upcoming Deadline</span>
-                     </div>
-                       </div>
-                       <div class="summary-left_status">
-                        <div class="summary-left_status-child">
-                        <span class="status-child_top">5</span>
-                        <span class="status-child_bottom">Tasks in<br>Board</span>
-                        </div>
-                        <div class="summary-left_status-child">
-                      <span class="status-child_top">2</span>
-                      <span class="status-child_bottom">Tasks in<br>Progress</span>
-                        </div>
-                        <div class="summary-left_status-child">
-                       <span class="status-child_top">2</span>
-                       <span class="status-child_bottom">Awaiting<br>Feedback</span>
-                        </div>
-                       </div>
-                    </div>
-                    <!-- RIGHT -->
-                    <div class="summary-right">
-                      <span class="summary-right_greeting-top">Good Morning,<br></span>
-                      <span class="summary-right_greeting-bottom">Sofia Müller</span>
-                    </div>
+      <section class="nav-bar">
+        <div class="nav-bar-header">
+          <div class="nav-bar-logo">
+            <img src="../assets/icons/Capa 1.svg" alt="JoinIcon" />
+          </div>
+        </div>
+        <div class="nav-bar-body">
+          <a href="./summary.html" class="nav-bar-button"
+            ><img src="../assets/icons/summary.svg" alt="Summary" />Summary</a
+          >
+          <a href="./addtask.html" class="nav-bar-button"
+            ><img src="../assets/icons/AddTask.svg" alt="Add Task" />Add Task</a
+          >
+          <a href="./board.html" class="nav-bar-button active"
+            ><img src="../assets/icons/Board.svg" alt="Board" />Board</a
+          >
+          <a href="./contacts.html" class="nav-bar-button"
+            ><img
+              src="../assets/icons/Contacts.svg"
+              alt="Contacts"
+            />Contacts</a
+          >
+        </div>
+        <div class="nav-bar-footer">
+          <a href="./PrivacyPolicy.html"><p>Privacy Policy</p></a>
+          <a href="./legalnotice.html"><p>Legal Notice</p></a>
+        </div>
+      </section>
+      <div class="summary">
+        <!-- LEFT -->
+        <div class="summary-left_header">
+          <span class="summary-left_header_span_left">Join 360</span>
+          <div class="summary-divider"></div>
+          <span class="summary-left_header_span_right"
+            >Key Metrics at a Glance</span
+          >
+        </div>
+        <div class="summary-bottom">
+          <div class="summary-left">
+            <div class="summary-left_todo-done">
+              <div class="summary-left_todo">
+                <div class="summary-circle">
+                  <svg
+                    class="todo-done-img-left"
+                    width="25"
+                    height="25"
+                    viewBox="0 0 25 25"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.16667 22.3332H5.03333L16.5333 10.8332L14.6667 8.9665L3.16667 20.4665V22.3332ZM22.2333 8.89984L16.5667 3.29984L18.4333 1.43317C18.9444 0.922059 19.5722 0.666504 20.3167 0.666504C21.0611 0.666504 21.6889 0.922059 22.2 1.43317L24.0667 3.29984C24.5778 3.81095 24.8444 4.42761 24.8667 5.14984C24.8889 5.87206 24.6444 6.48873 24.1333 6.99984L22.2333 8.89984ZM20.3 10.8665L6.16667 24.9998H0.5V19.3332L14.6333 5.19984L20.3 10.8665Z"
+                      fill="currentColor"
+                    />
+                  </svg>
                 </div>
+                <div class="summary-left_todo-done_counter">
+                  <span class="todo-done_counter_top">1</span>
+                  <span class="todo-done_counter_bottom">To-Do</span>
+                </div>
+              </div>
+              <div class="summary-left_done">
+                <div class="summary-circle">
+                  <svg
+                  class="todo-done-img-right"
+                  fill="none"
+                    width="38"
+                    height="30"
+                    viewBox="0 0 38 30"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4.02832 15.0001L15.2571 26.0662L33.9717 3.93408"
+                      stroke="currentColor"
+                      stroke-width="7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <div class="summary-left_todo-done_counter">
+                  <span class="todo-done_counter_top">1</span>
+                  <span class="todo-done_counter_bottom">Done</span>
+                </div>
+              </div>
             </div>
-         </main>
-</body>
+
+            <div class="summary-left_urgency">
+              <div class="urgency_left">
+                <img src="../assets/icons/summary-urgent2.svg" alt="" />
+
+                <div class="urgency_left_counter">
+                  <span class="urgency_left_counter_top">1</span>
+                  <span class="urgency_left_counter_bottom">Urgent</span>
+                </div>
+              </div>
+              <div class="urgency_mid"></div>
+              <div class="urgency_right">
+                <span class="urgency_right_top">October 16, 2025</span>
+                <span class="urgency_right_bottom">Upcoming Deadline</span>
+              </div>
+            </div>
+            <div class="summary-left_status">
+              <div class="summary-left_status-child">
+                <span class="status-child_top">5</span>
+                <span class="status-child_bottom">Tasks in<br />Board</span>
+              </div>
+              <div class="summary-left_status-child">
+                <span class="status-child_top">2</span>
+                <span class="status-child_bottom">Tasks in<br />Progress</span>
+              </div>
+              <div class="summary-left_status-child">
+                <span class="status-child_top">2</span>
+                <span class="status-child_bottom">Awaiting<br />Feedback</span>
+              </div>
+            </div>
+          </div>
+          <!-- RIGHT -->
+          <div class="summary-right">
+            <span class="summary-right_greeting-top">Good Morning,<br /></span>
+            <span class="summary-right_greeting-bottom">Sofia Müller</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

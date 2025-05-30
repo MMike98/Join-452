@@ -54,6 +54,8 @@
   gap: 32px;
 }
 
+
+
 .summary-left_todo {
   display: flex;
   flex-direction: row;
@@ -65,6 +67,27 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+/* HOVER EFFEKTE */
+
+.summary-left_todo:hover {
+ background-color: rgb(41, 54, 71);
+
+}
+.summary-left_todo:hover .summary-circle {
+  background-color: white;
+}
+.summary-left_todo:hover .todo-done_counter_top {
+  color: white;
+}
+
+.summary-left_todo:hover .todo-done_counter_bottom {
+  color: white;
+}
+
+.summary-left_todo:hover .todo-done-img-left {
+  color: rgb(41, 54, 71);
 }
 
 .summary-left_done {
@@ -80,6 +103,28 @@
   gap: 10px;
 }
 
+/* HOVER-EFFEKTE */
+
+.summary-left_done:hover {
+  background-color: rgb(41, 54, 71);
+}
+
+.summary-left_done:hover .summary-circle {
+  background-color: white;
+}
+
+.summary-left_done:hover .todo-done-img-right {
+  color: rgb(41, 54, 71);
+}
+
+.summary-left_done:hover .todo-done_counter_top {
+  color: white;
+}
+
+.summary-left_done:hover .todo-done_counter_bottom {
+  color: white;
+}
+
 .summary-circle {
   display: flex;
   align-items: center;
@@ -90,12 +135,16 @@
   border-radius: 50%;
 }
 
+
+
 .todo-done-img-left {
+  color: white;
   height: 24.33px;
   width: 24.37px;
 }
 
 .todo-done-img-right {
+  color: white;
   height: 22.13px;
   width: 29.94px;
 }
