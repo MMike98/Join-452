@@ -97,19 +97,6 @@ function toggleDropdownInputArrow(dropdownId, isOpen) {
   input.classList.toggle("open", isOpen);
 }
 
-/** Shows or hides the selected contacts' initials below the dropdown */
-function handleContactDropdownVisibility(isOpen) {
-  let contactDiv = document.getElementById("addTaskContaktsSelected");
-  if (!contactDiv) return;
-
-  if (isOpen) {
-    contactDiv.classList.add("d_none");
-  } else {
-    toggleSelectedContactsDiv();
-    renderSelectedContactCircles(globalContacts);
-  }
-}
-
 /** Closes all dropdowns when clicking somewhere else outside the menu */
 window.onclick = function(event) {
   let dropdowns = [
@@ -149,7 +136,7 @@ function createLabel(contact, index) {
   return label;
 }
 
-/** Clears the dropdown and fills it with labels for each contact */
+/** Clears the dropdown menu for contacts and fills it with labels for each contact */
 function createLabels(contacts) {
   let dropdown = document.getElementById("addTaskContactDropDown");
   dropdown.innerHTML = "";
@@ -167,13 +154,13 @@ function createLabels(contacts) {
   }
 }
 
-/** Registers the click handler on the dropdown container */
+/** Registers the click handler on the dropdown container for the contacts */
 function setupClickHandler() {
   let dropdown = document.getElementById("addTaskContactDropDown");
   dropdown.onclick = handleDropdownClick;
 }
 
-/** Handles clicks inside the dropdown */
+/** Handles clicks inside the dropdown menu for the contacts */
 function handleDropdownClick(event) {
   let target = event.target;
 
@@ -245,24 +232,132 @@ function filterContacts() {
   }
 }
 
+/** Shows or hides the selected contacts' initials below the dropdown */
+function handleContactDropdownVisibility(isOpen) {
+  let contactDiv = document.getElementById("addTaskContaktsSelected");
+  if (!contactDiv) return;
+
+  if (isOpen) {
+    contactDiv.classList.add("d_none");
+  } else {
+    toggleSelectedContactsDiv();
+    renderSelectedContactCircles(globalContacts);
+  }
+}
+
 /** Fills dropdown with categories */
 async function loadCategoriesIntoDropdown() {
   let tasks = await fetchTasks();
   createCategoryLabels(tasks);
 }
 
-/** Create labels for categories and insert them into the dropdown menu */
+/** Create a label element for a single category task */
+function createCategoryLabel(task, inputField) {
+  let label = document.createElement("label");
+  label.innerHTML = `<div>${task.title}</div>`;
+
+  label.addEventListener("click", () => {
+    inputField.value = task.title;
+    closeCategoryDropdown();
+  });
+
+  return label;
+}
+
+/** Clears the dropdown menu content for categories*/
+function clearDropdown(dropdown) {
+  dropdown.innerHTML = "";
+}
+
+/** Creates and inserts all category labels into the dropdown */
 function createCategoryLabels(tasks) {
   let dropdown = document.getElementById("addTaskCategoryDropDown");
-  dropdown.innerHTML = "";
+  let inputField = document.getElementById("addTaskCategory");
+
+  clearDropdown(dropdown);
 
   for (let key in tasks) {
     let task = tasks[key];
     if (task.title) {
-      let label = document.createElement("label");
-      label.innerHTML = `<div>${task.title}</div>`;
+      let label = createCategoryLabel(task, inputField);
       dropdown.appendChild(label);
     }
   }
 }
+
+/** Closes the category dropdown */
+function closeCategoryDropdown() {
+  let wrapper = document.getElementById("category");
+  let dropdown = document.getElementById("addTaskCategoryDropDown");
+  let input = document.getElementById("addTaskCategory");
+
+  wrapper.classList.add("d_none");
+  dropdown.classList.add("d_none");
+  input.classList.remove("open");
+  
+  toggleDropdownInputArrow("category", false);
+}
+
+/** Toggles the visibility of the dropdown menu for categories */
+function toggleDropdownById(dropdownId) {
+  let wrapper = document.getElementById(dropdownId);
+  let dropdown = document.getElementById("addTaskCategoryDropDown");
+  let input = document.getElementById("addTaskCategory");
+
+  let isHidden = wrapper.classList.contains("d_none");
+
+  if (isHidden) {
+    wrapper.classList.remove("d_none");
+    dropdown.classList.remove("d_none");
+    input.classList.add("open");
+    toggleDropdownInputArrow(dropdownId, true);
+  } else {
+    wrapper.classList.add("d_none");
+    dropdown.classList.add("d_none");
+    input.classList.remove("open");
+    toggleDropdownInputArrow(dropdownId, false);
+  }
+}
+
+/** Change icons within Subtask when adding content to the input*/
+function changeSubtaskIcon() {
+  let input = document.getElementById("addTaskSubtasks");
+  let icon = document.getElementById("addTaskSubtaskConfirm");
+
+  if (input.value.trim() === "") {
+    icon.classList.add("d_none");
+    icon.style.backgroundImage = "";
+  } else {
+    icon.classList.remove("d_none");
+  }
+}
+
+/** Deletes the entered subtask in the input field */
+function deleteSubtaskEntry() {
+  let input = document.getElementById("addTaskSubtasks");
+  input.value = "";
+}
+
+
+
+
+
+function confirmSubtaskEntry() {
+  let input = document.getElementById("addTaskSubtasks");
+  let value = input.value.trim();
+  if (!value) return;
+
+  document.getElementById("addTaskSubtaskList").classList.remove("d_none");
+
+  let subtask = document.createElement("li");
+  subtask.className = "addTaskSubtaskItem";
+  subtask.textContent = value;
+  document.getElementById("addTaskSubtaskList").appendChild(subtask);
+
+  input.value = "";
+  document.getElementById("addTaskSubtaskConfirm").classList.add("d_none");
+}
+
+
+
 

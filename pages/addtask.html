@@ -91,19 +91,31 @@
                                     alt="white arrow"></button>
                         </div>
                         <label for="addTaskContacts">Assigned to</label>
-                        <input type="text" id="addTaskContacts" name="addTaskContacts" placeholder="Select contacts to assign" onclick="toggleDropdownById('contacts')" oninput="filterContacts()">
-                        <div  class="d_none addTaskDropDownShadow" id="contacts">
+                        <input type="text" id="addTaskContacts" name="addTaskContacts"
+                            placeholder="Select contacts to assign" onclick="toggleDropdownById('contacts')"
+                            oninput="filterContacts()">
+                        <div class="d_none addTaskDropDownShadow" id="contacts">
                             <div class="addTaskDropDown" id="addTaskContactDropDown"></div>
                         </div>
                         <div id="addTaskContaktsSelected" class="d_none contactsSelectedAlignment"></div>
                         <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
-                        <input type="text" id="addTaskCategory" name="addTaskCategory" placeholder="Select task category" onclick="toggleDropdownById('category')">
-                        <div  class="d_none addTaskDropDownShadow" id="category">
+                        <input type="text" id="addTaskCategory" name="addTaskCategory"
+                            placeholder="Select task category" onclick="toggleDropdownById('category')">
+                        <div class="d_none addTaskDropDownShadow" id="category">
                             <div class="addTaskDropDown" id="addTaskCategoryDropDown"></div>
                         </div>
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
+                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory"
+                            id="addTaskCategoryError">This field is required</div>
                         <label for="addTaskSubtasks">Subtasks</label>
-                        <input type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask">
+                        <div class="subtask-wrapper">
+                            <input type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask" oninput="changeSubtaskIcon()">
+                            <div id="addTaskSubtaskConfirm" class="addTaskSubtaskConfirm d_none">
+                                <img src="../assets/icons/cross.svg" alt="close" onclick="deleteSubtaskEntry()">
+                                <div class="addTaskSubtaskLine"></div>
+                                <img class="addTaskSubtaskIconBackgroundColor" src="../assets/icons/confirm.svg" alt="confirm" onclick="confirmSubtaskEntry()">
+                            </div>
+                        </div>
+                        <ul id="addTaskSubtaskList" class="d_none"></ul>
                     </div>
                 </div>
                 <div class="addTaskButtonRequiredAlignment">

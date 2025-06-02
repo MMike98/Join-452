@@ -210,8 +210,53 @@ label.contactSelected:hover #contactChecked {
   margin-right: 0;
 }
 
+.subtask-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
 #addTaskSubtasks {
   background-image: url("../assets/icons/add.svg");
+  background-size: 24px;
+}
+
+.addTaskSubtaskLine {
+  height: 24px;
+  background-color: #d1d1d1;
+  padding: 0 0.5px;
+  margin: 0 3px;
+}
+
+.addTaskSubtaskConfirm {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 47px;
+  top: 21%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.addTaskSubtaskIconBackgroundColor {
+  background-color: white;
+}
+
+#addTaskSubtaskList {
+  margin: -13px 0px 13px 0px;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  list-style-position: inside;
+  padding-left: 0;
+}
+
+.addTaskSubtaskItem {
+  padding: 6px 35px;
+  height: 20px;
+  font-size: 16px;
 }
 
 .addTaskButtonRequiredAlignment {
@@ -349,3 +394,16 @@ label.contactSelected:hover #contactChecked {
   background-color: #7ae229;
   color: #ffffff;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
