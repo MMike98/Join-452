@@ -4,7 +4,7 @@ let globalContacts = [];
 /** Init data*/
 function init() {
   showUserInitial();
-  loadContactsIntoDropdown(); 
+  loadContactsIntoDropdown();
   loadCategoriesIntoDropdown();
 }
 
@@ -92,23 +92,29 @@ function toggleDropdownById(dropdownId) {
 
 /** Rotates the arrow in the dropdown when the menu is open */
 function toggleDropdownInputArrow(dropdownId, isOpen) {
-  let inputId = dropdownId === "contacts" ? "addTaskContacts" : "addTaskCategory";
+  let inputId =
+    dropdownId === "contacts" ? "addTaskContacts" : "addTaskCategory";
   let input = document.getElementById(inputId);
   input.classList.toggle("open", isOpen);
 }
 
 /** Closes all dropdowns when clicking somewhere else outside the menu */
-window.onclick = function(event) {
+window.onclick = function (event) {
   let dropdowns = [
     { inputId: "addTaskContacts", wrapperId: "contacts" },
-    { inputId: "addTaskCategory", wrapperId: "category" }
+    { inputId: "addTaskCategory", wrapperId: "category" },
   ];
 
   dropdowns.forEach(({ inputId, wrapperId }) => {
     let input = document.getElementById(inputId);
     let wrapper = document.getElementById(wrapperId);
 
-    if (input && wrapper && !input.contains(event.target) && !wrapper.contains(event.target)) {
+    if (
+      input &&
+      wrapper &&
+      !input.contains(event.target) &&
+      !wrapper.contains(event.target)
+    ) {
       wrapper.classList.add("d_none");
       input.classList.remove("open");
 
@@ -132,7 +138,9 @@ async function loadContactsIntoDropdown() {
 function createLabel(contact, index) {
   let label = document.createElement("label");
   label.id = `contactLabel-${index}`;
-  label.innerHTML = `<div id="contactChecked"><span class="circle">${getInitials(contact.name)}</span>${contact.name}</div>`;
+  label.innerHTML = `<div id="contactChecked"><span class="circle">${getInitials(
+    contact.name
+  )}</span>${contact.name}</div>`;
   return label;
 }
 
@@ -294,7 +302,7 @@ function closeCategoryDropdown() {
   wrapper.classList.add("d_none");
   dropdown.classList.add("d_none");
   input.classList.remove("open");
-  
+
   toggleDropdownInputArrow("category", false);
 }
 
@@ -338,10 +346,7 @@ function deleteSubtaskEntry() {
   input.value = "";
 }
 
-
-
-
-
+/** Confirm the entered subtask in the input field */
 function confirmSubtaskEntry() {
   let input = document.getElementById("addTaskSubtasks");
   let value = input.value.trim();
@@ -349,14 +354,50 @@ function confirmSubtaskEntry() {
 
   document.getElementById("addTaskSubtaskList").classList.remove("d_none");
 
-  let subtask = document.createElement("li");
-  subtask.className = "addTaskSubtaskItem";
-  subtask.textContent = value;
-  document.getElementById("addTaskSubtaskList").appendChild(subtask);
+  document.getElementById(
+    "addTaskSubtaskList"
+  ).innerHTML += confirmSubtaskEntryHTML(value);
 
   input.value = "";
   document.getElementById("addTaskSubtaskConfirm").classList.add("d_none");
 }
+
+/** Deletes the entered subtask under the input field */
+function deleteSubtask(element) {
+  element.closest("li").remove();
+}
+
+/** Edits the entered subtask under the input field */
+function editSubtask(element) {
+  let li;
+
+  if (element.tagName === "LI") {
+    li = element;
+  } else {
+    li = element.parentNode.parentNode;
+  }
+
+  let text = li.firstElementChild.textContent.replace(/^•\s*/, "").trim();
+  li.outerHTML = editSubtaskHTML(text);
+}
+
+/** Deleted the entered subtask under the input field */
+function trashSubtask(iconElement) {
+  let wrapper = iconElement.closest('.subtaskEditWrapper');
+  if (wrapper) wrapper.remove();
+}
+
+/** Saves edited subtask */
+function saveSubtask(iconElement) {
+  let wrapper = iconElement.parentNode.parentNode;
+  let input = wrapper.firstElementChild;
+
+  let value = input.value.trim();
+  if (!value) return;
+
+  wrapper.outerHTML = createSubtaskHTML(value);
+}
+
 
 
 

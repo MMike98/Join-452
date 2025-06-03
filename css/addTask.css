@@ -151,7 +151,7 @@ textarea {
 }
 
 .addTaskDropDown label:hover {
-  background-color: #d1d1d1;
+  background-color: #eeeeee;
   cursor: pointer;
 }
 
@@ -244,6 +244,25 @@ label.contactSelected:hover #contactChecked {
   background-color: white;
 }
 
+.editIcon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.editIconsAlignment {
+  display: none;
+}
+
+.editIconsAlignmentVisible {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-bottom: 1px solid #29abe2;
+  height: 30px;
+  padding-right: 16px;
+}
+
 #addTaskSubtaskList {
   margin: -13px 0px 13px 0px;
   gap: 8px;
@@ -254,9 +273,43 @@ label.contactSelected:hover #contactChecked {
 }
 
 .addTaskSubtaskItem {
-  padding: 6px 35px;
+  padding: 6px 16px;
   height: 20px;
   font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+li.addTaskSubtaskItem:hover .editIconsAlignment {
+  display: flex;
+  align-items: center;
+}
+
+li.addTaskSubtaskItem:hover {
+  background-color: #eeeeee;
+  border-radius: 10px;
+}
+
+.subtaskEdit {
+  width: 408px;
+  height: 22px;
+  padding: 4px 16px;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #29abe2;
+  margin: 0;
+}
+
+.subtaskEdit:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none;
+  border-bottom: 1px solid #29abe2;
+}
+
+.subtaskEditWrapper {
+  display: flex;
+  align-items: center;
 }
 
 .addTaskButtonRequiredAlignment {
@@ -394,16 +447,3 @@ label.contactSelected:hover #contactChecked {
   background-color: #7ae229;
   color: #ffffff;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
