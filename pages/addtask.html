@@ -122,8 +122,8 @@
                 <div class="addTaskButtonRequiredAlignment">
                     <div><span class="requiredStar">*</span>This field is required</div>
                     <div class="addTaskConfirmAlignment">
-                        <button class="addTaskButtonClear">Clear</button>
-                        <button type="submit" class="addTaskButtonCreateTask">Create Task</button>
+                        <button type="button" class="addTaskButtonClear" onclick="clearAll()">Clear</button>
+                        <button type="submit" class="addTaskButtonCreateTask" onclick="saveNewTask(event)">Create Task</button>
                     </div>
                 </div>
             </form>

@@ -354,9 +354,8 @@ function confirmSubtaskEntry() {
 
   document.getElementById("addTaskSubtaskList").classList.remove("d_none");
 
-  document.getElementById(
-    "addTaskSubtaskList"
-  ).innerHTML += confirmSubtaskEntryHTML(value);
+  document.getElementById("addTaskSubtaskList").innerHTML +=
+    confirmSubtaskEntryHTML(value);
 
   input.value = "";
   document.getElementById("addTaskSubtaskConfirm").classList.add("d_none");
@@ -383,7 +382,7 @@ function editSubtask(element) {
 
 /** Deleted the entered subtask under the input field */
 function trashSubtask(iconElement) {
-  let wrapper = iconElement.closest('.subtaskEditWrapper');
+  let wrapper = iconElement.closest(".subtaskEditWrapper");
   if (wrapper) wrapper.remove();
 }
 
@@ -398,7 +397,115 @@ function saveSubtask(iconElement) {
   wrapper.outerHTML = createSubtaskHTML(value);
 }
 
+/** Deletes all entries on the page */
+function clearAll() {
+  document.getElementById("addTaskSubtaskList").classList.add("d_none");
+  document.getElementById("addTaskSubtaskList").innerHTML = "";
+  document.getElementById("addTaskCategory").value = "";
+
+  document.getElementById("urgent").classList.remove("urgent");
+  document.getElementById("medium").classList.remove("medium");
+  document.getElementById("low").classList.remove("low");
+
+  document.getElementById("addTaskDate").value = "";
+  document.getElementById("addTaskDescription").value = "";
+  document.getElementById("addTaskTitle").value = "";
+
+  deletesContacts();
+}
+
+/** Deletes selected  */
+function deletesContacts() {
+  for (let label of document.getElementById("addTaskContactDropDown").getElementsByTagName("label")) {
+    label.classList.remove("contactSelected");
+  }
+
+  let container = document.getElementById("addTaskContaktsSelected");
+  let spans = container.getElementsByTagName("span");
+
+  for (let i = spans.length - 1; i >= 0; i--) {
+    spans[i].remove();
+  }
+
+  container.style.display = "none";
+}
 
 
 
 
+function getTaskInformation() {
+  let title = document.getElementById("addTaskTitle").value;
+  let description = document.getElementById("addTaskDescription").value;
+  let duedate = document.getElementById("addTaskDate").value;
+  let category = document.getElementById("addTaskCategory").value;
+  let priority = 1;
+
+  // Angenommen, Assigned sind Checkboxen oder Inputs mit name="contacts"
+  let assignedElements = document.querySelectorAll('input[name="contacts"]:checked');
+  let assigned = Array.from(assignedElements).map(el => el.value);
+
+  // Subtasks dynamisch aus z.B. Inputs mit class="subtaskInput"
+  let subtaskInputs = document.querySelectorAll(".subtaskInput");
+  let subtasks = {};
+  subtaskInputs.forEach((input, index) => {
+    if (input.value.trim() !== "") {
+      subtasks["task" + (index + 1)] = { name: input.value.trim(), done: false };
+    }
+  });
+
+  return { title, description, duedate, category, priority, assigned, subtasks };
+}
+
+async function saveNewTask(event) {
+  event.preventDefault();
+
+  // Task-Daten aus Formular holen
+  let { title, description, duedate, category, priority, assigned, subtasks } = getTaskInformation();
+
+  // Beispiel: Prüfe, ob Titel gesetzt ist (kannst weitere Validierungen ergänzen)
+  if (!title || title.trim() === "") {
+    alert("Bitte gib einen Titel ein!");
+    return;
+  }
+
+  // Erstelle das neue Task-Objekt
+  const newTask = { title, description, duedate, category, priority, assigned, subtasks };
+   console.log("Speichere neuen Task:", newTask);
+
+  // Lade in die API (loadIntoAPI muss deine Funktion zum Speichern sein)
+  await loadIntoAPI(newTask);
+
+  // Formular zurücksetzen (du kannst deine eigene Reset-Funktion nutzen)
+  /*resetTaskForm();
+
+  // Erfolgsmeldung anzeigen
+  successSaveTask();*/
+}
+
+/** Loads task data into the API */
+async function loadIntoAPI(newTask) {
+  // hole die letzte Task-ID aus der API
+  let lastIdRes = await fetch(`${BASE_URL}/tasks/lastTaskId.json`);
+  let lastId = parseInt(await lastIdRes.json()) || 0;
+
+  let nextId = lastId + 1;
+  let newTaskKey = `task${nextId}`;
+
+  // speichere den neuen Task unter dem neuen Key
+  await fetch(`${BASE_URL}/tasks/${newTaskKey}.json`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newTask)
+  });
+
+  // aktualisiere lastTaskId in der API
+  await fetch(`${BASE_URL}/tasks/lastTaskId.json`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(nextId)
+  });
+}
