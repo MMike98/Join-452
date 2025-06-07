@@ -1,5 +1,6 @@
 let selected = [];
 let globalContacts = [];
+let selectedPriority = null;
 
 /** Init data*/
 function init() {
@@ -59,21 +60,18 @@ function required(event) {
 function activate(priority) {
   let priorities = ["urgent", "medium", "low"];
 
-  priorities.forEach((prio) => {
+  priorities.forEach(prio => {
     let button = document.getElementById(prio);
     let notActiveImg = document.getElementById(prio + "NotActive");
     let activeImg = document.getElementById(prio + "Active");
+    let isActive = prio === priority;
 
-    notActiveImg.classList.remove("d_none");
-    activeImg.classList.add("d_none");
-    button.classList.remove(prio);
-
-    if (prio === priority) {
-      notActiveImg.classList.add("d_none");
-      activeImg.classList.remove("d_none");
-      button.classList.add(prio);
-    }
+    notActiveImg.classList.toggle("d_none", isActive);
+    activeImg.classList.toggle("d_none", !isActive);
+    button.classList.toggle(prio, isActive);
   });
+
+  selectedPriority = priority;
 }
 
 /** Toggles the visibility of the dropdown menu for category and contacts */
@@ -90,10 +88,9 @@ function toggleDropdownById(dropdownId) {
   }
 }
 
-/** Rotates the arrow in the dropdown when the menu is open */
+/** Rotates the arrow in the dropdown, when the menu is open */
 function toggleDropdownInputArrow(dropdownId, isOpen) {
-  let inputId =
-    dropdownId === "contacts" ? "addTaskContacts" : "addTaskCategory";
+  let inputId = dropdownId === "contacts" ? "addTaskContacts" : "addTaskCategory";
   let input = document.getElementById(inputId);
   input.classList.toggle("open", isOpen);
 }
@@ -101,24 +98,30 @@ function toggleDropdownInputArrow(dropdownId, isOpen) {
 /** Closes all dropdowns when clicking somewhere else outside the menu */
 window.onclick = function (event) {
   let dropdowns = [
-    { inputId: "addTaskContacts", wrapperId: "contacts" },
-    { inputId: "addTaskCategory", wrapperId: "category" },
+    {inputId: "addTaskContacts", wrapperId: "contacts", labelFor: "addTaskContacts",},
+    {inputId: "addTaskCategory", wrapperId: "category", labelFor: "addTaskCategory",
+    },
   ];
 
-  dropdowns.forEach(({ inputId, wrapperId }) => {
+  dropdowns.forEach(({ inputId, wrapperId, labelFor }) => {
     let input = document.getElementById(inputId);
     let wrapper = document.getElementById(wrapperId);
+    let label = document.querySelector(`label[for="${labelFor}"]`);
 
-    if (
-      input &&
-      wrapper &&
-      !input.contains(event.target) &&
-      !wrapper.contains(event.target)
-    ) {
-      wrapper.classList.add("d_none");
-      input.classList.remove("open");
+    let clickedInside = input?.contains(event.target) || wrapper?.contains(event.target);
 
-      if (wrapperId === "contacts") {
+    let clickedOnLabel = label?.contains(event.target);
+
+    if (input && wrapper) {
+      if (!clickedInside && !clickedOnLabel) {
+        wrapper.classList.add("d_none");
+        input.classList.remove("open");
+
+        if (wrapperId === "contacts") {
+          toggleSelectedContactsDiv();
+          renderSelectedContactCircles(globalContacts);
+        }
+      } else if (clickedOnLabel && wrapperId === "contacts") {
         toggleSelectedContactsDiv();
         renderSelectedContactCircles(globalContacts);
       }
@@ -138,9 +141,7 @@ async function loadContactsIntoDropdown() {
 function createLabel(contact, index) {
   let label = document.createElement("label");
   label.id = `contactLabel-${index}`;
-  label.innerHTML = `<div id="contactChecked"><span class="circle">${getInitials(
-    contact.name
-  )}</span>${contact.name}</div>`;
+  label.innerHTML = `<div id="contactChecked"><span class="circle">${getInitials(contact.name)}</span>${contact.name}</div>`;
   return label;
 }
 
@@ -230,13 +231,22 @@ function filterContacts() {
   let dropdown = document.getElementById("addTaskContactDropDown");
   let labels = dropdown.getElementsByTagName("label");
 
+  let hasVisible = false;
   for (let i = 0; i < labels.length; i++) {
-    let name = labels[i].textContent.toLowerCase();
+    let label = labels[i];
+    let name = label.textContent.toLowerCase();
+
     if (name.includes(filterText)) {
-      labels[i].classList.remove("d_none");
+      label.classList.remove("d_none");
+      hasVisible = true;
     } else {
-      labels[i].classList.add("d_none");
+      label.classList.add("d_none");
     }
+  }
+
+  let contactsDiv = document.getElementById("contacts");
+  if (contactsDiv) {
+    contactsDiv.classList.toggle("d_none", !hasVisible);
   }
 }
 
@@ -262,10 +272,10 @@ async function loadCategoriesIntoDropdown() {
 /** Create a label element for a single category task */
 function createCategoryLabel(task, inputField) {
   let label = document.createElement("label");
-  label.innerHTML = `<div>${task.title}</div>`;
+  label.innerHTML = `<div>${task.category}</div>`;
 
   label.addEventListener("click", () => {
-    inputField.value = task.title;
+    inputField.value = task.category;
     closeCategoryDropdown();
   });
 
@@ -284,9 +294,13 @@ function createCategoryLabels(tasks) {
 
   clearDropdown(dropdown);
 
+  let displayedCategories = new Set();
+
   for (let key in tasks) {
     let task = tasks[key];
-    if (task.title) {
+    if (task.title && !displayedCategories.has(task.category)) {
+      displayedCategories.add(task.category);
+
       let label = createCategoryLabel(task, inputField);
       dropdown.appendChild(label);
     }
@@ -354,8 +368,7 @@ function confirmSubtaskEntry() {
 
   document.getElementById("addTaskSubtaskList").classList.remove("d_none");
 
-  document.getElementById("addTaskSubtaskList").innerHTML +=
-    confirmSubtaskEntryHTML(value);
+  document.getElementById("addTaskSubtaskList").innerHTML += confirmSubtaskEntryHTML(value);
 
   input.value = "";
   document.getElementById("addTaskSubtaskConfirm").classList.add("d_none");
@@ -414,7 +427,7 @@ function clearAll() {
   deletesContacts();
 }
 
-/** Deletes selected  */
+/** Deletes selected contacts */
 function deletesContacts() {
   for (let label of document.getElementById("addTaskContactDropDown").getElementsByTagName("label")) {
     label.classList.remove("contactSelected");
@@ -430,82 +443,88 @@ function deletesContacts() {
   container.style.display = "none";
 }
 
-
-
-
+/** Gets entered information */
 function getTaskInformation() {
   let title = document.getElementById("addTaskTitle").value;
   let description = document.getElementById("addTaskDescription").value;
   let duedate = document.getElementById("addTaskDate").value;
   let category = document.getElementById("addTaskCategory").value;
-  let priority = 1;
 
-  // Angenommen, Assigned sind Checkboxen oder Inputs mit name="contacts"
-  let assignedElements = document.querySelectorAll('input[name="contacts"]:checked');
-  let assigned = Array.from(assignedElements).map(el => el.value);
+  let priority = selectedPriority ? selectedPriority.charAt(0).toUpperCase() + selectedPriority.slice(1) : "";
 
-  // Subtasks dynamisch aus z.B. Inputs mit class="subtaskInput"
-  let subtaskInputs = document.querySelectorAll(".subtaskInput");
-  let subtasks = {};
-  subtaskInputs.forEach((input, index) => {
-    if (input.value.trim() !== "") {
-      subtasks["task" + (index + 1)] = { name: input.value.trim(), done: false };
-    }
-  });
+  let assigned = getTaskContactsInformation();
+  let subtasks = getTaskSubtaskInformation();
 
-  return { title, description, duedate, category, priority, assigned, subtasks };
+  return {title, description, duedate, category, priority, assigned, subtasks,};
 }
 
+/** Gets selected contacts */
+function getTaskContactsInformation() {
+  let assigned = [];
+  let keys = Object.keys(globalContacts);
+
+  for (let i = 0; i < keys.length; i++) {
+    if (selected[i] == 1) {
+      let contact = globalContacts[keys[i]];
+      assigned.push(contact.name);
+    }
+  }
+  return assigned;
+}
+
+/** Gets entered subtasks */
+function getTaskSubtaskInformation() {
+  let subtaskListElement = document.getElementById("addTaskSubtaskList");
+  let subtasks = [];
+
+  for (let i = 0; i < subtaskListElement.children.length; i++) {
+    let li = subtaskListElement.children[i];
+    let text = li.textContent.replace(/^[•\.\-\*\s]+/, "").trim();
+    subtasks.push(text);
+  }
+
+  return subtasks;
+}
+
+/** Saves new task */
 async function saveNewTask(event) {
   event.preventDefault();
 
-  // Task-Daten aus Formular holen
-  let { title, description, duedate, category, priority, assigned, subtasks } = getTaskInformation();
+  let { title, description, duedate, category, priority, assigned, subtasks } =
+    getTaskInformation();
 
-  // Beispiel: Prüfe, ob Titel gesetzt ist (kannst weitere Validierungen ergänzen)
-  if (!title || title.trim() === "") {
-    alert("Bitte gib einen Titel ein!");
+  if (!required(event)) {
     return;
   }
 
-  // Erstelle das neue Task-Objekt
-  const newTask = { title, description, duedate, category, priority, assigned, subtasks };
-   console.log("Speichere neuen Task:", newTask);
+  const newTask = {title, description, duedate, category, priority, assigned, subtasks,};
 
-  // Lade in die API (loadIntoAPI muss deine Funktion zum Speichern sein)
-  await loadIntoAPI(newTask);
+  await loadTaskIntoAPI(newTask);
 
-  // Formular zurücksetzen (du kannst deine eigene Reset-Funktion nutzen)
-  /*resetTaskForm();
+  clearAll();
 
-  // Erfolgsmeldung anzeigen
-  successSaveTask();*/
+  document.getElementById("addTaskSuccessful").classList.remove("d_none");
+
+  setTimeout(() => {
+    window.location.href = "./board.html";
+  }, 1000);
 }
 
 /** Loads task data into the API */
-async function loadIntoAPI(newTask) {
-  // hole die letzte Task-ID aus der API
+async function loadTaskIntoAPI(newTask) {
   let lastIdRes = await fetch(`${BASE_URL}/tasks/lastTaskId.json`);
   let lastId = parseInt(await lastIdRes.json()) || 0;
 
   let nextId = lastId + 1;
   let newTaskKey = `task${nextId}`;
 
-  // speichere den neuen Task unter dem neuen Key
   await fetch(`${BASE_URL}/tasks/${newTaskKey}.json`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(newTask)
+    body: JSON.stringify(newTask),
   });
 
-  // aktualisiere lastTaskId in der API
   await fetch(`${BASE_URL}/tasks/lastTaskId.json`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(nextId)
+    body: JSON.stringify(nextId),
   });
 }

@@ -36,5 +36,3 @@ function createSubtaskHTML(value) {
     </li>
   `;
 }
-
-
