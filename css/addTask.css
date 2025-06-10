@@ -167,22 +167,6 @@ textarea {
   color: black;
 }
 
-.circle {
-  width: 38px;
-  height: 38px;
-  display: inline-block;
-  background-color: #ff3d00;
-  border-radius: 50%;
-  margin-right: 25px;
-  border: white solid 2px;
-  color: white;
-  font-size: 12px;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 label.contactSelected {
   background: #2a3647;
   border: 1px solid white;

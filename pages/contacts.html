@@ -10,13 +10,15 @@
 
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../css/navbar&header.css">
+    <link rel="stylesheet" href="../css/contacts.css">
 
     <script src="../script.js"></script>
     <script src="../scripts/header.js"></script>
     <script src="../scripts/template.js"></script>
+    <script src="../scripts/contacts.js"></script>
 </head>
 
-<body class="bodyAddTask" onload="showUserInitial()">
+<body class="bodyAddTask" onload="showUserInitial(), renderContacts()">
     <header>
         <p>Kanban Project Management Tool</p>
         <div class="header-profile-div">
@@ -35,16 +37,32 @@
                 <div class="nav-bar-logo"><img src="../assets/icons/Capa 1.svg" alt="JoinIcon"></div>
             </div>
             <div class="nav-bar-body">
-                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg" alt="Summary">Summary</a>
-                <a href="./addtask.html" class="nav-bar-button"><img src="../assets/icons/AddTask.svg" alt="Add Task">Add Task</a>
+                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg"
+                        alt="Summary">Summary</a>
+                <a href="./addtask.html" class="nav-bar-button"><img src="../assets/icons/AddTask.svg"
+                        alt="Add Task">Add Task</a>
                 <a href="./board.html" class="nav-bar-button"><img src="../assets/icons/Board.svg" alt="Board">Board</a>
-                <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg" alt="Contacts">Contacts</a>
+                <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg"
+                        alt="Contacts">Contacts</a>
             </div>
             <div class="nav-bar-footer">
-                <a href="./PrivacyPolicy.html"><p>Privacy Policy</p></a>
-                <a href="./legalnotice.html"><p>Legal Notice</p></a>
+                <a href="./PrivacyPolicy.html">
+                    <p>Privacy Policy</p>
+                </a>
+                <a href="./legalnotice.html">
+                    <p>Legal Notice</p>
+                </a>
             </div>
         </section>
+        <div class="contactsList">
+            <div class="contactsAddButtonContainer">
+                <button class="contactsAddButtonAlignment">
+                    <span>Add new contact</span>
+                    <img src="../assets/icons/person_add.svg" alt="addPerson" class="contactsImage">
+                </button>
+            </div>
+            <div class="contacts" id="contacts"></div>
+        </div>
     </main>
 
 

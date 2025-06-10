@@ -1,5 +1,16 @@
-const BASE_URL =
-  "https://join-gruppenarbeit-a540b-default-rtdb.europe-west1.firebasedatabase.app";
+const BASE_URL = "https://join-gruppenarbeit-a540b-default-rtdb.europe-west1.firebasedatabase.app";
+
+let circleColors = [
+  "#FF7A00",
+  "#9327FF",
+  "#6E52FF",
+  "#FC71FF",
+  "#FFBB2B",
+  "#1FD7C1",
+  "#462F8A",
+  "#FF4646",
+  "#00BEE8",
+];
 
 /** Fetches a user from Firebase by email */
 async function getUserByEmail(email) {

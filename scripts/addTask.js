@@ -139,9 +139,11 @@ async function loadContactsIntoDropdown() {
 
 /** Creates a label element for a contact with a given index */
 function createLabel(contact, index) {
+  let color = circleColors[index % circleColors.length];
+
   let label = document.createElement("label");
   label.id = `contactLabel-${index}`;
-  label.innerHTML = `<div id="contactChecked"><span class="circle">${getInitials(contact.name)}</span>${contact.name}</div>`;
+  label.innerHTML = `<div id="contactChecked"><span class="circle" style="background-color: ${color};">${getInitials(contact.name)}</span>${contact.name}</div>`;
   return label;
 }
 
@@ -214,9 +216,12 @@ function renderSelectedContactCircles(contacts) {
   for (let key in contacts) {
     const contact = contacts[key];
     if (contact.name && selected[index] === 1) {
+      let color = circleColors[index % circleColors.length];
+      
       let circle = document.createElement("span");
       circle.className = "circle";
       circle.textContent = getInitials(contact.name);
+      circle.style.backgroundColor = color;
       container.appendChild(circle);
     }
     index++;
