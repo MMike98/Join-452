@@ -201,6 +201,173 @@
     justify-content: space-between;
 }
 
+.overlay {
+  position: absolute;
+  background-color: white;
+  top: calc(50% - 297px);
+  left: calc(50% - 600px);
+  width: 1200px;
+  height: 594px;
+  border-radius: 16px;
+  display: flex;
+}
 
+.overlayBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 
+.overlayGrey {
+  width: calc(467px - 48px - 48px);
+  height: calc(100% - 66px - 66px);
+  background-color: #2A3647;
+  border-radius: 16px 0 0 16px;
+  padding: 66px 48px;
+  align-content: center;
+}
+
+.overlayGreyContent {
+  height: 129px;
+  width: 371px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.overlayGreyContentText {
+  font-size: 27px;
+}
+
+.overlayGreyContentLine {
+  width: 90px;
+  height: 3px;
+  background-color: #29ABE2;
+}
+
+.overlayGreyLogo {
+  position: absolute;
+  top: 160px; 
+}
+
+.overlayWhite {
+  padding: 66px 48px;
+  display: flex;
+  align-items: center;
+  width: calc(1200px - 371px);
+  justify-content: right;
+}
+
+.overlayWhiteInput {
+  height: calc(215px + 50px + 20px);
+  width: 422px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.overlayWhiteInput input {
+  padding: 13px 21px;
+  width: calc(422px - 22px - 22px);
+  height: calc(50px - 14px - 14px);
+}
+
+#addContactName {
+  background: url(../assets/icons/person.svg) no-repeat;
+  background-size: 24px;
+  background-position: 379px;
+}
+
+#addContactMail {
+  background: url(../assets/icons/mail.svg) no-repeat;
+  background-size: 24px;
+  background-position: 379px;
+}
+
+#addContactPhone {
+  background: url(../assets/icons/phone.svg) no-repeat;
+  background-size: 24px;
+  background-position: 379px;
+}
+
+.overlayWhiteButtons {
+  padding-top: 20px;
+  display: flex;
+  width: 364px;
+  justify-content: space-between;
+}
+
+.bottonWhite {
+  width: 126px;
+  height: 56px;
+  background-color: white;
+  color: #2A3647;
+  font-size: 20px;
+  border: solid 1px #2A3647;
+  display: flex;
+  align-content: center;
+  gap: 4px;
+  padding: 16px;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right 15px center;
+  justify-content: left;
+  background-size: 25px;
+}
+
+.bottonWhite:hover {
+  border: 2px solid #29abe2;
+  color: #29abe2;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat right 14px center;
+  background-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  transition: 0s;
+}
+
+.bottomGrey {
+  height: 56px;
+  width: 214px;
+  font-size: 21px;
+  gap: 4px;
+  display: flex;
+  align-content: center;
+  padding: 16px;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  font-weight: 700px;
+}
+
+.overlayClose {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 48px;
+}
+
+.overlayClose:hover {
+  cursor: pointer;
+  background-color: #EEEEEE;
+  border-radius: 50%;
+}
+
+.overlayWhitePicture {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  top: 204px;
+  left: 550px
+}
 

@@ -57,7 +57,7 @@
         <div class="contactsAlignment">
             <div class="contactsList">
                 <div class="contactsAddButtonContainer">
-                    <button class="contactsAddButtonAlignment">
+                    <button class="contactsAddButtonAlignment" onclick="addNewContact()">
                         <span>Add new contact</span>
                         <img src="../assets/icons/person_add.svg" alt="addPerson" class="contactsImage">
                     </button>
@@ -74,6 +74,34 @@
             </div>
         </div>
     </main>
+    <div id="contactAdd" class="d_none overlayBackground" onclick="closeOverlay(event)">
+        <div class="overlay" onclick="event.stopPropagation()">
+            <div class="overlayGrey">
+                <img class="overlayGreyLogo" src="../assets/icons/joinLogoOverlay.svg" alt="Join Logo">
+                <div class="overlayGreyContent">
+                    <h1>Add contact</h1>
+                    <span class="overlayGreyContentText">Tasks are better with a team!</span>
+                    <div class="overlayGreyContentLine"></div>
+                </div>
+            </div>
+            <div class="overlayWhite">
+                <img class="overlayClose" src="../assets/icons/cross.svg" alt="close" onclick="closeOverlay()">
+                <img class="overlayWhitePicture" src="../assets/icons/picture.svg" alt="avatar">
+                <div class="overlayWhiteInput">
+                    <input type="text" id="addContactName" placeholder="Name">
+                    <input type="text" id="addContactMail" placeholder="Email">
+                    <input type="text" id="addContactPhone" placeholder="Phone">
+                    <div class="overlayWhiteButtons">
+                        <button class="bottonWhite">Cancel</button>
+                        <button class="bottomGrey">
+                            <span>Create contact</span>
+                            <img src="../assets/icons/check.svg" alt="check">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

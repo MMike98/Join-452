@@ -76,6 +76,16 @@ function removeContactHighlights() {
   }
 }
 
+/** Adds a new contact */
+function addNewContact() {
+  document.getElementById("contactAdd").classList.remove("d_none");
+}
+
+/** Close overay */
+function closeOverlay() {
+  document.getElementById("contactAdd").classList.add("d_none");
+}
+
 
 
 function contactsHTML(contact, index, color) {
