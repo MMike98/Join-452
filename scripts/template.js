@@ -1,6 +1,6 @@
 // SCRIPT FOR NAVIGATION BAR AND HEADER //*css*/`
 /**
- * @param {MouseEvent} event - Das Klick-Ereignis, ausgelöst durch den Benutzer.
+ * @param {MouseEvent} event - Das Klick-Ereignis, ausgelöst durch den User.
  */
 function buttonActive(event) {
  event.preventDefault();
