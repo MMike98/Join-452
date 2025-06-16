@@ -502,7 +502,7 @@ async function saveNewTask(event) {
     return;
   }
 
-  const newTask = {title, description, duedate, category, priority, assigned, subtasks,};
+  let newTask = {title, description, duedate, category, priority, assigned, subtasks,};
 
   await loadTaskIntoAPI(newTask);
 

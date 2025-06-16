@@ -4,7 +4,8 @@ let activeContactIndex = null;
 /** Render contacts */
 async function renderContacts() {
   let contactsObj = await fetchContacts();
-  contacts = Object.values(contactsObj);
+
+  contacts = Object.entries(contactsObj).filter(([key]) => key.startsWith("contact")).map(([, value]) => value);
 
   contacts.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -52,7 +53,10 @@ function toggleContactDetails(index) {
 
 /** Displays contact details */
 function renderContactDetails(contact, color) {
-  document.getElementById("contactSelected").innerHTML = contactDetailsHTML(contact, color);
+  document.getElementById("contactSelected").innerHTML = contactDetailsHTML(
+    contact,
+    color
+  );
 }
 
 /** Removes contact details */
@@ -78,13 +82,75 @@ function removeContactHighlights() {
 
 /** Adds a new contact */
 function addNewContact() {
-  document.getElementById("contactAdd").classList.remove("d_none");
+  document.getElementById("contactAdd").classList.add("open");
 }
 
 /** Close overay */
 function closeOverlay() {
-  document.getElementById("contactAdd").classList.add("d_none");
+  document.getElementById("contactAdd").classList.remove("open");
 }
+
+/** Saves an new contact */
+async function saveNewContact(event) {
+  event.preventDefault();
+  let form = event.target.closest("form");
+  if (!form.checkValidity()) return form.reportValidity();
+
+  let newContact = getContactInformation();
+  await loadContactIntoAPI(newContact);
+  await renderContacts();
+
+  let newIndex = contacts.findIndex(c => c.name === newContact.name);
+
+  closeOverlay();
+  if (newIndex !== -1) toggleContactDetails(newIndex);
+
+  showSuccessMessage();
+  form.reset();
+}
+
+/** Gets entered contact */
+function getContactInformation() {
+  let name = document.getElementById("addContactName").value;
+  let email = document.getElementById("addContactMail").value;
+  let phonenumber = document.getElementById("addContactPhone").value;
+
+  return { name, email, phonenumber };
+}
+
+/** Loads contact into the API */
+async function loadContactIntoAPI(newContact) {
+  let lastIdRes = await fetch(`${BASE_URL}/contacts/lastContactId.json`);
+  let lastId = parseInt(await lastIdRes.json()) || 0;
+
+  let nextId = lastId + 1;
+  let newContactKey = `contact${nextId}`;
+
+  await fetch(`${BASE_URL}/contacts/${newContactKey}.json`, {
+    method: "PUT",
+    body: JSON.stringify(newContact),
+  });
+
+  await fetch(`${BASE_URL}/contacts/lastContactId.json`, {
+    method: "PUT",
+    body: JSON.stringify(nextId),
+  });
+}
+
+/** Displayes a message, when the submission of a contact was successful */
+function showSuccessMessage() {
+  let successDiv = document.getElementById('contactSuccessfull');
+  successDiv.classList.add('active');
+
+  setTimeout(() => {
+    successDiv.classList.remove('active');
+  }, 2000);
+}
+
+
+
+
+
 
 
 
