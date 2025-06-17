@@ -166,39 +166,62 @@
 .contactSelectedIcon {
   display: flex;
   align-items: center;
-  gap: 5px;
+  justify-content: right;
+}
+
+.contactSelectedIcon:hover {
+  color: #29abe2;
+  cursor: pointer;
+}
+
+#edit {
+  background: url(../assets/icons/edit.svg) no-repeat center left;
+  width: 62px;
+}
+
+#edit:hover {
+  background: url(../assets/icons/edit_hover.svg) no-repeat center left;
+}
+
+#delete {
+  background: url(../assets/icons/delete.svg) no-repeat center left;
+  width: 81px;
+}
+
+#delete:hover {
+  background: url(../assets/icons/delete_hover.svg) no-repeat center left;
 }
 
 .contactsSelectedNameIcons {
-    height: 88px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+  height: 88px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .contactSelectedInformation {
-    font-size: 20px;
-    height: 74px;
-    display: flex;
-    align-items: center;
+  font-size: 20px;
+  height: 74px;
+  display: flex;
+  align-items: center;
 }
 
 .bold {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .contactSelectedInfos {
-    height: 128px;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
+  height: 128px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
 .contactSelectedInfosAlignment {
-    height: 53px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  height: 53px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .overlay {
@@ -242,7 +265,7 @@
 .overlayGrey {
   width: calc(467px - 48px - 48px);
   height: calc(100% - 66px - 66px);
-  background-color: #2A3647;
+  background-color: #2a3647;
   border-radius: 16px 0 0 16px;
   padding: 66px 48px;
   align-content: center;
@@ -264,12 +287,12 @@
 .overlayGreyContentLine {
   width: 90px;
   height: 3px;
-  background-color: #29ABE2;
+  background-color: #29abe2;
 }
 
 .overlayGreyLogo {
   position: absolute;
-  top: 160px; 
+  top: 160px;
 }
 
 .overlayWhite {
@@ -312,6 +335,24 @@
   background-position: 379px;
 }
 
+#editContactName {
+  background: url(../assets/icons/person.svg) no-repeat;
+  background-size: 24px;
+  background-position: 379px;
+}
+
+#editContactMail {
+  background: url(../assets/icons/mail.svg) no-repeat;
+  background-size: 24px;
+  background-position: 379px;
+}
+
+#editContactPhone {
+  background: url(../assets/icons/phone.svg) no-repeat;
+  background-size: 24px;
+  background-position: 379px;
+}
+
 .overlayWhiteButtons {
   padding-top: 20px;
   display: flex;
@@ -319,18 +360,26 @@
   justify-content: space-between;
 }
 
+.overlayWhiteButtonsEdit {
+  padding-top: 20px;
+  display: flex;
+  width: 249px;
+  justify-content: space-between;
+}
+
 .bottonWhite {
   width: 126px;
   height: 56px;
   background-color: white;
-  color: #2A3647;
+  color: #2a3647;
   font-size: 20px;
-  border: solid 1px #2A3647;
+  border: solid 1px #2a3647;
   display: flex;
   align-content: center;
   gap: 4px;
   padding: 16px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right 15px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right
+    15px center;
   justify-content: left;
   background-size: 25px;
 }
@@ -340,7 +389,8 @@
   color: #29abe2;
   padding-left: 15px;
   padding-bottom: 15px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat right 14px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat
+    right 14px center;
   background-size: 25px;
   display: flex;
   align-items: center;
@@ -350,9 +400,54 @@
   transition: 0s;
 }
 
+.bottonWhiteDelete {
+  width: 113px;
+  height: 56px;
+  background-color: white;
+  color: #2a3647;
+  font-size: 20px;
+  border: solid 1px #2a3647;
+  display: flex;
+  align-content: center;
+  gap: 4px;
+  padding: 16px;
+  background: #f6f7f8;
+  justify-content: center;
+  background-size: 25px;
+}
+
+.bottonWhiteDelete:hover {
+  border: 2px solid #29abe2;
+  color: #29abe2;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  background: #f6f7f8;
+  background-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  transition: 0s;
+}
+
 .bottomGrey {
   height: 56px;
   width: 214px;
+  font-size: 21px;
+  gap: 4px;
+  display: flex;
+  align-content: center;
+  padding: 16px;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  font-weight: 700px;
+}
+
+.bottomGreyDelete {
+  height: 56px;
+  width: 111px;
   font-size: 21px;
   gap: 4px;
   display: flex;
@@ -373,7 +468,7 @@
 
 .overlayClose:hover {
   cursor: pointer;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   border-radius: 50%;
 }
 
@@ -382,7 +477,7 @@
   height: 120px;
   position: absolute;
   top: 204px;
-  left: 550px
+  left: 550px;
 }
 
 .contactAddSucessful {
@@ -391,7 +486,7 @@
   left: 50%;
   width: 326px;
   height: 74px;
-  background-color: #2A3647;
+  background-color: #2a3647;
   border-radius: 20px;
   color: white;
   font-size: 20px;
@@ -411,5 +506,3 @@
   pointer-events: auto;
   transform: translate(-50%, 0) translateX(0);
 }
-
-
