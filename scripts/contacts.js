@@ -3,7 +3,7 @@ let activeContactIndex = null;
 let contactKeys = [];
 let editContactIndex = null;
 
-/** Render contacts */
+/** Renders contacts in the list on the left side and sorts them alphabetically*/
 async function renderContacts() {
   let contactsObj = await fetchContacts();
 
@@ -17,7 +17,7 @@ async function renderContacts() {
   document.getElementById("contacts").innerHTML = html;
 }
 
-/** Generates the HTML and the seperator */
+/** Generates the HTML and the seperator in order to display all information in the list on the left side */
 function generateContactListHTML(contacts) {
   let html = "";
   let currentLetter = "";
@@ -37,9 +37,9 @@ function generateContactListHTML(contacts) {
   return html;
 }
 
-/** Toggles contact details */
-function toggleContactDetails(index) {
-  if (activeContactIndex === index) {
+/** Toggles contact details: If a contact is clicked, the details are shown on the right side. If it is clicked again, the information vanishes. */
+function toggleContactDetails(index, forceOpen = false) {
+  if (!forceOpen && activeContactIndex === index) {
     clearContactDetails();
     removeContactHighlights();
     activeContactIndex = null;
@@ -57,11 +57,7 @@ function toggleContactDetails(index) {
 
 /** Displays contact details */
 function renderContactDetails(contact, color, index) {
-  document.getElementById("contactSelected").innerHTML = contactDetailsHTML(
-    contact,
-    color,
-    index
-  );
+  document.getElementById("contactSelected").innerHTML = contactDetailsHTML(contact, color, index);
 }
 
 /** Removes contact details */
@@ -77,7 +73,7 @@ function highlightSelectedContact(index) {
   }
 }
 
-/** Removes the selected contact in the list */
+/** Removes the highlighting from the selected contact in the list. */
 function removeContactHighlights() {
   let allEntries = document.getElementsByClassName("contactEntry");
   for (let entry of allEntries) {
@@ -109,7 +105,7 @@ async function saveNewContact(event) {
   await loadContactIntoAPI(newContact);
   await renderContacts();
 
-  let newIndex = contacts.findIndex(c => c.name === newContact.name);
+  let newIndex = contacts.findIndex((c) => c.name === newContact.name);
 
   closeOverlay();
   if (newIndex !== -1) toggleContactDetails(newIndex);
@@ -118,7 +114,7 @@ async function saveNewContact(event) {
   form.reset();
 }
 
-/** Gets entered contact */
+/** Gets entered information of a new contact */
 function getContactInformation() {
   let name = document.getElementById("addContactName").value;
   let email = document.getElementById("addContactMail").value;
@@ -127,7 +123,7 @@ function getContactInformation() {
   return { name, email, phonenumber };
 }
 
-/** Loads contact into the API */
+/** Loads new contact into the API */
 async function loadContactIntoAPI(newContact) {
   let lastIdRes = await fetch(`${BASE_URL}/contacts/lastContactId.json`);
   let lastId = parseInt(await lastIdRes.json()) || 0;
@@ -146,17 +142,17 @@ async function loadContactIntoAPI(newContact) {
   });
 }
 
-/** Displayes a message, when the submission of a contact was successful */
+/** Displayes a message, when the submission of a new contact was successful */
 function showSuccessMessage() {
-  let successDiv = document.getElementById('contactSuccessfull');
-  successDiv.classList.add('active');
+  let successDiv = document.getElementById("contactSuccessfull");
+  successDiv.classList.add("active");
 
   setTimeout(() => {
-    successDiv.classList.remove('active');
+    successDiv.classList.remove("active");
   }, 2000);
 }
 
-/** Deleted contact trom API */
+/** Deletes contact trom API */
 async function deleteContact(index) {
   let keyToDelete = contactKeys[index];
   await fetch(`${BASE_URL}/contacts/${keyToDelete}.json`, {
@@ -171,64 +167,44 @@ async function deleteContact(index) {
   closeOverlay();
 }
 
-/** Edit Contact*/
-function editContact(index) {
-editContactIndex = index;
-document.getElementById("contactEdit").classList.add("open");
+/** Edits an existing contact*/
+function editContact(index, color) {
+  editContactIndex = index;
+  document.getElementById("contactEdit").classList.add("open");
 
-let contact = contacts[index];
-  if(contact){
+  let contact = contacts[index];
+  color = color || circleColors[index % circleColors.length];
+
+  if (contact) {
     document.getElementById("editContactName").value = contact.name;
     document.getElementById("editContactMail").value = contact.email;
     document.getElementById("editContactPhone").value = contact.phonenumber;
   }
+  renderEditAvatar(contact, color);
 }
 
-function contactsHTML(contact, index, color) {
-  return `
-    <div id="contact${index}" class="contactEntry" onclick="toggleContactDetails(${index})">
-      <span class="circle circleGap" style="background-color: ${color};">${getInitials(
-    contact.name
-  )}</span>
-      <div class="contactEntryAlignment">
-        <div class="contactEntryName">${contact.name}</div>
-        <div class="contactEntryMail">${contact.email}</div>
-      </div>
-    </div>
-  `;
+/** Renders the avatar of the selected contact in the edit overlay */
+function renderEditAvatar(contact, color) {
+  let avatarContainer = document.getElementById("editContactAvatar");
+
+  avatarContainer.innerHTML = `<span class="circle circleDetails circlePosition" style="background-color: ${color};">${getInitials(contact.name)}</span>`;
 }
 
-function seperatorHTML(currentLetter) {
-  return `
-    <div class="contactsLetterSeparator">${currentLetter}</div>
-    <div class="contactsLetterSeparatorLine"></div>
-  `;
+/** Saves the edited contact in the API*/
+async function saveEditedContact(editContactIndex) {
+  contacts[editContactIndex].name = document.getElementById("editContactName").value;
+  contacts[editContactIndex].email = document.getElementById("editContactMail").value;
+  contacts[editContactIndex].phonenumber = document.getElementById("editContactPhone").value;
+
+  let contactKey = contactKeys[editContactIndex];
+
+  await fetch(`${BASE_URL}/contacts/${contactKey}.json`, {
+    method: "PUT",
+    body: JSON.stringify(contacts[editContactIndex]),
+  });
+
+  renderContacts();
+  toggleContactDetails(editContactIndex, true);
+  closeOverlay();
 }
 
-function contactDetailsHTML(contact, color, index) {
-  return `
-    <div class="contactSelectedMain">
-      <span class="circle circleDetails" style="background-color: ${color};">${getInitials(
-    contact.name
-  )}</span>
-      <div class="contactsSelectedNameIcons">
-        <span>${contact.name}</span>
-        <div class="contactSelectedIcons">
-          <div class="contactSelectedIcon" id="edit" onclick="editContact(${index})">Edit</div>
-          <div class="contactSelectedIcon" id="delete" onclick="deleteContact(${index})">Delete</div>
-        </div>
-      </div>
-    </div>
-    <div class="contactSelectedInformation">Contact Information</div>
-    <div class="contactSelectedInfos">
-      <div class="contactSelectedInfosAlignment">
-        <span class="bold">Email</span> 
-        <span class="contactEntryMail">${contact.email}</span>
-      </div>
-      <div class="contactSelectedInfosAlignment">
-        <span class="bold">Phone</span> 
-        <span>${contact.phonenumber}</span>
-      </div>
-    </div>
-  `;
-}

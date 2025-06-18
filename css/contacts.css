@@ -378,8 +378,7 @@
   align-content: center;
   gap: 4px;
   padding: 16px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right
-    15px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right 15px center;
   justify-content: left;
   background-size: 25px;
 }
@@ -389,8 +388,7 @@
   color: #29abe2;
   padding-left: 15px;
   padding-bottom: 15px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat
-    right 14px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat right 14px center;
   background-size: 25px;
   display: flex;
   align-items: center;
@@ -505,4 +503,10 @@
   opacity: 1;
   pointer-events: auto;
   transform: translate(-50%, 0) translateX(0);
+}
+
+.circlePosition {
+  position: absolute;
+  top: 204px;
+  left: 550px;
 }
