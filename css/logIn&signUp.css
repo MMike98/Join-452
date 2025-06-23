@@ -38,8 +38,13 @@
 }
 
 @keyframes fadeOut {
-  0% { opacity: 1; }
-  100% { opacity: 0; visibility: hidden; }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 @keyframes moveLogo {
@@ -348,5 +353,58 @@
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@media (max-width: 1050px) {
+  .sectionLogInSignUp img,
+  .joinIcon img {
+    width: 64px;
+    height: 78.03px;
+    margin-top: 37px;
+  }
+}
+
+@media (max-width: 700px) {
+  h1 {
+    font-size: 47px !important;
+  }
+
+  input {
+    width: 364px;
+    background-position: 358px;
+  }
+
+  .line {
+    width: 88px;
+  }
+  .formSignUp {
+    top: 165.5px;
+    padding: 32px;
+  }
+
+  #signUpBtn {
+    font-size: 16px;
+    width: 180px;
+    height: 51px;
+  }
+
+  .errorTextSignUp {
+    top: 420px;
+  }
+
+  .singUpMsg .content {
+    width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  input {
+    width: 80vw;
+    background-position: 79vw;
+  }
+
+  .formSignUp {
+    width: 100%;
   }
 }
