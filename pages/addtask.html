@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Join</title>
-    <link rel="shortcut icon" href="./assets/icons/Capa 2.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/icons/Capa 2.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../css/navbar&header.css">
@@ -23,11 +23,13 @@
 <body class="bodyAddTask" onload="init()">
     <header>
         <p>Kanban Project Management Tool</p>
+        <img class="headerLogo" src="../assets/icons/Capa 2.svg" alt="Logo">
         <div class="header-profile-div">
             <a href="./help.html"><img src="../assets/icons/help.svg"></a>
             <div class="header-profile" onclick="toggleDropdown()" id="userIcon"></div>
         </div>
         <div id="myDropdown" class="header-profile-dropdown">
+            <a href="./help.html" class="nav-bar-button mobileView">help</a>
             <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
             <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
             <a href="../index.html" class="nav-bar-button" onclick="logOut()">Log Out</a>
@@ -55,6 +57,12 @@
                 <a href="./legalnotice.html">
                     <p>Legal Notice</p>
                 </a>
+            </div>
+            <div class="nav-bar-mobile">
+                <a href="./summary.html" id="mobileSummary" class="mobileButton"></a>
+                <a href="./board.html" id="mobileBoard" class="mobileButton"></a>
+                <div id="mobileAddTask" class="mobileButton mobileButtonAddTaskActive"></div>
+                <a href="./contacts.html" id="mobileContacts" class="mobileButton"></a>
             </div>
         </section>
         <div class="content">
@@ -113,7 +121,7 @@
                     </div>
                 </div>
                 <div class="addTaskButtonRequiredAlignment">
-                    <div><span class="requiredStar">*</span>This field is required</div>
+                    <div class="requiredMobile"><span class="requiredStar">*</span>This field is required</div>
                     <div class="addTaskConfirmAlignment">
                         <button type="button" class="addTaskButtonClear" onclick="clearAll()">Clear</button>
                         <button type="submit" class="addTaskButtonCreateTask" onclick="saveNewTask(event)">Create Task</button>

@@ -452,3 +452,21 @@ li.addTaskSubtaskItem:hover {
   gap: 16px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
 }
+
+@media (max-width: 1400px) {
+  .addTaskAlignment {
+    flex-direction: column;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .requiredMobile {
+    display: none;
+  }
+
+  .content {
+    width: 440px;
+  }
+}
