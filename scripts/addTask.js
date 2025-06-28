@@ -460,7 +460,7 @@ function getTaskInformation() {
   let assigned = getTaskContactsInformation();
   let subtasks = getTaskSubtaskInformation();
 
-  return {title, description, duedate, category, priority, assigned, subtasks,};
+  return {title, description, duedate, category, priority, assigned, subtasks, };
 }
 
 /** Gets selected contacts */
@@ -502,7 +502,8 @@ async function saveNewTask(event) {
     return;
   }
 
-  let newTask = {title, description, duedate, category, priority, assigned, subtasks,};
+
+  let newTask = {title, description, duedate, category, priority, assigned, subtasks, id: "to_do"};
 
   await loadTaskIntoAPI(newTask);
 

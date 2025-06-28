@@ -11,6 +11,8 @@
     <script src="../script.js"></script>
     <script src="../scripts/header.js"></script>
     <script src="../scripts/template.js"></script>
+    <script src="../scripts/board.js"></script>
+    <script src="../scripts/boardTemplates.js"></script>
 
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../css/navbar&header.css">
@@ -82,16 +84,18 @@
                 </div>
             </div>
             <div class="content-body">
-                <div id="to_do" class="card-list">
+                <div id="to_do" class="card-list" ondrop="moveTo('to_do')" ondragover="dragoverHandler(event)">
                     <div id="noTask">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
                 </div>
-                <div id="in_progress" class="card-list">
+                <!-- TO DO -->
+                <div id="in_progress" class="card-list" ondrop="moveTo('in_progress')" ondragover="dragoverHandler(event)">
                     <div id="noTask" class="d_none">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
-                    <div class="card">
+                    <!-- CARD START -->
+                    <div draggable="true" ondragstart="startDragging()" class="card" id="drag-test">
                         <div class="card-content">
                             <div class="card-header">
                                 <p class="blue">User Story</p>
@@ -118,8 +122,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- CARD ENDE -->
                 </div>
-                <div id="await_feedback" class="card-list">
+                <div id="await_feedback" class="card-list"> <!-- AWAIT FEEDBACK -->
                     <div id="noTask" class="d_none">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
@@ -178,7 +183,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="done" class="card-list">
+                <div id="done" class="card-list"> <!-- DONE -->
                     <div id="noTask" class="d_none">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
