@@ -3,12 +3,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: auto;
+  min-height: 100vh;
+  justify-content: space-between;
 }
 
 .sectionLogInSignUp {
   max-width: 1920px;
   width: 100%;
-  height: 200px;
+  height: 197px;
   display: flex;
 }
 
@@ -31,7 +34,7 @@
 }
 
 .joinIcon img {
-  margin-top: -120px;
+  margin-top: -117px;
   position: absolute;
   z-index: 9999;
   animation: moveLogo 2.5s ease-in-out forwards;
@@ -85,9 +88,8 @@
   display: flex;
   justify-content: center;
   gap: 35px;
-  position: absolute;
   width: 100%;
-  bottom: 30px;
+  padding: 30px 0;
 }
 
 .footerLogInSignUp a {
@@ -194,17 +196,16 @@
 }
 
 .formSignUp {
-  position: fixed;
-  top: 197px;
   gap: 32px;
   padding-block: 48px;
   padding-inline: 88px;
+  margin-left: -31px;
 }
 
 .vectorPosition {
-  position: absolute;
+  position: relative;
   top: 70px;
-  left: 48px;
+  left: 110px;
 }
 
 .vector {
@@ -363,6 +364,10 @@
     height: 78.03px;
     margin-top: 37px;
   }
+
+  .sectionLogInSignUp {
+    height: 165.5px;
+  }
 }
 
 @media (max-width: 700px) {
@@ -379,7 +384,6 @@
     width: 88px;
   }
   .formSignUp {
-    top: 165.5px;
     padding: 32px;
   }
 
@@ -396,6 +400,11 @@
   .singUpMsg .content {
     width: 320px;
   }
+
+  .vectorPosition {
+    left: 60px;
+    top: 40px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -405,6 +414,11 @@
   }
 
   .formSignUp {
-    width: 100%;
+    width: calc(100% - 40.8px);
+    padding: 20px;
+  }
+
+  .vectorPosition {
+    left: 30px;
   }
 }

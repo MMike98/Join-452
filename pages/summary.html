@@ -14,22 +14,18 @@
   </head>
   <body>
     <header>
-      <p>Kanban Project Management Tool</p>
-      <div class="header-profile-div">
-        <a href="./help.html"><img src="../assets/icons/help.svg" /></a>
-        <div
-          class="header-profile"
-          onclick="toggleDropdown()"
-          id="userIcon"
-        ></div>
-      </div>
-      <div id="myDropdown" class="header-profile-dropdown">
-        <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
-        <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
-        <a href="../index.html" class="nav-bar-button" onclick="logOut()"
-          >Log Out</a
-        >
-      </div>
+        <p>Kanban Project Management Tool</p>
+        <img class="headerLogo" src="../assets/icons/Capa 2.svg" alt="Logo">
+        <div class="header-profile-div">
+            <a href="./help.html"><img src="../assets/icons/help.svg"></a>
+            <div class="header-profile" onclick="toggleDropdown()" id="userIcon"></div>
+        </div>
+        <div id="myDropdown" class="header-profile-dropdown">
+            <a href="./help.html" class="nav-bar-button mobileView">help</a>
+            <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
+            <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
+            <a href="../index.html" class="nav-bar-button" onclick="logOut()">Log Out</a>
+        </div>
     </header>
     <main>
       <section class="nav-bar">
@@ -58,6 +54,12 @@
         <div class="nav-bar-footer">
           <a href="./PrivacyPolicy.html"><p>Privacy Policy</p></a>
           <a href="./legalnotice.html"><p>Legal Notice</p></a>
+        </div>
+        <div class="nav-bar-mobile">
+          <div id="mobileSummary" class="mobileButton mobileButtonSummaryActive"></div>
+          <a href="./board.html" id="mobileBoard" class="mobileButton"></a>
+          <a href="./addtask.html" id="mobileAddTask" class="mobileButton"></a>
+          <a href="./contacts.html" id="mobileContacts" class="mobileButton"></a>
         </div>
       </section>
       <div class="summary">
