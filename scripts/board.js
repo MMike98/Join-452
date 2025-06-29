@@ -1,25 +1,23 @@
-// SCRIPT FOR BOARD //*css*/`
-    
-// Über "add task" muss eine card im board generiert werden.
-// über "savenewtask" im add task code html generierung für die card triggern
-// to_do , in_progress divs müssen "dropable" sein
-// css aufräumen
-// verknüpfung mit summary
-// Container in der die "cards" hereingeneriert werden: "to_do" 
-// (Jeder Task startet mit dem Status "to_do")
+// SCRIPT FOR BOARD //
 
+async function initBoard() {
+  const tasks = await fetchTasks(); 
+  renderTaskCards(tasks);          
+}
+
+window.addEventListener("load", initBoard);
 
 function renderTaskCards(tasks) {
   for (let key in tasks) {
-    const task = tasks[key]; // Das eigentliche Task-Objekt
-    renderSingleTaskCard(task); // Hier wird die Card erstellt
+    const task = tasks[key]; 
+    renderSingleTaskCard(task); 
   }
 }
 
 function renderSingleTaskCard(task) {
-  const boardColumn = document.getElementById("to_do_column"); //
+  const boardColumn = document.getElementById("to_do"); 
   const card = document.createElement("div");
-  card.classList.add("task-card");
+  card.classList.add("card");
 
   card.innerHTML = `
   <div draggable="true" ondragstart="startDragging()" class="card" id="${task.id}">
@@ -53,3 +51,4 @@ function renderSingleTaskCard(task) {
 
   boardColumn.appendChild(card);
 }
+
