@@ -1,7 +1,7 @@
 
 
 
-generateTaskHTML(task) {
+function generateTaskHTML(task) {
 return `
   <div draggable="true" ondragstart="startDragging(${task.id})" class="card" id="${task.id}">
                         <div class="card-content">

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../css/board.css">
 </head>
 
-<body onload="showUserInitial()">
+<body onload="showUserInitial()" onload="updateHTML()">
     <header>
         <p>Kanban Project Management Tool</p>
         <img class="headerLogo" src="../assets/icons/Capa 2.svg" alt="Logo">
@@ -84,13 +84,13 @@
             </div>
             <div class="content-body">
                 <!-- TO DO -->
-                <div id="to_do" class="card-list" ondrop="moveTo('to_do')" ondragover="dragoverHandler(event)">
+                <div id="to_do" class="card-list" ondrop="moveTo('to_do')" ondragover="allowDrop(event)" ondrop="drop(event, 'to_do')">
                     <div id="noTask">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
                 </div>
                 <!-- IN PROGRESS -->
-                <div id="in_progress" class="card-list" ondrop="moveTo('in_progress')" ondragover="dragoverHandler(event)">
+                <div id="in_progress" class="card-list" ondrop="moveTo('in_progress')" ondragover="allowDrop(event)">
                     <div id="noTask" class="d_none">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>

@@ -17,72 +17,19 @@ function renderTaskCards(tasks) {
 }
 
 function renderSingleTaskCard(task) {
-  const boardColumn = document.getElementById("to_do"); 
-  const card = document.createElement("div");
-  card.classList.add("card");
+  const boardColumn = document.getElementById(task.status); 
+  if (!boardColumn) return;  
 
-  card.innerHTML = `
-  <div draggable="true" ondragstart="startDragging(${task.id})" class="card" id="${task.id}">
-                        <div class="card-content">
-                            <div class="card-header">
-                                <p class="blue">${task.category}</p>
-                            </div>
-                            <div class="card-body">
-                                <h3>${task.title}</h3>
-                                <p>${task.description}</p>
-                            </div>
-                            <div class="card-progress">
-                                <div class="progress-bar">
-                                    <div class="progress-bar-content" style="width:50%"></div>
-                                </div>
-                                <p>1/2 Subtasks</p>
-                            </div>
-                            <div class="card-footer">
-                                <div class="profile"> <!-- ASSIGNED TO -->
-                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
-                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
-                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
-                                </div>
-                                <div class="priority"> <!-- PRIORITY -->
-                                    <img src="../assets/icons/Priority Medium.svg" alt="Priority">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-  `;
+  
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = generateTaskHTML(task).trim(); 
 
-  boardColumn.appendChild(card);
+  const cardElement = tempDiv.firstChild;  
+
+  
+  boardColumn.appendChild(cardElement);
 }
-/*
- function updateHTML() {
-    let to_do = task.filter(t => t['category'] == 'open');
 
-    document.getElementById('open').innerHTML = '';
-
-    for (let index = 0; index < to_do.length; index++) {
-        const element = to_do[index];
-        document.getElementById('open').innerHTML += generateTodoHTML(element);
-    }
-
-    let in_progress = task.filter(t => t['category'] == 'in_progress');
-
-    document.getElementById('in_progress').innerHTML = '';
-
-    for (let index = 0; index < in_progress.length; index++) {
-        const element = closed[index];
-        document.getElementById('in_progress').innerHTML += generateTodoHTML(element);
-    }
-
-       let await_feedback = task.filter(t => t['category'] == 'closed');
-
-    document.getElementById('closed').innerHTML = '';
-
-    for (let index = 0; index < closed.length; index++) {
-        const element = closed[index];
-        document.getElementById('closed').innerHTML += generateTodoHTML(element);
-    }
-} 
-*/
 
 function updateHTML() {
     const statuses = ['to_do', 'in_progress', 'await_feedback', 'done'];
@@ -111,4 +58,9 @@ function allowDrop(ev) {
 function moveTo(status) {
   task[currentDraggedElement]['status'] = status;
   updateHTML();
+}
+
+function drop(ev, newStatus) {
+  ev.preventDefault(); 
+  moveTo(newStatus);
 }
