@@ -82,6 +82,9 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    height: 500px;
+    width: 300px;
+    border: #000;
 }
 
 .card {

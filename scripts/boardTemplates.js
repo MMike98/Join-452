@@ -1,0 +1,34 @@
+
+
+
+generateTaskHTML(task) {
+return `
+  <div draggable="true" ondragstart="startDragging(${task.id})" class="card" id="${task.id}">
+                        <div class="card-content">
+                            <div class="card-header">
+                                <p class="blue">${task.category}</p>
+                            </div>
+                            <div class="card-body">
+                                <h3>${task.title}</h3>
+                                <p>${task.description}</p>
+                            </div>
+                            <div class="card-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-bar-content" style="width:50%"></div>
+                                </div>
+                                <p>1/2 Subtasks</p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="profile"> <!-- ASSIGNED TO -->
+                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
+                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
+                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
+                                </div>
+                                <div class="priority"> <!-- PRIORITY -->
+                                    <img src="../assets/icons/Priority Medium.svg" alt="Priority">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+  `;
+}

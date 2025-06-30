@@ -491,6 +491,23 @@ function getTaskSubtaskInformation() {
   return subtasks;
 }
 
+/** Determines the next ID */
+async function getNextTaskId() {
+  const tasks = await fetchTasks(); 
+
+  if (!tasks) return 0; 
+
+  
+  const ids = Object.values(tasks)
+    .map(task => typeof task.id === 'number' ? task.id : -1)
+    .filter(id => id >= 0);
+
+  
+  const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 0;
+
+  return nextId;
+}
+
 /** Saves new task */
 async function saveNewTask(event) {
   event.preventDefault();
@@ -502,8 +519,9 @@ async function saveNewTask(event) {
     return;
   }
 
+  const newId = await getNextTaskId();
 
-  let newTask = {title, description, duedate, category, priority, assigned, subtasks, id: "to_do"};
+  let newTask = {title, description, duedate, category, priority, assigned, subtasks, id: newId, status: "to_do"};
 
   await loadTaskIntoAPI(newTask);
 

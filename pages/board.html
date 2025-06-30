@@ -83,12 +83,13 @@
                 </div>
             </div>
             <div class="content-body">
+                <!-- TO DO -->
                 <div id="to_do" class="card-list" ondrop="moveTo('to_do')" ondragover="dragoverHandler(event)">
                     <div id="noTask">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
                 </div>
-                <!-- TO DO -->
+                <!-- IN PROGRESS -->
                 <div id="in_progress" class="card-list" ondrop="moveTo('in_progress')" ondragover="dragoverHandler(event)">
                     <div id="noTask" class="d_none">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
@@ -123,7 +124,7 @@
                     </div>
                     <!-- CARD ENDE -->
                 </div>
-                <div id="await_feedback" class="card-list"> <!-- AWAIT FEEDBACK -->
+                <div id="await_feedback" class="card-list" ondrop="moveTo('await_feedback')" ondragover="allowDrop(event)"> <!-- AWAIT FEEDBACK -->
                     <div id="noTask" class="d_none">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
@@ -182,39 +183,11 @@
                         </div>
                     </div>
                 </div>
-                <div id="done" class="card-list"> <!-- DONE -->
+                <div id="done" class="card-list" ondrop="moveTo('done')" ondragover="allowDrop(event)"> <!-- DONE -->
                     <div id="noTask" class="d_none">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-header">
-                                <p class="green">Technical Task</p>
-                            </div>
-                            <div class="card-body">
-                                <h3>CSS Architecture Planning</h3>
-                                <p>Define CSS naming conventions and structure...</p>
-                            </div>
-                            <div class="card-progress">
-                                <div class="progress-bar">
-                                    <div class="progress-bar-content" style="width:100%"></div>
-                                </div>
-                                <p>2/2 Subtasks</p>
-                            </div>
-                            <div class="card-footer">
-                                <div class="profile">
-                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
-                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
-                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
-                                </div>
-                                <div class="priority">
-                                    <img src="../assets/icons/Priority Urgent.svg" alt="Priority">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                   
         </section>
     </main>
 </body>
