@@ -39,8 +39,11 @@ function generateContactListHTML(contacts) {
 
 /** Toggles contact details: If a contact is clicked, the details are shown on the right side. If it is clicked again, the information vanishes. */
 function toggleContactDetails(index, forceOpen = false) {
+  const container = document.getElementById("contactSelected");
+
   if (!forceOpen && activeContactIndex === index) {
-    clearContactDetails();
+    container.classList.remove("slide-in");
+
     removeContactHighlights();
     activeContactIndex = null;
     return;
@@ -49,7 +52,9 @@ function toggleContactDetails(index, forceOpen = false) {
   let contact = contacts[index];
   let color = circleColors[index % circleColors.length];
 
-  renderContactDetails(contact, color, index);
+  container.innerHTML = contactDetailsHTML(contact, color, index);
+  container.classList.add("slide-in");
+
   removeContactHighlights();
   highlightSelectedContact(index);
   activeContactIndex = index;
@@ -57,7 +62,11 @@ function toggleContactDetails(index, forceOpen = false) {
 
 /** Displays contact details */
 function renderContactDetails(contact, color, index) {
-  document.getElementById("contactSelected").innerHTML = contactDetailsHTML(contact, color, index);
+  let container = document.getElementById("contactSelected");
+  
+  container.classList.remove("slide-in");
+  container.innerHTML = contactDetailsHTML(contact, color, index);
+  container.classList.add("slide-in");           
 }
 
 /** Removes contact details */
@@ -207,4 +216,6 @@ async function saveEditedContact(editContactIndex) {
   toggleContactDetails(editContactIndex, true);
   closeOverlay();
 }
+
+
 
