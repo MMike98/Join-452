@@ -56,10 +56,33 @@ function allowDrop(ev) {
 
 function moveTo(status) {
   task[currentDraggedElement]['status'] = status;
-  updateHTML();
+  updateHTML(); // UI sofort aktualisieren
+  updateFirebase(currentDraggedElement, status).catch(error => {
+    console.error('Fehler beim Firebase-Update:', error);
+    // Optional: UI-Feedback bei Fehler, z.B. Benachrichtigung anzeigen
+  });
 }
 
 function drop(ev, newStatus) {
   ev.preventDefault(); 
   moveTo(newStatus);
+}
+
+async function updateFirebase(taskId, newStatus) {
+  const url = `${BASE_URL}/tasks/${taskId}.json`;
+  const payload = { status: newStatus };
+
+  try {
+    await fetch(url, {
+      method: 'PATCH',
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(`Status für Task ${taskId} auf '${newStatus}' aktualisiert.`);
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren des Status in Firebase:', error);
+    throw error; // Damit der Aufrufer .catch() auslöst
+  }
 }
