@@ -34,7 +34,7 @@
 }
 
 .joinIcon img {
-  margin-top: -117px;
+  margin-top: -218.5px;
   position: absolute;
   z-index: 9999;
   animation: moveLogo 2.5s ease-in-out forwards;
@@ -133,7 +133,6 @@
 }
 
 .formIndex {
-  margin-top: 100px;
   padding-block: 50px;
   padding-inline: 110px;
   gap: 35px;
@@ -366,7 +365,7 @@
   }
 
   .sectionLogInSignUp {
-    height: 165.5px;
+    height: 152.03px;
   }
 }
 

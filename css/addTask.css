@@ -443,9 +443,9 @@ li.addTaskSubtaskItem:hover {
 }
 
 .addTaskSuccessful {
-  position: absolute;
+  position: fixed;
   left: calc(100vh - 163px);
-  top: 400px;
+  top: calc(50vh - 37px);
   height: 74px;
   width: 326px;
   background-color: #2a3647;
@@ -458,6 +458,10 @@ li.addTaskSubtaskItem:hover {
   justify-content: center;
   gap: 16px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+}
+
+.requiredMobileView {
+  display: none;
 }
 
 @media (max-width: 1400px) {
@@ -476,11 +480,36 @@ li.addTaskSubtaskItem:hover {
   .content {
     width: 440px;
   }
+
+  .addTaskButtonRequiredAlignment {
+    width: 440px;
+    padding: 12px 0;
+    align-items: center;
+    justify-content: flex-end;
+    position: fixed;
+    bottom: 0;
+    z-index: 4000;
+    background-color: #f5f7f9;
+  }
+
+  .requiredMobileView {
+    display: block;
+    padding-bottom: 180px;
+  }
+
+  .errorTextAddTaskAlignmentCategory {
+    top: 967px;
+  }
+
+  .addTaskSuccessful {
+    left: calc(50% - 163px);
+  }
 }
 
 @media (max-width: 840px) {
   .content {
     padding: 80px 0 64px 0;
+    width: 396px;
   }
 
   h1 {
@@ -505,6 +534,7 @@ li.addTaskSubtaskItem:hover {
     padding: 10px 21px;
     height: 18px;
     margin-bottom: 16px;
+    background-position: 355px;
   }
 
   .addTaskInfos {
@@ -530,5 +560,106 @@ li.addTaskSubtaskItem:hover {
     font-size: 16px;
     width: 121.33px;
     height: 41px;
+  }
+
+  .addTaskDropDownShadow {
+    width: 394px;
+    margin: -36px 1px 10px;
+  }
+
+  .addTaskDropDown {
+    width: 393px;
+  }
+
+  #addTaskContacts,
+  #addTaskCategory {
+    background-position: 368px;
+  }
+
+  .addTaskFurtherInfosHeight {
+    height: auto;
+  }
+
+  .addTaskButtonRequiredAlignment {
+    width: 396px;
+    bottom: 80px;
+  }
+
+  .requiredMobileView {
+    font-size: 16px;
+  }
+
+  .errorTextAddTaskAlignmentCategory {
+    top: 880px;
+  }
+
+  .errorTextAddTaskAlignmentDate {
+    top: 555px;
+  }
+
+  .errorTextAddTaskAlignmentTitle {
+    top: 290px;
+  }
+
+  .errorTextAddTask {
+    width: 396px;
+  }
+
+  @media (max-width: 440px) {
+    .content {
+      width: calc(100% - 20px);
+      padding: 80px 10px 64px 10px;
+    }
+
+    input,
+    textarea,
+    .requiredMobileView,
+    label {
+      width: 85%;
+      background-position: 93%;
+    }
+
+    .addTaskbuttonAlignment {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .addTaskDropDownShadow {
+      width: calc(100% - 1px);
+    }
+
+    .addTaskDropDown {
+      width: 99%;
+    }
+
+    #addTaskContacts,
+    #addTaskCategory {
+      background-position: 93%;
+    }
+
+    .addTaskInfos {
+      width: 100%;
+    }
+
+    .addTaskAlignment {
+      width: 100%;
+    }
+
+    .addTaskButtonRequiredAlignment {
+      width: calc(100% - 10px);
+    }
+
+    .addTaskConfirmAlignment {
+      gap: 5px;
+    }
+
+    .errorTextAddTask {
+      width: calc(100% - 20px);
+    }
+
+    .addTaskSuccessful {
+      width: 300px;
+      left: calc(50% - 150px);
+    }
   }
 }
