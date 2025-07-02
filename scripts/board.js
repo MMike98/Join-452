@@ -1,49 +1,48 @@
 // SCRIPT FOR BOARD //
 
 let currentDraggedElement;
+let task = {};
 
 async function initBoard() {
-  const tasks = await fetchTasks(); 
-  renderTaskCards(tasks);          
+  task = await fetchTasks(); 
+  renderTaskCards(task);          
 }
 
 window.addEventListener("load", initBoard);
 
 function renderTaskCards(tasks) {
   for (let key in tasks) {
-    const task = tasks[key]; 
-    renderSingleTaskCard(task); 
+    const taskObj = tasks[key]; 
+    renderSingleTaskCard(taskObj, key); 
   }
 }
 
-function renderSingleTaskCard(task) {
-  const boardColumn = document.getElementById(task.status); 
-  if (!boardColumn) return;  
 
-  
+function renderSingleTaskCard(taskObj, key) {
+  const boardColumn = document.getElementById(taskObj.status);
+  if (!boardColumn) return;
+
   const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = generateTaskHTML(task).trim(); 
+  tempDiv.innerHTML = generateTaskHTML(taskObj, key).trim();
 
-  const cardElement = tempDiv.firstChild;  
-
-  
+  const cardElement = tempDiv.firstChild;
   boardColumn.appendChild(cardElement);
 }
 
 
 function updateHTML() {
-    const statuses = ['to_do', 'in_progress', 'await_feedback', 'done'];
+  const statuses = ['to_do', 'in_progress', 'await_feedback', 'done'];
 
-    for (let status of statuses) {
-        let filteredTasks = task.filter(t => t['status'] === status);
+  for (let status of statuses) {
+    const column = document.getElementById(status);
+    column.innerHTML = '';
 
-        document.getElementById(status).innerHTML = '';
-
-        for (let index = 0; index < filteredTasks.length; index++) {
-            const task = filteredTasks[index];
-            document.getElementById(status).innerHTML += generateTaskHTML(task);
-        }
+    for (let key in task) {
+      if (task[key].status === status) {
+        column.innerHTML += generateTaskHTML(task[key], key);
+      }
     }
+  }
 }
 
 

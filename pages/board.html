@@ -13,13 +13,14 @@
     <script src="../scripts/template.js"></script>
     <script src="../scripts/board.js"></script>
     <script src="../scripts/boardTemplates.js"></script>
+    <script src="../scripts/addTask.js"></script>
 
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../css/navbar&header.css">
     <link rel="stylesheet" href="../css/board.css">
 </head>
 
-<body onload="showUserInitial()" onload="updateHTML()">
+<body onload="showUserInitial(); updateHTML()">
     <header>
         <p>Kanban Project Management Tool</p>
         <img class="headerLogo" src="../assets/icons/Capa 2.svg" alt="Logo">
@@ -84,18 +85,18 @@
             </div>
             <div class="content-body">
                 <!-- TO DO -->
-                <div id="to_do" class="card-list" ondrop="moveTo('to_do')" ondragover="allowDrop(event)" ondrop="drop(event, 'to_do')">
+                <div id="to_do" class="card-list" ondrop="drop(event, 'to_do')" ondragover="allowDrop(event)">
                     <div id="noTask">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
                 </div>
                 <!-- IN PROGRESS -->
-                <div id="in_progress" class="card-list" ondrop="moveTo('in_progress')" ondragover="allowDrop(event)">
+                <div id="in_progress" class="card-list" ondrop="drop(event, 'in_progress')" ondragover="allowDrop(event)">
                     <div id="noTask" class="d_none">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
                     <!-- CARD START -->
-                    <div draggable="true" ondragstart="startDragging()" class="card" id="drag-test">
+                    <div draggable="true" ondragstart="startDragging('${}')" class="card" id="drag-test">
                         <div class="card-content">
                             <div class="card-header">
                                 <p class="blue">User Story</p>
