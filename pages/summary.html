@@ -7,6 +7,8 @@
 
     <script src="../scripts/summary.js"></script>
     <script src="../scripts/template.js"></script>
+    <script src="../script.js"></script>
+
 
     <link rel="stylesheet" href="../css/template.css" />
     <link rel="stylesheet" href="../css/summary.css" />
@@ -91,7 +93,7 @@
                   </svg>
                 </div>
                 <div class="summary-left_todo-done_counter">
-                  <span class="todo-done_counter_top">1</span>
+                  <span class="todo-done_counter_top" id="countToDo" >0</span>
                   <span class="todo-done_counter_bottom">To-Do</span>
                 </div>
               </div>
@@ -115,7 +117,7 @@
                   </svg>
                 </div>
                 <div class="summary-left_todo-done_counter">
-                  <span class="todo-done_counter_top">1</span>
+                  <span class="todo-done_counter_top" id="countDone" >0</span>
                   <span class="todo-done_counter_bottom">Done</span>
                 </div>
               </div>
@@ -167,15 +169,15 @@
             </div>
             <div class="summary-left_status">
               <div class="summary-left_status-child">
-                <span class="status-child_top">5</span>
+                <span class="status-child_top" id="countTotal">0</span>
                 <span class="status-child_bottom">Tasks in<br />Board</span>
               </div>
               <div class="summary-left_status-child">
-                <span class="status-child_top">2</span>
+                <span class="status-child_top" id="countInProgress">0</span>
                 <span class="status-child_bottom">Tasks in<br />Progress</span>
               </div>
               <div class="summary-left_status-child">
-                <span class="status-child_top">2</span>
+                <span class="status-child_top" id="countAwaitFeedback">0</span>
                 <span class="status-child_bottom">Awaiting<br />Feedback</span>
               </div>
             </div>
