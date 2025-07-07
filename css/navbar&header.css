@@ -80,7 +80,7 @@ main {
   z-index: 2000;
   display: flex;
   flex-direction: column;
-  height: 89vh;
+  height: calc(100vh - 64px - 64px);
   width: 232px;
   padding-top: 64px;
   padding-bottom: 64px;

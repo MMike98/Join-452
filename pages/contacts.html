@@ -64,7 +64,7 @@
             <div class="contactsList">
                 <div class="contactsAddButtonContainer">
                     <button class="contactsAddButtonAlignment" onclick="addNewContact()">
-                        <span>Add new contact</span>
+                        <span class="contactsAddButtonMobile">Add new contact</span>
                         <img src="../assets/icons/person_add.svg" alt="addPerson" class="contactsImage">
                     </button>
                 </div>
@@ -82,6 +82,7 @@
     </main>
     <div id="contactAdd" class="overlayBackground" onclick="closeOverlay(event)">
         <div class="overlay" onclick="event.stopPropagation()">
+            <img class="overlayCloseMobile" src="../assets/icons/Close_white.svg" alt="close" onclick="closeOverlay()">
             <div class="overlayGrey">
                 <img class="overlayGreyLogo" src="../assets/icons/joinLogoOverlay.svg" alt="Join Logo">
                 <div class="overlayGreyContent">
