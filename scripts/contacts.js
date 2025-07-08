@@ -37,20 +37,23 @@ function generateContactListHTML(contacts) {
   return html;
 }
 
-/** Toggles contact details: If a contact is clicked, the details are shown on the right side. If it is clicked again, the information vanishes. */
+/** Toggles contact details: If a contact is clicked, the details are shown on the right side. If it is clicked again, the information vanishes. In the mobile view the lsit is removed and the contact details are displayed on the screen
+*/
 function toggleContactDetails(index, forceOpen = false) {
   const container = document.getElementById("contactSelected");
+  const contactsList = document.querySelector(".contactsList");
+  const contactDetails = document.getElementById("contactDetails");
 
-  if (!forceOpen && activeContactIndex === index) {
-    container.classList.remove("slide-in");
+  const isDesktop = window.innerWidth >= 1400;
 
-    removeContactHighlights();
-    activeContactIndex = null;
-    return;
+  if (isDesktop) {
+    if (handleDesktopToggle(index, forceOpen, container, contactsList, contactDetails)) return;
+  } else {
+    handleMobileView(contactsList, contactDetails);
   }
 
-  let contact = contacts[index];
-  let color = circleColors[index % circleColors.length];
+  const contact = contacts[index];
+  const color = circleColors[index % circleColors.length];
 
   container.innerHTML = contactDetailsHTML(contact, color, index);
   container.classList.add("slide-in");
@@ -58,6 +61,23 @@ function toggleContactDetails(index, forceOpen = false) {
   removeContactHighlights();
   highlightSelectedContact(index);
   activeContactIndex = index;
+}
+
+/** Desktop view */
+function handleDesktopToggle(index, forceOpen, container, contactsList, contactDetails) {
+  if (!forceOpen && activeContactIndex === index) {
+    container.classList.remove("slide-in");
+    removeContactHighlights();
+    activeContactIndex = null;
+    return true;
+  }
+  if (contactsList) contactsList.style.display = "block";
+  return false;
+}
+
+/** Mobile view */
+function handleMobileView(contactsList, contactDetails) {
+  if (contactsList) contactsList.style.display = "none";
 }
 
 /** Displays contact details */
@@ -216,6 +236,41 @@ async function saveEditedContact(editContactIndex) {
   toggleContactDetails(editContactIndex, true);
   closeOverlay();
 }
+
+/** Closes the contact details in mobile view */
+function closeContactDetailsMobile() {
+  const container = document.getElementById("contactSelected");
+  const contactsList = document.querySelector(".contactsList");
+
+  if (container) container.classList.remove("slide-in");
+  if (contactsList) contactsList.style.display = "block";
+  removeContactHighlights();
+  activeContactIndex = null;
+}
+
+/** Closes the contacts details in mobile view if the width of the page is more than 1400px */
+window.addEventListener("resize", () => {
+  let contactsList = document.querySelector(".contactsList");
+
+  if (window.innerWidth >= 1400 && contactsList) {
+    contactsList.style.display = "block";
+  }
+});
+
+/** The function ensures that the selected contact’s details remain visible when resizing the window to a smaller width.*/
+window.addEventListener("resize", () => {
+  let contactsList = document.querySelector(".contactsList");
+
+  if (!contactsList) return;
+  if (activeContactIndex === null || activeContactIndex === undefined) return;
+
+  if (window.innerWidth >= 1400) {
+    contactsList.style.display = "block";
+  } else {
+    contactsList.style.display = "none";
+  }
+});
+
 
 
 

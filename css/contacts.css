@@ -142,7 +142,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: absolute;
   transform: translateX(100%);
   opacity: 0;
   transition: transform 0.5s ease, opacity 0.5s ease;
@@ -529,14 +528,18 @@
   display: none;
 }
 
-@media (max-width: 1400px) {
-  .contactDetails {
-    display: none;
-  }
+.blueLineMobile {
+  display: none;
+}
 
+.vectorMobile {
+  display: none;
+}
+
+@media (max-width: 1400px) {
   .contactsList {
     width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 96px - 24px);
   }
 
   .contacts,
@@ -646,6 +649,86 @@
     top: 24px;
     cursor: pointer;
   }
+
+  .contactDetails {
+    padding: 0;
+    padding-top: 128px;
+    padding-left: 232px;
+    margin: 0 auto;
+    font-size: 20px;
+    max-width: none;
+    width: auto;
+  }
+
+  .contactsSubtitle {
+    font-size: 20px;
+  }
+
+  .contactHeader {
+    flex-direction: column;
+    align-items: baseline;
+    height: 104px;
+    width: min-content;
+  }
+
+  .blueLine {
+    display: none;
+  }
+
+  .blueLineMobile {
+    background-color: #29abe2;
+    height: 3px;
+    width: 90px;
+    display: block;
+  }
+
+  .circleDetails {
+    height: 80px;
+    width: 80px;
+    font-size: 27px;
+    margin-right: 20px;
+  }
+
+  .contactSelectedIcons {
+    display: none;
+  }
+
+  .contactsSelectedNameIcons {
+    font-size: 36px;
+    height: auto;
+  }
+
+  .contactSelectedMain {
+    height: 80px;
+  }
+
+  .contactSelected {
+    padding-top: 48px;
+    height: 274px;
+    transition: none;
+  }
+
+  .contactSelectedInfos {
+    font-size: 16px;
+  }
+
+  .vectorMobile {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 136px;
+    cursor: pointer;
+  }
+
+  .contactsList {
+    z-index: 9000;
+  }
+
+  .contactEntrySelected {
+    background: white;
+    color: black;
+    border-radius: 0;
+  }
 }
 
 @media (max-width: 840px) {
@@ -663,6 +746,10 @@
 
   .contactsAddButtonAlignment {
     top: calc(100vh - 80px - 80px - 80px);
+  }
+
+  .contactDetails {
+    padding-left: 20px;
   }
 }
 
