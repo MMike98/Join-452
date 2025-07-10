@@ -34,8 +34,8 @@
 }
 
 .joinIcon img {
-  margin-top: -218.5px;
-  position: absolute;
+  margin-top: 80px;
+  position: relative;
   z-index: 9999;
   animation: moveLogo 2.5s ease-in-out forwards;
 }
@@ -54,8 +54,8 @@
   0% {
     width: 200px;
     height: 240px;
-    top: calc(50% + 200px);
-    left: 50%;
+    top: calc(50vh - 120px);
+    left: calc(50vw - 20px);
     transform: translate(-50%, -50%) scale(1);
   }
   100% {
@@ -114,7 +114,7 @@
 }
 
 .sectionAlignmentLogIn {
-  justify-content: right;
+  justify-content: space-between;
 }
 
 .signUp_button {
@@ -357,14 +357,13 @@
 }
 
 @media (max-width: 1050px) {
-  .sectionLogInSignUp img,
-  .joinIcon img {
+  .sectionLogInSignUpMobile img {
     width: 64px;
     height: 78.03px;
     margin-top: 37px;
   }
 
-  .sectionLogInSignUp {
+  .sectionLogInSignUpMobile {
     height: 152.03px;
   }
 }
@@ -375,13 +374,18 @@
   }
 
   input {
-    width: 364px;
-    background-position: 358px;
+    width: 322px;
+    background-position: 315px;
   }
 
   .line {
     width: 88px;
   }
+
+  .sectionAlignmentLogIn {
+    height: 152.03px;
+  }
+
   .formSignUp {
     padding: 32px;
   }
@@ -404,6 +408,68 @@
     left: 60px;
     top: 40px;
   }
+
+  .signUp_button {
+    position: absolute;
+    bottom: 10%;
+    padding: 0;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .formIndex {
+    padding: 32px;
+    top: calc(50% - 236.5px - 60px);
+    margin-bottom: 150px;
+  }
+
+  .logBtn {
+    flex-direction: column;
+    gap: 21px;
+    margin-top: 20px;
+  }
+
+  #guestBtn,
+  #logInBtn {
+    font-size: 16px;
+  }
+
+  .splash {
+    background-color: #2a3647;
+    animation: fadeSplash 1.25s ease-in-out forwards;
+  }
+
+  @keyframes fadeSplash {
+    from {
+      opacity: 1;
+      visibility: visible;
+    }
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .joinIcon img {
+    margin: 0;
+  }
+
+  @keyframes moveLogo {
+    0% {
+      width: 200px;
+      height: 240px;
+      top: 50vh;
+      left: 50vw;
+      transform: translate(-50%, -50%);
+    }
+    100% {
+      width: 64px;
+      height: 78.03px;
+      top: 37px;
+      left: 0;
+      transform: translate(0, 0);
+    }
+  }
 }
 
 @media (max-width: 480px) {
@@ -417,7 +483,29 @@
     padding: 20px;
   }
 
+  .formIndex {
+    width: calc(100% - 40px);
+    padding: 20px;
+  }
+
   .vectorPosition {
     left: 30px;
+  }
+
+  .signUp_button {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+@media (max-height: 740px) {
+  .signUp_button {
+    bottom: -10px;
+  }
+}
+
+@media (max-height: 700px) {
+  .signUp_button {
+    bottom: -10%;
   }
 }
