@@ -389,8 +389,7 @@
   align-content: center;
   gap: 4px;
   padding: 16px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right
-    15px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right 15px center;
   justify-content: left;
   background-size: 25px;
 }
@@ -400,8 +399,7 @@
   color: #29abe2;
   padding-left: 15px;
   padding-bottom: 15px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat
-    right 14px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat right 14px center;
   background-size: 25px;
   display: flex;
   align-items: center;
@@ -533,6 +531,14 @@
 }
 
 .vectorMobile {
+  display: none;
+}
+
+.buttonMore {
+  display: none;
+}
+
+.mobileEditDelete {
   display: none;
 }
 
@@ -729,6 +735,88 @@
     color: black;
     border-radius: 0;
   }
+
+  .buttonMore {
+    display: block;
+    border-radius: 56px;
+    position: absolute;
+    right: 20px;
+    top: calc(100vh - 80px);
+  }
+
+  .mobileEditDelete {
+    width: 116px;
+    height: 100px;
+    border-radius: 20px 20px 0 20px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px 10px 10px 18px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  .mobileEditDelete.show {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .contactSelectedIconMobil {
+    height: 40px;
+    padding: 8px;
+    gap: 8px;
+    font-size: 16px;
+  }
+
+  #editMobile {
+    background: url(../assets/icons/edit.svg) no-repeat center left;
+    width: 64px;
+  }
+
+  #editMobile:hover {
+    background: url(../assets/icons/edit_hover.svg) no-repeat center left;
+  }
+
+  #deleteMobile {
+    background: url(../assets/icons/delete.svg) no-repeat center left;
+    width: 84px;
+  }
+
+  #deleteMobile:hover {
+    background: url(../assets/icons/delete_hover.svg) no-repeat center left;
+  }
+  .overlayGreyContentMobile {
+    height: 80px;
+  }
+
+  .circlePosition {
+    left: calc(50% - 60px);
+    top: calc(40% - 60px);
+    height: 120px;
+    width: 120px;
+    font-size: 47px;
+  }
+
+  .overlayWhiteButtonsEdit {
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+  }
+
+  #editContactName,
+  #editContactMail,
+  #editContactPhone {
+    background-position: 320px;
+  }
 }
 
 @media (max-width: 840px) {
@@ -750,6 +838,14 @@
 
   .contactDetails {
     padding-left: 20px;
+  }
+
+  .buttonMore {
+    top: calc(100vh - 80px - 80px);
+  }
+
+  .mobileEditDelete {
+    bottom: 100px;
   }
 }
 
@@ -783,12 +879,19 @@
   }
 
   .overlayWhiteInput input {
-    width: calc(100% - 21px - 21px);
+    width: calc(100% - 21px - 21px - 20px);
+    margin: 0 10px;
   }
 
   #addContactName,
   #addContactMail,
   #addContactPhone {
+    background-position: 95%;
+  }
+
+  #editContactName,
+  #editContactMail,
+  #editContactPhone {
     background-position: 95%;
   }
 }

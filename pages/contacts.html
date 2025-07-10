@@ -72,6 +72,11 @@
             </div>
             <div class="contactDetails" id="contactDetails">
                 <img class="vectorMobile" src="../assets/icons/Vector.svg" alt="arrow" onclick="closeContactDetailsMobile()">
+                <button  id="moreMobile" class="buttonMore" onclick="toggleMobileMenu()"><img src="../assets/icons/more.svg" alt="more"></button>
+                <div class="mobileEditDelete" id="mobileEditDelete" >
+                    <div class="contactSelectedIcon contactSelectedIconMobil" id="editMobile" onclick="editContact(activeContactIndex)">Edit</div>
+                    <div class="contactSelectedIcon contactSelectedIconMobil" id="deleteMobile" onclick="deleteContact(activeContactIndex)">Delete</div>
+                </div>
                 <div class="contactHeader">
                     <h1>Contacts</h1>
                     <div class="blueLine"></div>
@@ -113,9 +118,10 @@
     </div>
     <div id="contactEdit" class="overlayBackground" onclick="closeOverlay(event)">
         <div class="overlay" onclick="event.stopPropagation()">
+            <img class="overlayCloseMobile" src="../assets/icons/Close_white.svg" alt="close" onclick="closeOverlay()">
             <div class="overlayGrey">
                 <img class="overlayGreyLogo" src="../assets/icons/joinLogoOverlay.svg" alt="Join Logo">
-                <div class="overlayGreyContent">
+                <div class="overlayGreyContent overlayGreyContentMobile">
                     <h1>Edit contact</h1>
                     <div class="overlayGreyContentLine"></div>
                 </div>

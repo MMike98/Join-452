@@ -7,7 +7,9 @@ let editContactIndex = null;
 async function renderContacts() {
   let contactsObj = await fetchContacts();
 
-  let entries = Object.entries(contactsObj).filter(([key]) => key.startsWith("contact"));
+  let entries = Object.entries(contactsObj).filter(([key]) =>
+    key.startsWith("contact")
+  );
   entries.sort(([, a], [, b]) => a.name.localeCompare(b.name));
 
   contactKeys = entries.map(([key]) => key);
@@ -38,22 +40,25 @@ function generateContactListHTML(contacts) {
 }
 
 /** Toggles contact details: If a contact is clicked, the details are shown on the right side. If it is clicked again, the information vanishes. In the mobile view the lsit is removed and the contact details are displayed on the screen
-*/
+ */
 function toggleContactDetails(index, forceOpen = false) {
-  const container = document.getElementById("contactSelected");
-  const contactsList = document.querySelector(".contactsList");
-  const contactDetails = document.getElementById("contactDetails");
+  let container = document.getElementById("contactSelected");
+  let contactsList = document.querySelector(".contactsList");
+  let contactDetails = document.getElementById("contactDetails");
 
-  const isDesktop = window.innerWidth >= 1400;
+  let isDesktop = window.innerWidth >= 1400;
 
   if (isDesktop) {
-    if (handleDesktopToggle(index, forceOpen, container, contactsList, contactDetails)) return;
+    if (
+      handleDesktopToggle(index, forceOpen, container, contactsList, contactDetails)
+    )
+      return;
   } else {
     handleMobileView(contactsList, contactDetails);
   }
 
-  const contact = contacts[index];
-  const color = circleColors[index % circleColors.length];
+  let contact = contacts[index];
+  let color = circleColors[index % circleColors.length];
 
   container.innerHTML = contactDetailsHTML(contact, color, index);
   container.classList.add("slide-in");
@@ -64,7 +69,7 @@ function toggleContactDetails(index, forceOpen = false) {
 }
 
 /** Desktop view */
-function handleDesktopToggle(index, forceOpen, container, contactsList, contactDetails) {
+function handleDesktopToggle(index, forceOpen, container, contactsList,) {
   if (!forceOpen && activeContactIndex === index) {
     container.classList.remove("slide-in");
     removeContactHighlights();
@@ -83,10 +88,10 @@ function handleMobileView(contactsList, contactDetails) {
 /** Displays contact details */
 function renderContactDetails(contact, color, index) {
   let container = document.getElementById("contactSelected");
-  
+
   container.classList.remove("slide-in");
   container.innerHTML = contactDetailsHTML(contact, color, index);
-  container.classList.add("slide-in");           
+  container.classList.add("slide-in");
 }
 
 /** Removes contact details */
@@ -239,8 +244,8 @@ async function saveEditedContact(editContactIndex) {
 
 /** Closes the contact details in mobile view */
 function closeContactDetailsMobile() {
-  const container = document.getElementById("contactSelected");
-  const contactsList = document.querySelector(".contactsList");
+  let container = document.getElementById("contactSelected");
+  let contactsList = document.querySelector(".contactsList");
 
   if (container) container.classList.remove("slide-in");
   if (contactsList) contactsList.style.display = "block";
@@ -271,6 +276,37 @@ window.addEventListener("resize", () => {
   }
 });
 
+/** Toggles the visibility of the mobile edit/delete menu. */
+window.toggleMobileMenu = function () {
+  let menu = document.getElementById("mobileEditDelete");
+  let moreButton = document.getElementById("moreMobile");
+  if (!menu || !moreButton) return;
 
+  let isVisible = menu.classList.contains("show");
 
+  if (isVisible) {
+    menu.classList.remove("show");
+    document.removeEventListener("click", outsideClick);
+  } else {
+    menu.classList.add("show");
+    setTimeout(() => {
+      document.addEventListener("click", outsideClick);
+    }, 0);
+  }
+};
 
+/**  Handles clicks outside the mobile edit/delete menu and the toggle button. If the click is outside, the menu is hidden and the event listener is removed. */
+function outsideClick(event) {
+  let menu = document.getElementById("mobileEditDelete");
+  let moreButton = document.getElementById("moreMobile");
+  if (!menu || !moreButton) return;
+
+  if (
+    menu.classList.contains("show") &&
+    !menu.contains(event.target) &&
+    !moreButton.contains(event.target)
+  ) {
+    menu.classList.remove("show");
+    document.removeEventListener("click", outsideClick);
+  }
+}
