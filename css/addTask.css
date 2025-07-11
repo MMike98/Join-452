@@ -264,6 +264,7 @@ label.contactSelected:hover #contactChecked {
   flex-direction: column;
   list-style-position: inside;
   padding-left: 0;
+  padding-bottom: 80px;
 }
 
 .addTaskSubtaskItem {
@@ -310,7 +311,12 @@ li.addTaskSubtaskItem:hover {
   display: flex;
   justify-content: space-between;
   align-items: end;
-  padding-top: 83px;
+  padding: 12px 0;
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 232px - 80px - 80px - 49px);
+  background-color: #f5f7f9;
+
 }
 
 .addTaskConfirmAlignment {
@@ -486,8 +492,6 @@ li.addTaskSubtaskItem:hover {
     padding: 12px 0;
     align-items: center;
     justify-content: flex-end;
-    position: fixed;
-    bottom: 0;
     z-index: 4000;
     background-color: #f5f7f9;
   }
