@@ -55,7 +55,7 @@
     width: 200px;
     height: 240px;
     top: calc(50vh - 120px);
-    left: calc(50vw - 20px);
+    left: calc(50vw - 100px);
     transform: translate(-50%, -50%) scale(1);
   }
   100% {

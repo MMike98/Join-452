@@ -9,23 +9,33 @@
     <link rel="shortcut icon" href="../assets/icons/Capa 2.svg" type="image/x-icon">
 
     <script src="../scripts/template.js"></script>
-    <script src=""></script>
+    <script src="../scripts/header.js"></script>
+    <script src="../script.js"></script>
 
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../css/help&PrivatePolicy&LegalNotice.css">
     <link rel="stylesheet" href="../css/navbar&header.css">
 </head>
 
-<body>
+<body onload="showUserInitial()">
     <header>
         <p>Kanban Project Management Tool</p>
+        <img class="headerLogo" src="../assets/icons/Capa 2.svg" alt="Logo">
+        <div class="header-profile-div headerInfosMobile">
+            <a href="./help.html"><img src="../assets/icons/help.svg"></a>
+            <div class="header-profile" onclick="toggleDropdown()" id="userIcon"></div>
+        </div>
+        <div id="myDropdown" class="header-profile-dropdown">
+            <a href="./help.html" class="nav-bar-button mobileView">help</a>
+            <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
+            <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
+            <a href="../index.html" class="nav-bar-button" onclick="logOut()">Log Out</a>
+        </div>
     </header>
     <main>
-        <section class="nav-bar">
+         <section class="nav-bar">
             <div class="nav-bar-header">
-                <div class="nav-bar-logo">
-                    <img src="../assets/icons/Capa 1.svg" alt="JoinIcon">
-                </div>
+                <div class="nav-bar-logo"><img src="../assets/icons/Capa 1.svg" alt="JoinIcon"></div>
             </div>
             <div class="nav-bar-body">
                 <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg" alt="Summary">Summary</a>
@@ -34,8 +44,18 @@
                 <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg" alt="Contacts">Contacts</a>
             </div>
             <div class="nav-bar-footer">
-                <a href="./PrivacyPolicy.html"><p>Privacy Policy</p></a>
-                <p class="active">Legal Notice</p>
+                <a href="./PrivacyPolicy.html">
+                    <p>Privacy Policy</p>
+                </a>
+                <a href="./legalnotice.html">
+                    <p>Legal Notice</p>
+                </a>
+            </div>
+            <div class="nav-bar-mobile">
+                <a href="./summary.html" id="mobileSummary" class="mobileButton"></a>
+                <a href="./board.html" id="mobileBoard" class="mobileButton"></a>
+                <a href="./addtask.html" id="mobileAddTask" class="mobileButton"></a>
+                <div id="mobileContacts" class="mobileButton"></div>
             </div>
         </section>
         <section class="content">
@@ -44,7 +64,7 @@
                 <h2>Imprint</h2>
                 <ul>
                     <li>
-                        <p>Michel Vieira, Fin Michaelsen and Carolina H.</p>
+                        <p>Michel Vieira, Finn Michaelsen and Carolin H.</p>
                     </li>
                     <li>
                         <p>Langwiesenstrasse 18</p>
@@ -108,8 +128,7 @@
             </div>
             <div>
                 <h3>Indemnity</h3>
-                <p>You agree to indemnify, defend and hold harmless us, the listed students, the <strong>Developer
-                        Akademie GmbH</strong>,
+                <p>You agree to indemnify, defend and hold harmless us, the listed students, the <strong>Developer Akademie GmbH</strong>,
                     and our affiliates, partners, officers, directors, agents, and employees, from and against any
                     claim, demand, loss, damage, cost, or liability (including reasonable legal fees) arising out of or
                     relating to your use of <strong>Join</strong> and/or your breach of this Legal Notice.</p>

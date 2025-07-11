@@ -10,6 +10,7 @@
 
     <script src="../script.js"></script>
     <script src="../scripts/header.js"></script>
+    <script src="../scripts/template.js"></script>
 
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../css/navbar&header.css">
@@ -19,13 +20,15 @@
 <body onload="showUserInitial()">
     <header>
         <p>Kanban Project Management Tool</p>
-        <div>
+        <img class="headerLogo" src="../assets/icons/Capa 2.svg" alt="Logo">
+        <div class="header-profile-div">
             <div class="header-profile" onclick="toggleDropdown()" id="userIcon"></div>
-            <div id="myDropdown" class="header-profile-dropdown">
-                <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
-                <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
-                <a href="../index.html" class="nav-bar-button" onclick="logOut()">Log Out</a>
-            </div>
+        </div>
+        <div id="myDropdown" class="header-profile-dropdown">
+            <a href="./help.html" class="nav-bar-button mobileView">help</a>
+            <a href="./legalnotice.html" class="nav-bar-button">Legal Notice</a>
+            <a href="./privacypolicy.html" class="nav-bar-button">Privacy Policy</a>
+            <a href="../index.html" class="nav-bar-button" onclick="logOut()">Log Out</a>
         </div>
     </header>
     <main>
@@ -34,21 +37,35 @@
                 <div class="nav-bar-logo"><img src="../assets/icons/Capa 1.svg" alt="JoinIcon"></div>
             </div>
             <div class="nav-bar-body">
-                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg" alt="Summary">Summary</a>
-                <a href="./addtask.html" class="nav-bar-button"><img src="../assets/icons/AddTask.svg" alt="Add Task">Add Task</a>
+                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg"
+                        alt="Summary">Summary</a>
+                <a href="./addtask.html" class="nav-bar-button"><img src="../assets/icons/AddTask.svg"
+                        alt="Add Task">Add Task</a>
                 <a href="./board.html" class="nav-bar-button"><img src="../assets/icons/Board.svg" alt="Board">Board</a>
-                <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg" alt="Contacts">Contacts</a>
+                <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg"
+                        alt="Contacts">Contacts</a>
             </div>
             <div class="nav-bar-footer">
-                <a href="./PrivacyPolicy.html"><p>Privacy Policy</p></a>
-                <a href="./legalnotice.html"><p>Legal Notice</p></a>
+                <a href="./PrivacyPolicy.html">
+                    <p>Privacy Policy</p>
+                </a>
+                <a href="./legalnotice.html">
+                    <p>Legal Notice</p>
+                </a>
+            </div>
+            <div class="nav-bar-mobile">
+                <a href="./summary.html" id="mobileSummary" class="mobileButton"></a>
+                <a href="./board.html" id="mobileBoard" class="mobileButton"></a>
+                <a href="./addtask.html" id="mobileAddTask" class="mobileButton"></a>
+                <div id="mobileContacts" class="mobileButton"></div>
             </div>
         </section>
         <section class="content">
             <h1>Help</h1>
             <p>Welcome to the help page for <strong>Join</strong>, your guide to using our kanban project management
-                tool. Here, we'll
-                provide an overview of what <strong>Join</strong> is, how it can benefit you, and how to use it.</p>
+                tool. Here, we'll provide an overview of what <strong>Join</strong> is, how it can benefit you, and how
+                to use it.
+            </p>
             <div>
                 <h2>What is Join?</h2>
                 <p><strong>Join</strong> is a kanban-based project management tool designed and built by a group of
@@ -75,14 +92,12 @@
                     <li>
                         <h3>Exploring the Board</h3>
                         <p>When you log in to <strong>Join</strong>, you'll find a default board. This board represents
-                            your project and
-                            contains four default lists: "To Do", "In Progress", “Await feedback” and "Done".</p>
+                            your project and contains four default lists: "To Do", "In Progress", “Await feedback” and "Done".</p>
                     </li>
                     <li>
                         <h3>Creating Contacts</h3>
                         <p>In <strong>Join</strong>, you can add contacts to collaborate on your projects. Go to the
-                            "Contacts" section,
-                            click on "New contact", and fill in the required information. Once added, these contacts can
+                            "Contacts" section, click on "New contact", and fill in the required information. Once added, these contacts can
                             be assigned tasks and they can interact with the tasks on the board.</p>
                     </li>
                     <li>
@@ -103,12 +118,10 @@
                             as this action is irreversible.</p>
                         <br>
                         <p>Remember that using <strong>Join</strong> effectively requires consistent updates from you
-                            and your team to
-                            ensure the board reflects the current state of your project.</p>
+                            and your team to ensure the board reflects the current state of your project.</p>
                         <br>
                         <p>Have more questions about <strong>Join</strong>? Feel free to contact us at [Your Contact
-                            Email]. We're here
-                            to help you!</p>
+                            Email]. We're here to help you!</p>
                     </li>
                 </ol>
             </div>
