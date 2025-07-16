@@ -25,7 +25,7 @@ return `
                                     <img src="../assets/icons/Profile badge.svg" alt="Profile">
                                 </div>
                                 <div class="priority"> <!-- PRIORITY -->
-                                    <img src="../assets/icons/Priority Medium.svg" alt="Priority">
+                                    <img src="${dynamicPriorityIcon(task.priority)}" alt="Priority">
                                 </div>
                             </div>
                         </div>

@@ -86,3 +86,8 @@ async function updateFirebase(taskId, newStatus) {
     throw error; 
   } 
 }
+
+function dynamicPriorityIcon(priority) {
+  const formatted = priority.charAt(0).toUpperCase() + priority.slice(1).toLowerCase();
+  return `../assets/icons/Priority ${formatted}.svg`;
+}
