@@ -16,6 +16,9 @@ async function showUserInitial() {
   let userRole = localStorage.getItem("userRole");
   let userIcon = document.getElementById("userIcon");
 
+  console.log("userRole");
+  console.log("userIcon");
+
   if (userRole === "guest") {
     userIcon.innerHTML = "<strong>G</strong>";
   } else if (userRole === "user") {

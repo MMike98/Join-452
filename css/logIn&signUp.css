@@ -24,20 +24,24 @@
   padding-left: 77px;
 }
 
+.JoinIconMobileWhite {
+  display: none;
+}
+
 /* Splash Screen */
 .splash {
   position: fixed;
   inset: 0;
   background-color: white;
   z-index: 9998;
-  animation: fadeOut 2s ease forwards 1s;
+  animation: fadeOut 1.5s ease forwards;
 }
 
 .joinIcon img {
   margin-top: 80px;
   position: relative;
   z-index: 9999;
-  animation: moveLogo 2.5s ease-in-out forwards;
+  animation: moveLogo 1s ease-in-out forwards;
 }
 
 @keyframes fadeOut {
@@ -54,8 +58,8 @@
   0% {
     width: 200px;
     height: 240px;
-    top: calc(50vh - 120px);
-    left: calc(50vw - 100px);
+    top: calc(50vh - 50px);
+    left: calc(50vw);
     transform: translate(-50%, -50%) scale(1);
   }
   100% {
@@ -415,6 +419,7 @@
     padding: 0;
     width: 100%;
     justify-content: center;
+    z-index: 1;
   }
 
   .formIndex {
@@ -459,7 +464,7 @@
       width: 200px;
       height: 240px;
       top: 50vh;
-      left: 50vw;
+      left: calc(50vw - 30px);
       transform: translate(-50%, -50%);
     }
     100% {
@@ -468,6 +473,36 @@
       top: 37px;
       left: 0;
       transform: translate(0, 0);
+    }
+  }
+
+  .JoinIconMobileWhite {
+    display: block;
+    animation: moveLogo 1s ease-in-out forwards, fadeOutIcon 1s ease-in-out forwards !important;
+  }
+
+  .JoinIconMobile {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    width: 100px;
+    height: 120px;
+  }
+
+  .JoinIconMobile img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  @keyframes fadeOutIcon {
+    from {
+      opacity: 1;
+      visibility: visible;
+    }
+    to {
+      opacity: 0;
+      visibility: hidden;
     }
   }
 }

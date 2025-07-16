@@ -26,10 +26,11 @@ function toggleDropdown() {
 
 window.addEventListener("mouseup", function (event) {
   let menu = document.getElementById("myDropdown");
-  if (event.target != menu && event.target.parentNode != menu) {
+  if (menu && event.target != menu && event.target.parentNode != menu) {
     menu.style.display = "none";
   }
 });
+
 
 /** Fetchs Contacts from API */
 async function fetchContacts() {

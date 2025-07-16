@@ -315,6 +315,7 @@ li.addTaskSubtaskItem:hover {
   position: fixed;
   bottom: 0;
   width: calc(100% - 232px - 80px - 80px - 49px);
+  max-width: 977.5px;
   background-color: #f5f7f9;
 
 }
