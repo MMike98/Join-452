@@ -1,5 +1,4 @@
 // SCRIPT FOR SUMMARY //
-    
 
 async function loadTasksAndCount() {
   try {
@@ -24,16 +23,28 @@ async function loadTasksAndCount() {
 
     renderTaskCounts(counts);
   } catch (error) {
-    console.error('Fehler beim Laden der Tasks:', error);
+    console.error("Fehler beim Laden der Tasks:", error);
   }
 }
 
 function renderTaskCounts(counts) {
-  document.getElementById('countToDo').textContent = counts.to_do;
-  document.getElementById('countInProgress').textContent = counts.in_progress;
-  document.getElementById('countAwaitFeedback').textContent = counts.await_feedback;
-  document.getElementById('countDone').textContent = counts.done;
-  document.getElementById('countTotal').textContent = counts.total;
+  document.getElementById("countToDo").textContent = counts.to_do;
+  document.getElementById("countInProgress").textContent = counts.in_progress;
+  document.getElementById("countAwaitFeedback").textContent = counts.await_feedback;
+  document.getElementById("countDone").textContent = counts.done;
+  document.getElementById("countTotal").textContent = counts.total;
 }
 
-window.addEventListener('load', loadTasksAndCount);
+window.addEventListener("load", loadTasksAndCount);
+
+//** Fades out and hides the greeting text in the mobile view */
+
+setTimeout(function () {
+  let summary = document.querySelector(".summary-right");
+  if (summary) {
+    summary.classList.add("fadeOut");
+    setTimeout(() => {
+      summary.classList.add("fadeOutHidden");
+    }, 1000);
+  }
+}, 2000);
