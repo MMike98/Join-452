@@ -20,9 +20,7 @@ return `
                             </div>
                             <div class="card-footer">
                                 <div class="profile"> <!-- ASSIGNED TO -->
-                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
-                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
-                                    <img src="../assets/icons/Profile badge.svg" alt="Profile">
+                                 ${generateAssignedUsers(task.assigned)}
                                 </div>
                                 <div class="priority"> <!-- PRIORITY -->
                                     <img src="${dynamicPriorityIcon(task.priority)}" alt="Priority">

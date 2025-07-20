@@ -91,3 +91,33 @@ function dynamicPriorityIcon(priority) {
   const formatted = priority.charAt(0).toUpperCase() + priority.slice(1).toLowerCase();
   return `../assets/icons/Priority ${formatted}.svg`;
 }
+
+function generateAssignedUsers(assigned) {
+  return assigned
+    .map(name => {
+      const initials = getInitials(name);
+      const color = getColorForName(name);
+      return `
+        <div class="profile-icon" style="background-color: ${color}">
+          ${initials}
+        </div>
+      `;
+    })
+    .join('');
+}
+
+function getInitials(name) {
+  const parts = name.trim().split(' ');
+  const initials = parts.map(p => p[0]).slice(0, 2).join('');
+  return initials.toUpperCase();
+}
+
+function getColorForName(name) {
+  
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = hash % 360;
+  return `hsl(${hue}, 70%, 60%)`; 
+}
