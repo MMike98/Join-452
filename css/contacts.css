@@ -901,13 +901,3 @@
     height: 100%;
   }
 }
-
-@media (max-width: 1400px) {
-  .summary-right_greeting-top {
-    display: none;
-  }
-
-  .summary-right_greeting-bottom {
-    display: none;
-  }
-}
