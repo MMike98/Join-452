@@ -1,102 +1,136 @@
-// SCRIPT FOR BOARD //
-
 let currentDraggedElement;
 let task = {};
+let contactIndexMap = {};
 
+/** Initializes the board by fetching tasks and contacts, building the contact index map, and updating the HTML. */
 async function initBoard() {
-  task = await fetchTasks(); 
-  renderTaskCards(task);          
+  task = await fetchTasks();
+
+  let contacts = await fetchContacts();
+  
+  buildContactIndexMap(contacts);
+  updateHTML();
 }
 
-window.addEventListener("load", initBoard);
+/** Builds a map from contact names to indices based on sorted first names. Filters invalid contacts and returns sorted array. */
+function buildContactIndexMap(contacts) {
+  let contactsArray = Array.isArray(contacts) ? contacts : Object.values(contacts);
+  let validContacts = contactsArray.filter(c => c.name && typeof c.name === 'string');
 
-function renderTaskCards(tasks) {
-  for (let key in tasks) {
-    const taskObj = tasks[key]; 
-    renderSingleTaskCard(taskObj, key); 
-  }
+  let sortedContacts = validContacts.sort((a, b) => {
+    let firstNameA = a.name.split(' ')[0].toLowerCase();
+    let firstNameB = b.name.split(' ')[0].toLowerCase();
+    return firstNameA.localeCompare(firstNameB);
+  });
+
+  contactIndexMap = {};
+  sortedContacts.forEach((contact, index) => {contactIndexMap[contact.name] = index;});
+
+  return sortedContacts;
 }
 
-
-function renderSingleTaskCard(taskObj, key) {
-  const boardColumn = document.getElementById(taskObj.status);
-  if (!boardColumn) return;
-
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = generateTaskHTML(taskObj, key).trim();
-
-  const cardElement = tempDiv.firstChild;
-  boardColumn.appendChild(cardElement);
-}
-
-
+/** Updates all task columns in the UI based on current task data. */
 function updateHTML() {
-  const statuses = ['to_do', 'in_progress', 'await_feedback', 'done'];
+  let statuses = ['to_do', 'in_progress', 'await_feedback', 'done'];
+  statuses.forEach(updateColumn);
+}
 
-  for (let status of statuses) {
-    const column = document.getElementById(status);
-    column.innerHTML = '';
+/** Updates a single column based on its task status. */
+function updateColumn(status) {
+  let column = document.getElementById(status);
+  column.innerHTML = '';
 
-    for (let key in task) {
-      if (task[key].status === status) {
-        column.innerHTML += generateTaskHTML(task[key], key);
-      }
+  let hasTasks = false;
+
+  for (let key in task) {
+    if (task[key].status === status) {
+      let categoryClass = getCategoryClass(task[key].category);
+      column.innerHTML += generateTaskHTML(task[key], key, categoryClass);
+      hasTasks = true;
     }
   }
+
+  if (!hasTasks) {
+    column.innerHTML = generateEmptyColumnHTML();
+  }
 }
 
+/** Returns the fallback "no tasks" HTML used for all empty columns. */
+function generateEmptyColumnHTML() {
+  return `
+    <div class="no-task">
+      <img src="../assets/icons/No tasks feedback.svg" alt="No tasks available">
+    </div>
+  `;
+}
 
+/** Starts dragging a task. */
 function startDragging(id) {
-currentDraggedElement = id;
+  currentDraggedElement = id;
 }
 
+/** Allows drop by preventing default event. */
 function allowDrop(ev) {
-    ev.preventDefault();
+  ev.preventDefault();
 }
 
-function moveTo(status) {
+/** Moves the currently dragged task to a new status and updates Firebase. */
+async function moveTo(status) {
   task[currentDraggedElement]['status'] = status;
-  updateHTML(); 
-  updateFirebase(currentDraggedElement, status).catch(error => {
-    console.error('Fehler beim Firebase-Update:', error);
-    
-  });
+
+  try {
+    await updateFirebase(currentDraggedElement, status);
+  } catch (error) {
+    console.error('Error updating status in Firebase:', error);
+  }
+
+  updateHTML();
 }
 
+/** Handles drop event to move task to new status. */
 function drop(ev, newStatus) {
-  ev.preventDefault(); 
+  ev.preventDefault();
   moveTo(newStatus);
 }
 
+/** Updates the task status in Firebase. */
 async function updateFirebase(taskId, newStatus) {
-  const url = `${BASE_URL}/tasks/${taskId}.json`;
-  const payload = { status: newStatus };
+  let url = `${BASE_URL}/tasks/${taskId}.json`;
+  let payload = { status: newStatus };
 
   try {
     await fetch(url, {
       method: 'PATCH',
       body: JSON.stringify(payload),
-      headers: {
-        'Content-Type': 'application/json',
-      },
     });
-    console.log(`Status für Task ${taskId} auf '${newStatus}' aktualisiert.`);
+    console.log(`Status for Task ${taskId} updated to '${newStatus}'.`);
   } catch (error) {
-    console.error('Fehler beim Aktualisieren des Status in Firebase:', error);
-    throw error; 
-  } 
+    console.error('Error updating Firebase:', error);
+    throw error;
+  }
 }
 
-function dynamicPriorityIcon(priority) {
-  const formatted = priority.charAt(0).toUpperCase() + priority.slice(1).toLowerCase();
-  return `../assets/icons/Priority ${formatted}.svg`;
+/** Returns CSS class for a given task category. */
+function getCategoryClass(category) {
+  if (!category) return 'default';
+
+  switch(category.toLowerCase().trim()) {
+    case 'call':
+      return 'blue';
+    case 'user story':
+      return 'green';
+    default:
+      return 'default';
+  }
 }
 
+/** Generates HTML for assigned users with color-coded initials. */
 function generateAssignedUsers(assigned) {
-  return assigned
-    .map(name => {
-      const initials = getInitials(name);
-      const color = getColorForName(name);
+  if (!assigned || !Array.isArray(assigned)) return '';
+
+  return assigned.filter(name => typeof name === 'string' && name.trim() !== '').map(name => {
+      let initials = getInitials(name);
+      let color = getColorForName(name);
       return `
         <div class="profile-icon" style="background-color: ${color}">
           ${initials}
@@ -106,18 +140,14 @@ function generateAssignedUsers(assigned) {
     .join('');
 }
 
-function getInitials(name) {
-  const parts = name.trim().split(' ');
-  const initials = parts.map(p => p[0]).slice(0, 2).join('');
-  return initials.toUpperCase();
+/** Returns a color string for a contact name based on its index in contactIndexMap. */
+function getColorForName(name) {
+  let index = contactIndexMap[name] ?? 0;
+  return circleColors[index % circleColors.length];
 }
 
-function getColorForName(name) {
-  
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const hue = hash % 360;
-  return `hsl(${hue}, 70%, 60%)`; 
+/** Returns the file path for a priority icon image. */
+function dynamicPriorityIcon(priority) {
+  let formatted = priority.charAt(0).toUpperCase() + priority.slice(1).toLowerCase();
+  return `../assets/icons/Priority ${formatted}.svg`;
 }

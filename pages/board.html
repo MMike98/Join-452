@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../css/board.css">
 </head>
 
-<body onload="showUserInitial(); updateHTML()">
+<body onload="initBoard()">
     <header>
         <p>Kanban Project Management Tool</p>
         <img class="headerLogo" src="../assets/icons/Capa 2.svg" alt="Logo">
@@ -43,14 +43,10 @@
                 </div>
             </div>
             <div class="nav-bar-body">
-                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg"
-                        alt="Summary" />Summary</a>
-                <a href="./addtask.html" class="nav-bar-button"><img src="../assets/icons/AddTask.svg"
-                        alt="Add Task" />Add Task</a>
-                <a href="./board.html" class="nav-bar-button"><img src="../assets/icons/Board.svg"
-                        alt="Board" />Board</a>
-                <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg"
-                        alt="Contacts" />Contacts</a>
+                <a href="./summary.html" class="nav-bar-button"><img src="../assets/icons/summary.svg" alt="Summary" />Summary</a>
+                <a href="./addtask.html" class="nav-bar-button"><img src="../assets/icons/AddTask.svg" alt="Add Task" />Add Task</a>
+                <a href="./board.html" class="nav-bar-button"><img src="../assets/icons/Board.svg" alt="Board" />Board</a>
+                <a href="./contacts.html" class="nav-bar-button"><img src="../assets/icons/Contacts.svg" alt="Contacts" />Contacts</a>
             </div>
             <div class="nav-bar-footer">
                 <a href="./PrivacyPolicy.html">
@@ -72,15 +68,35 @@
                 <div>
                     <h1>Board</h1>
                     <div>
-                        <input type="text" class="search-bar" placeholder="Find Task">
-                        <button>Add Task +</button>
+                        <input id="searchBoard" type="text" class="search-bar" placeholder="Find Task">
+                        <button class="boardButton">Add Task <img src="../assets/icons/add_white.svg" alt="cross"></button>
                     </div>
                 </div>
                 <div class="content-header-buttons">
-                    <p>To do<img src="../assets/icons/plus button.svg"></p>
-                    <p>In progress<img src="../assets/icons/plus button.svg"></p>
-                    <p>Await feedback<img src="../assets/icons/plus button.svg"></p>
-                    <p>Done<img src="../assets/icons/plus button.svg"></p>
+                    <div>To do
+                        <div class="addTaskButtonContainer">
+                            <img class="addTaskButton" src="../assets/icons/plus_button.svg">
+                            <img class="addTaskButtonHover" src="../assets/icons/add_hover.svg" alt="add">
+                        </div>
+                    </div>
+                    <div>In progress                        
+                        <div class="addTaskButtonContainer">
+                            <img class="addTaskButton" src="../assets/icons/plus_button.svg">
+                            <img class="addTaskButtonHover" src="../assets/icons/add_hover.svg" alt="add">
+                        </div>
+                    </div>
+                    <div>Await feedback                        
+                        <div class="addTaskButtonContainer">
+                            <img class="addTaskButton" src="../assets/icons/plus_button.svg">
+                            <img class="addTaskButtonHover" src="../assets/icons/add_hover.svg" alt="add">
+                        </div>
+                    </div>
+                    <div>Done                        
+                        <div class=" d_none addTaskButtonContainer">
+                            <img class="addTaskButton" src="../assets/icons/plus_button.svg">
+                            <img class="addTaskButtonHover" src="../assets/icons/add_hover.svg" alt="add">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="content-body">
@@ -110,9 +126,7 @@
                     <div id="noTask" class="d_none">
                         <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
                     </div>
-
-                </div>
-                   
+                </div>   
         </section>
     </main>
 </body>

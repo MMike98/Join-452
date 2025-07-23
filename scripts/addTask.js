@@ -131,11 +131,18 @@ window.onclick = function (event) {
 
 /** Fills dropdown with contacts and marks the selected contacts*/
 async function loadContactsIntoDropdown() {
-  let contacts = await fetchContacts();
+  let contactsObj = await fetchContacts();
+  let contacts = Object.values(contactsObj);
+
+  contacts = contacts.filter(contact => contact.name && typeof contact.name === "string");
+
+  contacts.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+
   globalContacts = contacts;
   createLabels(contacts);
   setupClickHandler();
 }
+
 
 /** Creates a label element for a contact with a given index */
 function createLabel(contact, index) {
