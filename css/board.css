@@ -299,10 +299,7 @@
   .content-header > div > div > input {
     width: calc(100vw - 70px);
     background-position: calc(100vw - 100px);
-
   }
-
-
 
   .content-header-buttons {
     width: 100%;
