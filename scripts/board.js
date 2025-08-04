@@ -51,15 +51,22 @@ function updateColumn(status) {
   }
 
   if (!hasTasks) {
-    column.innerHTML = generateEmptyColumnHTML();
+    column.innerHTML = generateEmptyColumnHTML(status);
   }
 }
 
 /** Returns the fallback "no tasks" HTML used for all empty columns. */
-function generateEmptyColumnHTML() {
+function generateEmptyColumnHTML(status) {
+ const statusMessages = {
+    to_do: 'No tasks To Do',
+    in_progress: 'No tasks In Progress',
+    await_feedback: 'No tasks Await Feedback',
+    done: 'No tasks Done',
+  };
+
   return `
     <div class="no-task">
-      <img src="../assets/icons/No tasks feedback.svg" alt="No tasks available">
+      <p>${statusMessages[status]}</p>
     </div>
   `;
 }

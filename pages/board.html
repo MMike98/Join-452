@@ -88,9 +88,7 @@
                         </div>
                     </div>
                     <div id="to_do" class="card-list" ondrop="drop(event, 'to_do')" ondragover="allowDrop(event)">
-                        <div id="noTask">
-                            <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
-                        </div>
+                       
                     </div>
                 </div>
                 <!-- IN PROGRESS -->
@@ -103,9 +101,7 @@
                     </div>
                     <div id="in_progress" class="card-list" ondrop="drop(event, 'in_progress')"
                         ondragover="allowDrop(event)">
-                        <div id="noTask" class="d_none">
-                            <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
-                        </div>
+                
                     </div>
                 </div>
                 <!-- AWAIT FEEDBACK -->
@@ -118,27 +114,22 @@
                     </div>
                     <div id="await_feedback" class="card-list" ondrop="moveTo('await_feedback')"
                         ondragover="allowDrop(event)"> <!-- AWAIT FEEDBACK -->
-                        <div id="noTask" class="d_none">
-                            <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
-                        </div>
+                      
 
                     </div>
                 </div>
                 <!-- DONE -->
-                <div>
-                    <div class="content-header-buttons">Done
-                        <div class=" d_none addTaskButtonContainer">
-                            <img class="addTaskButton" src="../assets/icons/plus_button.svg">
-                            <img class="addTaskButtonHover" src="../assets/icons/add_hover.svg" alt="add">
-                        </div>
-                    </div>
-                    <div id="done" class="card-list" ondrop="moveTo('done')" ondragover="allowDrop(event)">
-                        <!-- DONE -->
-                        <div id="noTask" class="d_none">
-                            <img src="../assets/icons/No tasks feedback.svg" alt="No tasks feedback">
-                        </div>
-                    </div>
-                </div>
+        <div>
+    <div class="content-header-buttons">Done
+        <div class="addTaskButtonContainer">
+            <img class="addTaskButton" src="../assets/icons/plus_button.svg">
+            <img class="addTaskButtonHover" src="../assets/icons/add_hover.svg" alt="add">
+        </div>
+    </div>
+    <div id="done" class="card-list" ondrop="drop(event, 'done')" ondragover="allowDrop(event)">
+        <!-- done tasks or no-task -->
+    </div>
+</div>
             </div>
         </section>
     </main>

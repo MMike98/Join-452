@@ -305,3 +305,18 @@
     width: 100%;
   }
 }
+
+.no-task {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 246px;
+  border-radius: 10px;
+  border: 1px dashed #B0B0B0;
+  background-color: #E7E7E7;
+  color: #B0B0B0;
+  font-size: 16px;
+  font-weight: 400;
+  gap: 10px;
+}
