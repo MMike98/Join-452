@@ -9,6 +9,7 @@ async function initBoard() {
   let contacts = await fetchContacts();
   
   buildContactIndexMap(contacts);
+  setupSearch();
   updateHTML();
 }
 
@@ -30,28 +31,34 @@ function buildContactIndexMap(contacts) {
 }
 
 /** Updates all task columns in the UI based on current task data. */
-function updateHTML() {
-  let statuses = ['to_do', 'in_progress', 'await_feedback', 'done'];
-  statuses.forEach(updateColumn);
+function updateHTML(query = '') {
+  const statuses = ['to_do', 'in_progress', 'await_feedback', 'done'];
+
+  statuses.forEach(status => {
+    const tasksInStatus = Object.entries(task)
+      .filter(([_, t]) => t.status === status)
+      .filter(([_, t]) => {
+        if (!query) return true;
+        return t.title?.toLowerCase().includes(query.toLowerCase());
+      });
+
+    updateColumn(status, tasksInStatus);
+  });
 }
 
 /** Updates a single column based on its task status. */
-function updateColumn(status) {
-  let column = document.getElementById(status);
+function updateColumn(status, tasks) {
+  const column = document.getElementById(status);
   column.innerHTML = '';
 
-  let hasTasks = false;
-
-  for (let key in task) {
-    if (task[key].status === status) {
-      let categoryClass = getCategoryClass(task[key].category);
-      column.innerHTML += generateTaskHTML(task[key], key, categoryClass);
-      hasTasks = true;
-    }
+  if (tasks.length === 0) {
+    column.innerHTML = generateEmptyColumnHTML(status);
+    return;
   }
 
-  if (!hasTasks) {
-    column.innerHTML = generateEmptyColumnHTML(status);
+  for (const [key, t] of tasks) {
+    const categoryClass = getCategoryClass(t.category);
+    column.innerHTML += generateTaskHTML(t, key, categoryClass);
   }
 }
 
@@ -158,3 +165,56 @@ function dynamicPriorityIcon(priority) {
   let formatted = priority.charAt(0).toUpperCase() + priority.slice(1).toLowerCase();
   return `../assets/icons/Priority ${formatted}.svg`;
 }
+
+/**  */
+function setupSearch() {
+  const input = document.getElementById('searchBoard');
+  if (!input) return; 
+
+  input.addEventListener('input', (event) => {
+    currentQuery = event.target.value.trim().toLowerCase();
+    updateHTML(currentQuery); 
+  });
+}
+
+async function openAddTaskSlider() {
+  const slider = document.getElementById("addTaskSlider");
+  const panel = slider.querySelector(".overlay");
+
+  slider.classList.remove("d_none");
+
+  // Slider animiert rein
+  requestAnimationFrame(() => {
+    slider.classList.add("active");
+    panel.classList.add("open");
+  });
+
+  // Initialisiere das Formular im Slider
+  await initAddTaskSlider();
+}
+
+function closeAddTaskSlider(event) {
+  const slider = document.getElementById("addTaskSlider");
+  const panel = slider.querySelector(".overlay");
+
+  panel.classList.remove("open"); // Slide raus
+  slider.classList.remove("active"); // grauer Hintergrund entfernen sofort
+
+  // Nach 350ms → d_none setzen (nachdem Animation fertig)
+  setTimeout(() => {
+    slider.classList.add("d_none");
+  }, 350);
+}
+
+
+
+
+async function initAddTaskSlider() {
+  clearAll();                       // Eingabefelder zurücksetzen (wenn nötig)
+  showUserInitial();                // User-Kürzel setzen, falls gebraucht
+  await loadContactsIntoDropdown(); // Kontakte laden und Dropdown füllen
+  await loadCategoriesIntoDropdown(); // Kategorien laden und Dropdown füllen
+}
+
+
+

@@ -27,3 +27,5 @@ function generateTaskHTML(task, key, categoryClass = 'default') {
     </div>
   `;
 }
+
+
