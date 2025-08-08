@@ -206,6 +206,21 @@ function closeAddTaskSlider(event) {
   }, 350);
 }
 
+async function handleCreateTask(event) {
+  try {
+    await saveNewTask(event);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    closeAddTaskSlider(event);
+  }
+
+  // kurz warten, damit die Close-Animation sichtbar ist, dann Navigation
+  setTimeout(() => {
+    window.location.href = "./board.html";
+  }, 800); // an die Animationsdauer anpassen
+}
+
 
 
 

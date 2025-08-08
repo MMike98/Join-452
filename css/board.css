@@ -333,6 +333,7 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  color: #000;
 }
 
 .overlayBackground.active {
@@ -348,9 +349,15 @@
   transform: translateX(130%);         
   transition: transform 0.3s ease;    
   will-change: transform;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 .overlay.open {
     transform: translateX(0);
+}
+.overlay h1 {
+  color: #000 !important;
 }
 
 

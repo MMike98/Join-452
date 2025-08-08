@@ -17,6 +17,43 @@
   padding-top: 50px;
 }
 
+#addTaskSlider .addTaskAlignment {
+  display: flex;
+  padding-top: 50px;
+}
+
+#addTaskSlider form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#addTaskSlider h1 {
+  align-self: flex-start;
+  margin-left: 0;
+}
+
+#addTaskSlider .addTaskButtonRequiredAlignment {
+      display: flex
+;
+    justify-content: space-between;
+    align-items: end;
+    padding: 12px 0;
+    position: fixed;
+    bottom: 0;
+    width: 980px;
+    max-width: 977.5px;
+    background-color: transparent;
+    margin-bottom: 80px;
+}
+
+.h1-wrapper {
+  display: flex;
+  align-items: flex-start;
+  width: 970px;
+  margin-top: 80px;
+}
+
 .addTaskInfos {
   display: flex;
   flex-direction: column;
@@ -316,7 +353,7 @@ li.addTaskSubtaskItem:hover {
   bottom: 0;
   width: calc(100% - 232px - 80px - 80px - 49px);
   max-width: 977.5px;
-  background-color: #f5f7f9;
+  background-color: transparent;
 
 }
 
@@ -470,6 +507,8 @@ li.addTaskSubtaskItem:hover {
 .requiredMobileView {
   display: none;
 }
+
+#
 
 @media (max-width: 1400px) {
   .addTaskAlignment {

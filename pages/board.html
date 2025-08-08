@@ -140,7 +140,10 @@
     <div class="overlay" onclick="event.stopPropagation()">
         
             <!-- Hier später der AddTask Inhalt rein -->
+             <div class="h1-wrapper">
              <h1>Add Task</h1>
+             </div>
+             
             <form onsubmit="return required(event)">
                 <div class="addTaskAlignment">
                     <div class="addTaskInfos">
@@ -199,7 +202,7 @@
                     <div class="requiredMobile"><span class="requiredStar">*</span>This field is required</div>
                     <div class="addTaskConfirmAlignment">
                         <button type="button" class="addTaskButtonClear" onclick="clearAll()">Clear</button>
-                        <button type="submit" class="addTaskButtonCreateTask" onclick="saveNewTask(event)">Create Task</button>
+                        <button type="button" class="addTaskButtonCreateTask" onclick="handleCreateTask(event)">Create Task</button>
                     </div>
                 </div>
             </form>
