@@ -166,7 +166,7 @@ function dynamicPriorityIcon(priority) {
   return `../assets/icons/Priority ${formatted}.svg`;
 }
 
-/**  */
+/** Sets up the search input to filter tasks as the user types. */
 function setupSearch() {
   const input = document.getElementById('searchBoard');
   if (!input) return; 
@@ -177,35 +177,39 @@ function setupSearch() {
   });
 }
 
+/**
+ * Öffnet den Add-Task-Slider und initialisiert ihn. */
 async function openAddTaskSlider() {
   const slider = document.getElementById("addTaskSlider");
   const panel = slider.querySelector(".overlay");
 
   slider.classList.remove("d_none");
 
-  // Slider animiert rein
   requestAnimationFrame(() => {
     slider.classList.add("active");
     panel.classList.add("open");
   });
 
-  // Initialisiere das Formular im Slider
-  await initAddTaskSlider();
+    await initAddTaskSlider();
 }
 
+
+/**  Schließt den Add-Task-Slider mit Animation. */
 function closeAddTaskSlider(event) {
   const slider = document.getElementById("addTaskSlider");
   const panel = slider.querySelector(".overlay");
 
-  panel.classList.remove("open"); // Slide raus
-  slider.classList.remove("active"); // grauer Hintergrund entfernen sofort
+  panel.classList.remove("open"); 
+  slider.classList.remove("active"); 
 
-  // Nach 350ms → d_none setzen (nachdem Animation fertig)
+  
   setTimeout(() => {
     slider.classList.add("d_none");
   }, 350);
 }
 
+
+/** Behandelt das Erstellen einer neuen Aufgabe, speichert sie und schließt den Slider. */
 async function handleCreateTask(event) {
   try {
     await saveNewTask(event);
@@ -215,20 +219,22 @@ async function handleCreateTask(event) {
     closeAddTaskSlider(event);
   }
 
-  // kurz warten, damit die Close-Animation sichtbar ist, dann Navigation
+  
   setTimeout(() => {
     window.location.href = "./board.html";
-  }, 800); // an die Animationsdauer anpassen
+  }, 800); 
 }
 
 
 
-
+/**  Initialisiert den Add-Task-Slider, lädt Kontakte, Kategorien und rendert die ausgewählten Kontakte.  */
 async function initAddTaskSlider() {
-  clearAll();                       // Eingabefelder zurücksetzen (wenn nötig)
-  showUserInitial();                // User-Kürzel setzen, falls gebraucht
-  await loadContactsIntoDropdown(); // Kontakte laden und Dropdown füllen
-  await loadCategoriesIntoDropdown(); // Kategorien laden und Dropdown füllen
+  clearAll();                       
+  showUserInitial();                
+  let contacts = await loadContactsIntoDropdown(); 
+  setupClickHandler();
+  await loadCategoriesIntoDropdown(); 
+  renderSelectedContactCircles(contacts);  
 }
 
 

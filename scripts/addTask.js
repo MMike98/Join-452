@@ -189,6 +189,7 @@ function handleDropdownClick(event) {
   if (target.tagName === "LABEL") {
     toggleSelection(target);
   }
+  console.log(selected);
 }
 
 /** Toggles the selection state of the clicked label */
@@ -214,6 +215,8 @@ function toggleSelectedContactsDiv() {
 
 /** Renders the selected contacts */
 function renderSelectedContactCircles(contacts) {
+
+console.log("renderSelectedContactCircles called")
   let container = document.getElementById("addTaskContaktsSelected");
   if (!container) return;
 
