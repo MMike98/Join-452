@@ -120,32 +120,107 @@ function addNewContact() {
   document.getElementById("contactAdd").classList.add("open");
 }
 
-/** Close overay */
+/** Closes the contact add/edit overlays and resets the form. */
 function closeOverlay() {
   let addOverlay = document.getElementById("contactAdd");
   let editOverlay = document.getElementById("contactEdit");
 
-  if (addOverlay) addOverlay.classList.remove("open");
-  if (editOverlay) editOverlay.classList.remove("open");
+  if (addOverlay) {
+    addOverlay.classList.remove("open");
+    resetContactForm("contactAdd");
+  }
+
+  if (editOverlay) {
+    editOverlay.classList.remove("open");
+    resetContactForm("contactEdit");
+  }
 }
 
-/** Saves an new contact */
+/** Resets all input fields and error messages inside the given form. */
+function resetContactForm(overlayId) {
+  let form = document.querySelector(`#${overlayId} form`);
+  if (!form) return;
+
+  form.reset();
+
+  form.querySelectorAll("input").forEach(input => {
+    input.classList.remove("inputError");
+  });
+
+  form.querySelectorAll(".errorText").forEach(error => {
+    error.classList.add("d_none");
+  });
+}
+
+/** Handles the submit event to save a new contact. */
 async function saveNewContact(event) {
   event.preventDefault();
-  let form = event.target.closest("form");
-  if (!form.checkValidity()) return form.reportValidity();
+  clearAllErrors();
 
-  let newContact = getContactInformation();
+  let nameInput = document.getElementById("addContactName");
+  let mailInput = document.getElementById("addContactMail");
+  let phoneInput = document.getElementById("addContactPhone");
+
+  let isValid = validateForm(nameInput, mailInput, phoneInput);
+  if (!isValid) return;
+
+  let newContact = extractContactData(nameInput, mailInput, phoneInput);
   await loadContactIntoAPI(newContact);
   await renderContacts();
 
-  let newIndex = contacts.findIndex((c) => c.name === newContact.name);
+  handlePostSave(newContact);
+  clearFormFields(nameInput, mailInput, phoneInput);
+}
 
+/** Validates the contact form inputs. */
+function validateForm(nameInput, mailInput, phoneInput) {
+  let validName = validateField(nameInput, ".errorTextNameAlignment");
+  let validMail = validateField(mailInput, ".errorTextMailAlignment");
+  let validPhone = validateField(phoneInput, ".errorTextPhoneAlignment");
+  return validName && validMail && validPhone;
+}
+
+/** Validates a single input field and toggles error styles. */
+function validateField(input, errorSelector) {
+  let errorDiv = document.querySelector(errorSelector);
+  let isValid = input.value.trim() !== "";
+  input.classList.toggle("inputError", !isValid);
+  errorDiv.classList.toggle("d_none", isValid);
+  return isValid;
+}
+
+/** Extracts contact data from the form inputs. */
+function extractContactData(nameInput, mailInput, phoneInput) {
+  return {
+    name: nameInput.value.trim(),
+    email: mailInput.value.trim(),
+    phonenumber: phoneInput.value.trim(),
+  };
+}
+
+/** Clears form field values and removes input error classes. */
+function clearFormFields(...inputs) {
+  inputs.forEach(input => {
+    input.value = "";
+    input.classList.remove("inputError");
+  });
+}
+
+/** Hides all error messages and removes error borders from inputs. */
+function clearAllErrors() {
+  let errorTexts = document.querySelectorAll(".errorText");
+  let errorInputs = document.querySelectorAll(".inputError");
+
+  errorTexts.forEach(div => div.classList.add("d_none"));
+  errorInputs.forEach(input => input.classList.remove("inputError"));
+}
+
+/** Handles UI updates after successfully saving a new contact. */
+function handlePostSave(newContact) {
+  let newIndex = contacts.findIndex(c => c.name === newContact.name);
   closeOverlay();
   if (newIndex !== -1) toggleContactDetails(newIndex);
-
   showSuccessMessage();
-  form.reset();
 }
 
 /** Gets entered information of a new contact */

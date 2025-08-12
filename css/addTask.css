@@ -5,8 +5,7 @@
   background-color: #f6f7f8;
   max-width: 977.5px;
   width: 100%;
-  margin: 0 auto;
-  padding: 176px 80px 64px 296px;
+  padding: 206px 80px 64px 328px;
   flex-direction: column;
   font-size: 20px;
   font-weight: 400;
@@ -508,8 +507,6 @@ li.addTaskSubtaskItem:hover {
   display: none;
 }
 
-#
-
 @media (max-width: 1400px) {
   .addTaskAlignment {
     flex-direction: column;
@@ -554,6 +551,7 @@ li.addTaskSubtaskItem:hover {
   .content {
     padding: 80px 0 64px 0;
     width: 396px;
+    margin: 0 auto;
   }
 
   h1 {

@@ -102,11 +102,10 @@
 .contactDetails {
   max-width: calc(977.5px - 456px);
   width: 100%;
-  padding-left: 688px;
+  padding-left: 750px;
   padding-top: 176px;
   padding-bottom: 110px;
   padding-right: 55px;
-  margin: 0 auto;
 }
 
 .contactsAlignment {
@@ -389,7 +388,8 @@
   align-content: center;
   gap: 4px;
   padding: 16px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right 15px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right
+    15px center;
   justify-content: left;
   background-size: 25px;
 }
@@ -399,7 +399,8 @@
   color: #29abe2;
   padding-left: 15px;
   padding-bottom: 15px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat right 14px center;
+  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat
+    right 14px center;
   background-size: 25px;
   display: flex;
   align-items: center;
@@ -542,6 +543,18 @@
   display: none;
 }
 
+.errorTextNameAlignment {
+  top: 205px;
+}
+
+.errorTextMailAlignment {
+  top: 275px;
+}
+
+.errorTextPhoneAlignment {
+  top: 345px;
+}
+
 @media (max-width: 1400px) {
   .contactsList {
     width: 100%;
@@ -551,6 +564,13 @@
   .contacts,
   .contactsAddButtonContainer {
     width: calc(100% - 232px);
+    align-items: baseline;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .contactsLetterSeparatorLine {
+    width: calc(100% - 20px - 20px);
   }
 
   .contactsAddButtonContainer {
@@ -566,7 +586,7 @@
     width: 56px;
     border-radius: 46px;
     position: absolute;
-    right: 20px;
+    right: 50px;
     top: calc(100vh - 80px - 100px);
   }
 
@@ -658,9 +678,8 @@
 
   .contactDetails {
     padding: 0;
-    padding-top: 128px;
-    padding-left: 232px;
-    margin: 0 auto;
+    padding-top: 176px;
+    padding-left: 300px;
     font-size: 20px;
     max-width: none;
     width: auto;
@@ -817,6 +836,18 @@
   #editContactPhone {
     background-position: 320px;
   }
+
+  .errorTextNameAlignment {
+    top: 434px;
+  }
+
+  .errorTextMailAlignment {
+    top: 489px;
+  }
+
+  .errorTextPhoneAlignment {
+    top: 549px;
+  }
 }
 
 @media (max-width: 840px) {
@@ -827,13 +858,18 @@
     left: 0;
   }
 
+  .contactsLetterSeparatorLine {
+    width: 100%;
+  }
+
   .contacts,
   .contactsAddButtonContainer {
-    width: 100%;
+    width: calc(100% - 20px - 20px);
   }
 
   .contactsAddButtonAlignment {
     top: calc(100vh - 80px - 80px - 80px);
+    right: 30px;
   }
 
   .contactDetails {
@@ -893,6 +929,13 @@
   #editContactMail,
   #editContactPhone {
     background-position: 95%;
+  }
+
+  
+  .errorTextNameAlignment,
+  .errorTextMailAlignment,
+  .errorTextPhoneAlignment {
+    left: 10px;
   }
 }
 

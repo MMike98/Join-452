@@ -30,14 +30,14 @@
                 <img class="vector" src="../assets/icons/Vector.svg" alt="Pfeil">
             </a>
         </div>
-        <form autocomplete="new-password" class="formBox formSignUp" onsubmit="saveNewUser(event)">
+        <form class="formBox formSignUp" onsubmit="saveNewUser(event)">
             <div class="title">
                 <h1>Sign up</h1>
                 <div class="line"></div>
             </div>
             <div class="input">
-                <input type="text" required id="nameSignUp" placeholder="Name">
-                <input autocomplete="new-password" type="email" required id="emailSignUp" placeholder="Email">
+                <input autocomplete="off" type="text" required id="nameSignUp" placeholder="Name">
+                <input autocomplete="off" type="email" required id="emailSignUp" placeholder="Email">
                 <div class="password-wrapper">
                     <input type="password" required id="passwordSignUp" placeholder="Password" oninput="changeIcon()">
                     <span id="togglePasswordIcon" onclick="togglePassword()" class="password-icon d_none"></span>

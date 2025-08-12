@@ -7,10 +7,9 @@ a {
 .summary {
   display: flex;
   flex-direction: column;
-  padding: 176px 80px 64px 296px;
+  padding: 206px 80px 64px 328px;
   max-width: 1000px;
   width: fit-content;
-  margin: 0 auto;
 }
 
 .summary-left {
@@ -369,7 +368,7 @@ a {
   }
 }
 
-@media (max-width: 1030px) {
+@media (max-width: 1050px) {
   .summary-left_header {
     flex-direction: column;
     align-items: baseline;
@@ -393,7 +392,8 @@ a {
   }
 
   .summary {
-    padding: 176px 0 64px 250px;
+    padding: 176px 0 64px 232px;
+    margin: 0 auto;
   }
 }
 
