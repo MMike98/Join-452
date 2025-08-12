@@ -232,6 +232,7 @@ async function initAddTaskSlider() {
   clearAll();                       
   showUserInitial();                
   let contacts = await loadContactsIntoDropdown(); 
+   console.log('contacts in initAddTaskSlider:', contacts);
   setupClickHandler();
   await loadCategoriesIntoDropdown(); 
   renderSelectedContactCircles(contacts);  

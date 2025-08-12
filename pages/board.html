@@ -74,7 +74,7 @@
                 <div>
                     <h1>Board</h1>
                     <div>
-                        <input id="searchBoard" type="text" class="search-bar" placeholder="Find Task">
+                        <input id="searchBoard" type="text" class="search-bar" placeholder="Find Task" autocomplete="off">
                         <button class="boardButton">Add Task <img src="../assets/icons/add_white.svg"
                                 alt="cross"></button>
                     </div>
@@ -144,16 +144,16 @@
              <h1>Add Task</h1>
              </div>
              
-            <form onsubmit="return required(event)">
+            <form autocomplete="off" onsubmit="return required(event)">
                 <div class="addTaskAlignment">
                     <div class="addTaskInfos">
                         <label for="addTaskTitle">Title<span class="requiredStar">*</span></label>
-                        <input type="text" id="addTaskTitle" name="addTaskTitle" placeholder="Enter a title">
+                        <input type="text" id="addTaskTitle" name="addTaskTitle" placeholder="Enter a title" autocomplete="off">
                         <div class="d_none errorTextAddTask errorTextAddTaskAlignmentTitle" id="addTaskTextError">This field is required</div>
                         <label for="addTaskDescription">Description</label>
                         <textarea id="addTaskDescription" name="addTaskDescription" placeholder="Enter a Description"></textarea>
                         <label for="addTaskDate">Due date<span class="requiredStar">*</span></label>
-                        <input type="date" id="addTaskDate" name="addTaskDate" placeholder="dd/mm/yyyy">
+                        <input type="date" id="addTaskDate" name="addTaskDate" placeholder="dd/mm/yyyy" autocomplete="off">
                         <div class="d_none errorTextAddTask errorTextAddTaskAlignmentDate" id="addTaskDateError">This field is required</div>
                     </div>
                     <div class="line"></div>
@@ -174,20 +174,20 @@
                             </button>
                         </div>
                         <label for="addTaskContacts">Assigned to</label>
-                        <input type="text" id="addTaskContacts" name="addTaskContacts" placeholder="Select contacts to assign" onclick="toggleDropdownById('contacts')" oninput="filterContacts()">
+                        <input autocomplete="off" type="text" id="addTaskContacts" name="addTaskContacts" placeholder="Select contacts to assign" onclick="toggleDropdownById('contacts')" oninput="filterContacts()">
                         <div class="d_none addTaskDropDownShadow" id="contacts">
                             <div class="addTaskDropDown" id="addTaskContactDropDown"></div>
                         </div>
                         <div id="addTaskContaktsSelected" class="d_none contactsSelectedAlignment"></div>
                         <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
-                        <input type="text" id="addTaskCategory" name="addTaskCategory" placeholder="Select task category" onclick="toggleDropdownById('category')">
+                        <input autocomplete="off" type="text" id="addTaskCategory" name="addTaskCategory" placeholder="Select task category" onclick="toggleDropdownById('category')">
                         <div class="d_none addTaskDropDownShadow" id="category">
                             <div class="addTaskDropDown" id="addTaskCategoryDropDown"></div>
                         </div>
                         <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
                         <label for="addTaskSubtasks">Subtasks</label>
                         <div class="subtask-wrapper">
-                            <input type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask" oninput="changeSubtaskIcon()">
+                            <input autocomplete="off" type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask" oninput="changeSubtaskIcon()">
                             <div id="addTaskSubtaskConfirm" class="addTaskSubtaskConfirm d_none">
                                 <img src="../assets/icons/cross.svg" alt="close" onclick="deleteSubtaskEntry()">
                                 <div class="addTaskSubtaskLine"></div>

@@ -141,6 +141,8 @@ async function loadContactsIntoDropdown() {
   globalContacts = contacts;
   createLabels(contacts);
   setupClickHandler();
+
+  return contacts;
 }
 
 
