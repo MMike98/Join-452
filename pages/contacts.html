@@ -104,10 +104,12 @@
                 <form class="overlayWhiteInput" onsubmit="saveNewContact(event)">
                     <input autocomplete="off" type="text" id="addContactName" placeholder="Name">
                     <div class="errorText errorTextNameAlignment d_none">Please enter your name.</div>
-                    <input autocomplete="off" type="email" id="addContactMail" placeholder="Email">
+                    <input autocomplete="off" type="text" id="addContactMail" placeholder="Email">
                     <div class="errorText errorTextMailAlignment d_none">Please enter your Email.</div>
-                    <input autocomplete="off" type="tel" id="addContactPhone" placeholder="Phone" pattern="^\+[0-9]{2}(?: ?[0-9]{1,4}){3,5}$" title="+Ländervorwahl gefolgt von der Telefonnummer ohne führende Null">
+                    <div class="errorText errorTextMailAlignment d_none">Invalide Email: @ or top level domain (e.g. .de) is missing.</div>
+                    <input autocomplete="off" type="text" id="addContactPhone" placeholder="Phone">
                     <div class="errorText errorTextPhoneAlignment d_none">Please enter your phone number.</div>
+                    <div class="errorText errorTextPhoneAlignment d_none">Invalide number: +Country code followed by the telephone number without the leading zero</div>
                     <div class="overlayWhiteButtons">
                         <button class="bottonWhite" onclick="closeOverlay()">Cancel</button>
                         <button type="submit" class="bottomGrey">
@@ -133,9 +135,14 @@
                 <img class="overlayClose" src="../assets/icons/cross.svg" alt="close" onclick="closeOverlay()">
                 <div id="editContactAvatar"></div>
                 <form class="overlayWhiteInput">
-                    <input type="text" id="editContactName" placeholder="Name" required>
-                    <input type="email" id="editContactMail" placeholder="Email" required>
-                    <input type="tel" id="editContactPhone" placeholder="Phone" required pattern="^\+[0-9]{2}(?: ?[0-9]{1,4}){3,5}$" title="+Ländervorwahl gefolgt von der Telefonnummer ohne führende Null">
+                    <input autocomplete="off" type="text" id="editContactName" placeholder="Name">
+                    <div class="errorText errorTextNameAlignment d_none">Please enter a name.</div>
+                    <input autocomplete="off" type="text" id="editContactMail" placeholder="Email">
+                    <div class="errorText errorTextMailAlignment d_none">Please enter your Email.</div>
+                    <div class="errorText errorTextMailAlignment d_none">Invalid email: @ or top level domain (e.g. .de) is missing.</div>
+                    <input autocomplete="off" type="text" id="editContactPhone" placeholder="Phone">
+                    <div class="errorText errorTextPhoneAlignment d_none">Please enter your phone number.</div>
+                    <div class="errorText errorTextPhoneAlignment d_none">Invalid number: +Country code followed by the telephone number without the leading zero</div>
                     <div class="overlayWhiteButtonsEdit">
                         <button type="button" class="bottonWhiteDelete" onclick="deleteContact(editContactIndex)">Delete</button>
                         <button type="button" class="bottomGreyDelete" onclick="saveEditedContact(editContactIndex)">

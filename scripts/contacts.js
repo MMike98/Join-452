@@ -175,13 +175,138 @@ async function saveNewContact(event) {
 /** Validates the contact form inputs. */
 function validateForm(nameInput, mailInput, phoneInput) {
   let validName = validateField(nameInput, ".errorTextNameAlignment");
-  let validMail = validateField(mailInput, ".errorTextMailAlignment");
-  let validPhone = validateField(phoneInput, ".errorTextPhoneAlignment");
+  let validMail = validateEmailField(mailInput, ".errorTextMailAlignment");
+  let validPhone = validatePhoneField(phoneInput, ".errorTextPhoneAlignment");
   return validName && validMail && validPhone;
+}
+
+/** Validates the edit form inputs for name, email, and phone. */
+function validateEditForm(nameInput, mailInput, phoneInput) {
+  let validName = validateNameField(nameInput);
+  let validMail = validateEmailFieldEdit(mailInput);
+  let validPhone = validatePhoneFieldEdit(phoneInput);
+  return validName && validMail && validPhone;
+}
+
+/** Validates the name input field. */
+function validateNameField(input) {
+  let errorDiv = input.nextElementSibling;
+  let isValid = input.value.trim() !== "";
+  input.classList.toggle("inputError", !isValid);
+  errorDiv.classList.toggle("d_none", isValid);
+  return isValid;
+}
+
+/** Validates the email input field in edit mode. Checks if the input is not empty and matches the email pattern. Toggles error messages and input error styles accordingly. */
+function validateEmailFieldEdit(input) {
+  let errorEmpty = input.nextElementSibling;
+  let errorInvalid = errorEmpty.nextElementSibling;
+  
+  errorEmpty.classList.add("d_none");
+  errorInvalid.classList.add("d_none");
+  input.classList.remove("inputError");
+
+  let email = input.value.trim();
+  if (email === "") {
+    errorEmpty.classList.remove("d_none");
+    input.classList.add("inputError");
+    return false;
+  }
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(email)) {
+    errorInvalid.classList.remove("d_none");
+    input.classList.add("inputError");
+    return false;
+  }
+  return true;
+}
+
+/** Validates the phone number input field in edit mode. */
+function validatePhoneFieldEdit(input) {
+  let errorEmpty = input.nextElementSibling;
+  let errorInvalid = errorEmpty.nextElementSibling;
+
+  errorEmpty.classList.add("d_none");
+  errorInvalid.classList.add("d_none");
+  input.classList.remove("inputError");
+
+  let phone = input.value.trim();
+
+  if (phone === "") {
+    errorEmpty.classList.remove("d_none");
+    input.classList.add("inputError");
+    return false;
+  }
+
+  let phoneRegex = /^\+[1-9][0-9]{1,3}[1-9][0-9]{4,}$/;
+  if (!phoneRegex.test(phone)) {
+    errorInvalid.classList.remove("d_none");
+    input.classList.add("inputError");
+    return false;
+  }
+
+  return true;
+}
+
+/** Validates the email input field for presence and correct format. */
+function validateEmailField(input, errorSelector) {
+  let email = input.value.trim();
+  let errorDivs = document.querySelectorAll(errorSelector);
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
+  errorDivs.forEach(div => div.classList.add("d_none"));
+  input.classList.remove("inputError");
+
+  if (!email) {
+    errorDivs[0].classList.remove("d_none");
+    input.classList.add("inputError");
+    return false;
+  }
+
+  if (!emailRegex.test(email)) {
+    errorDivs[1].classList.remove("d_none");
+    input.classList.add("inputError");
+    return false;
+  }
+
+  return true;
+}
+
+/** Validates the phone input field for presence and international format. */
+function validatePhoneField(input, errorSelector) {
+  let phone = input.value.trim();
+  let errorDivs = document.querySelectorAll(errorSelector);
+  let phoneRegex = /^\+[1-9][0-9]{1,3}[1-9][0-9]{4,}$/;
+
+  errorDivs.forEach(div => div.classList.add("d_none"));
+  input.classList.remove("inputError");
+
+  if (!phone) {
+    errorDivs[0].classList.remove("d_none");
+    input.classList.add("inputError");
+    return false;
+  }
+
+  if (!phoneRegex.test(phone)) {
+    errorDivs[1].classList.remove("d_none");
+    input.classList.add("inputError");
+    return false;
+  }
+
+  return true;
 }
 
 /** Validates a single input field and toggles error styles. */
 function validateField(input, errorSelector) {
+  let errorDiv = document.querySelector(errorSelector);
+  let isValid = input.value.trim() !== "";
+  input.classList.toggle("inputError", !isValid);
+  errorDiv.classList.toggle("d_none", isValid);
+  return isValid;
+}
+
+/** Validates a generic input field by checking if it's not empty. */
+function validateEditField(input, errorSelector) {
   let errorDiv = document.querySelector(errorSelector);
   let isValid = input.value.trim() !== "";
   input.classList.toggle("inputError", !isValid);
@@ -301,9 +426,18 @@ function renderEditAvatar(contact, color) {
 
 /** Saves the edited contact in the API*/
 async function saveEditedContact(editContactIndex) {
-  contacts[editContactIndex].name = document.getElementById("editContactName").value;
-  contacts[editContactIndex].email = document.getElementById("editContactMail").value;
-  contacts[editContactIndex].phonenumber = document.getElementById("editContactPhone").value;
+  const nameInput = document.getElementById("editContactName");
+  const mailInput = document.getElementById("editContactMail");
+  const phoneInput = document.getElementById("editContactPhone");
+
+  // Hier Validierung ergänzen (siehe Beispiel unten)
+  if (!validateEditForm(nameInput, mailInput, phoneInput)) {
+    return; // Abbruch, wenn ungültig
+  }
+
+  contacts[editContactIndex].name = nameInput.value;
+  contacts[editContactIndex].email = mailInput.value;
+  contacts[editContactIndex].phonenumber = phoneInput.value;
 
   let contactKey = contactKeys[editContactIndex];
 
