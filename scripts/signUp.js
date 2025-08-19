@@ -1,22 +1,73 @@
-/**Saves new user */
+/**Saves new user. Handles manual validation and saves a new user if inputs are valid. */
 async function saveNewUser(event) {
   event.preventDefault();
 
+  clearSignUpErrors();
+
   let { name, email, password, confirm } = getUserInformation();
+  let checkbox = document.getElementById("checkPP");
+
+  if (!name || !email || !password || !confirm) {
+    showSignUpError("Please fill in all fields.");
+    highlightEmptyFields({ name, email, password, confirm });
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    showSignUpError("Invalid email: @ or top level domain (e.g. .de) is missing.");
+    document.getElementById("emailSignUp").classList.add("inputError");
+    return;
+  }
+
+  if (!checkbox.checked) {
+    showSignUpError("You must accept the privacy policy.");
+    return;
+  }
+
+  if (password !== confirm) {
+    return handlePasswordMismatch();
+  }
 
   if (await isEmailTaken(email)) {
     return;
   }
-  if (password !== confirm) {
-    return handlePasswordMismatch();
-  }
-  const newUser = { name, email, password };
+
+  let newUser = { name, email, password };
   await loadIntoAPI(newUser);
   resetSignUpForm();
-  successSignUp()
+  successSignUp();
 }
 
-// Shows success message and redirects to login after 2s
+/** Validates the email format manually. */
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(email.toLowerCase());
+}
+
+/** Displays a signup error message. */
+function showSignUpError(message) {
+  let error = document.getElementById("errorSignUp");
+  error.classList.remove("d_none");
+  error.textContent = message;
+}
+
+/** Highlights empty fields by adding the inputError class. */
+function highlightEmptyFields({ name, email, password, confirm }) {
+  if (!name) document.getElementById("nameSignUp").classList.add("inputError");
+  if (!email) document.getElementById("emailSignUp").classList.add("inputError");
+  if (!password) document.getElementById("passwordSignUp").classList.add("inputError");
+  if (!confirm) document.getElementById("confirmSignUp").classList.add("inputError");
+}
+
+/** Removes all previous error styles from the sign-up form. */
+function clearSignUpErrors() {
+  document.getElementById("nameSignUp").classList.remove("inputError");
+  document.getElementById("emailSignUp").classList.remove("inputError");
+  document.getElementById("passwordSignUp").classList.remove("inputError");
+  document.getElementById("confirmSignUp").classList.remove("inputError");
+  document.getElementById("errorSignUp").classList.add("d_none");
+}
+
+/** Shows success message and redirects to login after 2s */
 function successSignUp() {
   document.getElementById("singUpMsg").classList.remove("d_none")
   document.getElementById("content").classList.add("slide-up")

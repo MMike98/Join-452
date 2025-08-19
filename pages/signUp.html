@@ -36,19 +36,19 @@
                 <div class="line"></div>
             </div>
             <div class="input">
-                <input autocomplete="off" type="text" required id="nameSignUp" placeholder="Name">
-                <input autocomplete="off" type="email" required id="emailSignUp" placeholder="Email">
+                <input autocomplete="off" type="text" id="nameSignUp" placeholder="Name">
+                <input autocomplete="off" type="text" id="emailSignUp" placeholder="Email">
                 <div class="password-wrapper">
-                    <input type="password" required id="passwordSignUp" placeholder="Password" oninput="changeIcon()">
+                    <input type="password" id="passwordSignUp" placeholder="Password" oninput="changeIcon()">
                     <span id="togglePasswordIcon" onclick="togglePassword()" class="password-icon d_none"></span>
                 </div>
                 <div class="password-wrapper">
-                    <input type="password" required id="confirmSignUp" placeholder="Confirm Password" oninput="checkPassword(), changeIconConfirm()">
+                    <input type="password" id="confirmSignUp" placeholder="Confirm Password" oninput="checkPassword(), changeIconConfirm()">
                     <span id="togglePasswordIconConfirm" onclick="togglePasswordConfirm()" class="password-icon d_none"></span>
                 </div>
                 <div class="errorText errorTextSignUp d_none" id="errorSignUp"></div>
                 <div class="checkPP">
-                    <input type="checkbox" required class="checkBox" id="checkPP" name="checkPP" value="privacyPolicy">
+                    <input type="checkbox" class="checkBox" id="checkPP" name="checkPP" value="privacyPolicy">
                     <label for="checkPP" class="custom-checkbox">
                         <span class="checkbox-icon"></span>
                         <span class="checkText">I accept the <a href="./PrivacyPolicyGuest.html" class="linkSignUpPP">Privacy policy</a></span>
