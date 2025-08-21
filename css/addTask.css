@@ -255,7 +255,6 @@ label.contactSelected:hover #contactChecked {
   height: 24px;
   background-color: #d1d1d1;
   padding: 0 0.5px;
-  margin: 0 3px;
 }
 
 .addTaskSubtaskConfirm {
@@ -300,7 +299,9 @@ label.contactSelected:hover #contactChecked {
   flex-direction: column;
   list-style-position: inside;
   padding-left: 0;
-  padding-bottom: 80px;
+  padding-bottom: 200px;
+  max-height: 100px;
+  overflow-y: auto;
 }
 
 .addTaskSubtaskItem {
@@ -508,6 +509,12 @@ li.addTaskSubtaskItem:hover {
 }
 
 @media (max-width: 1400px) {
+  
+  #addTaskSubtaskList {
+    max-height: 200px;
+    padding-bottom: 150px;
+  }
+
   .addTaskAlignment {
     flex-direction: column;
   }
