@@ -696,6 +696,7 @@ li.addTaskSubtaskItem:hover {
 
     .addTaskButtonRequiredAlignment {
       width: calc(100% - 10px);
+      justify-content: flex-start;
     }
 
     .addTaskConfirmAlignment {
@@ -709,6 +710,10 @@ li.addTaskSubtaskItem:hover {
     .addTaskSuccessful {
       width: 300px;
       left: calc(50% - 150px);
+    }
+
+    .addTaskButtonCreateTask {
+      width: 180px;
     }
   }
 }

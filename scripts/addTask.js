@@ -7,6 +7,8 @@ function init() {
   showUserInitial();
   loadContactsIntoDropdown();
   loadCategoriesIntoDropdown();
+  activate('medium');
+  setMinDate();
 }
 
 /** Check if the required input is available */
@@ -167,7 +169,7 @@ function createLabels(contacts) {
     let contact = contacts[key];
     if (contact.name) {
       selected[index] = 0;
-      const label = createLabel(contact, index);
+      let label = createLabel(contact, index);
       dropdown.appendChild(label);
       index++;
     }
@@ -191,7 +193,6 @@ function handleDropdownClick(event) {
   if (target.tagName === "LABEL") {
     toggleSelection(target);
   }
-  console.log(selected);
 }
 
 /** Toggles the selection state of the clicked label */
@@ -539,8 +540,6 @@ async function saveNewTask(event) {
   clearAll();
 
   document.getElementById("addTaskSuccessful").classList.remove("d_none");
-
-
 }
 
 /** Loads task data into the API */
@@ -560,4 +559,14 @@ async function loadTaskIntoAPI(newTask) {
     method: "PUT",
     body: JSON.stringify(nextId),
   });
+}
+
+/** Sets the minimum selectable date in the date input field to today's date. This prevents users from selecting past dates for the task deadline. */
+function setMinDate() {
+    let today = new Date();
+    let yyyy = today.getFullYear();
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let dd = String(today.getDate()).padStart(2, '0');
+    let minDate = `${yyyy}-${mm}-${dd}`;
+    document.getElementById('addTaskDate').setAttribute('min', minDate);
 }
