@@ -16,6 +16,10 @@
   margin-bottom: 0;
 }
 
+a {
+  word-break: break-all;
+}
+
 strong {
   color: #29abe2;
   font-weight: 400;
