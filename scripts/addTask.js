@@ -100,8 +100,9 @@ function toggleDropdownInputArrow(dropdownId, isOpen) {
 /** Closes all dropdowns when clicking somewhere else outside the menu */
 window.onclick = function (event) {
   let dropdowns = [
-    {inputId: "addTaskContacts", wrapperId: "contacts", labelFor: "addTaskContacts",},
-    {inputId: "addTaskCategory", wrapperId: "category", labelFor: "addTaskCategory",
+    { inputId: "addTaskContacts", wrapperId: "contacts", labelFor: "addTaskContacts", },
+    {
+      inputId: "addTaskCategory", wrapperId: "category", labelFor: "addTaskCategory",
     },
   ];
 
@@ -218,25 +219,36 @@ function toggleSelectedContactsDiv() {
 
 /** Renders the selected contacts */
 function renderSelectedContactCircles(contacts) {
-
-  let container = document.getElementById("addTaskContaktsSelected");
+  const container = document.getElementById("addTaskContaktsSelected");
   if (!container) return;
 
   container.innerHTML = "";
 
-  let index = 0;
-  for (let key in contacts) {
-    const contact = contacts[key];
-    if (contact.name && selected[index] === 1) {
-      let color = circleColors[index % circleColors.length];
-      
-      let circle = document.createElement("span");
-      circle.className = "circle";
-      circle.textContent = getInitials(contact.name);
-      circle.style.backgroundColor = color;
-      container.appendChild(circle);
-    }
-    index++;
+  // Create a list [ { contact, originalIndex } ] only with the selected contacts that have a name
+  const selectedContacts = Object.keys(contacts)
+    .map((k, i) => ({ contact: contacts[k], i }))
+    .filter(item => item.contact?.name && selected[item.i] === 1);
+
+  const extra = Math.max(0, selectedContacts.length - 4);
+  // If there are more than 4, show only the first 4; otherwise show up to 4
+  const toShow = selectedContacts.slice(0, 4);
+
+  // Render the circles with initials
+  toShow.forEach(({ contact, i }) => {
+    const color = circleColors[i % circleColors.length];
+    const circle = document.createElement("span");
+    circle.className = "circle";
+    circle.textContent = getInitials(contact.name);
+    circle.style.backgroundColor = color;
+    container.appendChild(circle);
+  });
+
+  // If there are more than 4, the 4th circle will display as "+N"
+  if (extra > 0) {
+    const moreCircle = document.createElement("span");
+    moreCircle.className = "circle moreCircle";
+    moreCircle.textContent = `+${extra}`;
+    container.appendChild(moreCircle);
   }
 }
 
@@ -472,7 +484,7 @@ function getTaskInformation() {
   let assigned = getTaskContactsInformation();
   let subtasks = getTaskSubtaskInformation();
 
-  return {title, description, duedate, category, priority, assigned, subtasks, };
+  return { title, description, duedate, category, priority, assigned, subtasks, };
 }
 
 /** Gets selected contacts */
@@ -505,16 +517,16 @@ function getTaskSubtaskInformation() {
 
 /** Determines the next ID */
 async function getNextTaskId() {
-  const tasks = await fetchTasks(); 
+  const tasks = await fetchTasks();
 
-  if (!tasks) return 0; 
+  if (!tasks) return 0;
 
-  
+
   const ids = Object.values(tasks)
     .map(task => typeof task.id === 'number' ? task.id : -1)
     .filter(id => id >= 0);
 
-  
+
   const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 0;
 
   return nextId;
@@ -533,7 +545,7 @@ async function saveNewTask(event) {
 
   const newId = await getNextTaskId();
 
-  let newTask = {title, description, duedate, category, priority, assigned, subtasks, id: newId, status: "to_do"};
+  let newTask = { title, description, duedate, category, priority, assigned, subtasks, id: newId, status: "to_do" };
 
   await loadTaskIntoAPI(newTask);
 
@@ -563,10 +575,10 @@ async function loadTaskIntoAPI(newTask) {
 
 /** Sets the minimum selectable date in the date input field to today's date. This prevents users from selecting past dates for the task deadline. */
 function setMinDate() {
-    let today = new Date();
-    let yyyy = today.getFullYear();
-    let mm = String(today.getMonth() + 1).padStart(2, '0');
-    let dd = String(today.getDate()).padStart(2, '0');
-    let minDate = `${yyyy}-${mm}-${dd}`;
-    document.getElementById('addTaskDate').setAttribute('min', minDate);
+  let today = new Date();
+  let yyyy = today.getFullYear();
+  let mm = String(today.getMonth() + 1).padStart(2, '0');
+  let dd = String(today.getDate()).padStart(2, '0');
+  let minDate = `${yyyy}-${mm}-${dd}`;
+  document.getElementById('addTaskDate').setAttribute('min', minDate);
 }
