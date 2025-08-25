@@ -552,6 +552,10 @@ async function saveNewTask(event) {
   clearAll();
 
   document.getElementById("addTaskSuccessful").classList.remove("d_none");
+
+  setTimeout(() => {
+    window.location.href = "board.html"; // Oder dein Board-Pfad
+  }, 1000);
 }
 
 /** Loads task data into the API */
