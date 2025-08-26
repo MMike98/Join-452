@@ -142,17 +142,36 @@ function getCategoryClass(category) {
 function generateAssignedUsers(assigned) {
   if (!assigned || !Array.isArray(assigned)) return '';
 
-  return assigned.filter(name => typeof name === 'string' && name.trim() !== '').map(name => {
-      let initials = getInitials(name);
-      let color = getColorForName(name);
-      return `
-        <div class="profile-icon" style="background-color: ${color}">
-          ${initials}
-        </div>
-      `;
-    })
-    .join('');
+  // filtra só nomes válidos
+  const validUsers = assigned.filter(
+    name => typeof name === 'string' && name.trim() !== ''
+  );
+
+  const maxVisible = 4;
+  const visibleUsers = validUsers.slice(0, maxVisible);
+  const remaining = validUsers.length - maxVisible;
+
+  let html = visibleUsers.map(name => {
+    let initials = getInitials(name);
+    let color = getColorForName(name);
+    return `
+      <div class="profile-icon" style="background-color: ${color}">
+        ${initials}
+      </div>
+    `;
+  }).join('');
+
+  if (remaining > 0) {
+    html += `
+      <div class="profile-icon" style="background-color: black">
+        +${remaining}
+      </div>
+    `;
+  }
+
+  return html;
 }
+
 
 /** Returns a color string for a contact name based on its index in contactIndexMap. */
 function getColorForName(name) {
