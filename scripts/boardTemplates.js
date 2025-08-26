@@ -1,4 +1,11 @@
 function generateTaskHTML(task, key, categoryClass = 'default') {
+
+  const totalSubtasks = (task.subtasks ? task.subtasks.length : 0)
+    + (task.subtasksDone ? task.subtasksDone.length : 0);
+
+  const doneSubtasks = task.subtasksDone ? task.subtasksDone.length : 0;
+
+
   return `
     <div draggable="true" ondragstart="startDragging('${key}')" class="card" id="${task.id}">
       <div class="card-content">
@@ -10,10 +17,10 @@ function generateTaskHTML(task, key, categoryClass = 'default') {
           <p>${task.description}</p>
         </div>
         <div class="card-progress">
-          <div class="progress-bar">
-            <div class="progress-bar-content" style="width:50%"></div>
-          </div>
-          <p>1/2 Subtasks</p>
+                <div class="progress-bar">
+                    <div class="progress-bar-content" style="width:${(doneSubtasks / (totalSubtasks || 1)) * 100}%"></div>
+                </div>
+                <p>${doneSubtasks}/${totalSubtasks} Subtasks</p>
         </div>
         <div class="card-footer">
           <div class="profile"> <!-- ASSIGNED TO -->
