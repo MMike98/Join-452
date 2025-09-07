@@ -89,11 +89,11 @@ function allowDrop(ev) {
 }
 
 /** Moves the currently dragged task to a new status and updates Firebase. */
-async function moveTo(status) {
-  task[currentDraggedElement]['status'] = status;
+async function moveTo(status, key) {
+  task[key]['status'] = status;
 
   try {
-    await updateFirebase(currentDraggedElement, status);
+    await updateFirebase(key, status);
   } catch (error) {
     console.error('Error updating status in Firebase:', error);
   }
@@ -102,9 +102,25 @@ async function moveTo(status) {
 }
 
 /** Handles drop event to move task to new status. */
+// function drop(ev, newStatus) {
+ // ev.preventDefault();
+//  moveTo(newStatus);
+// }
+
 function drop(ev, newStatus) {
   ev.preventDefault();
-  moveTo(newStatus);
+
+const card = document.getElementById(`card-${currentDraggedElement}`);
+if (!card) return;
+
+const key = card.dataset.key; 
+moveTo(newStatus, key);
+
+  // Wiggle-Effekt
+  card.classList.add("wiggle");
+  card.addEventListener("animationend", () => {
+    card.classList.remove("wiggle");
+  }, { once: true });
 }
 
 /** Updates the task status in Firebase. */
