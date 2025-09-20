@@ -33,16 +33,16 @@
 }
 
 #addTaskSlider .addTaskButtonRequiredAlignment {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    padding: 12px 0;
-    position: fixed;
-    bottom: 0;
-    width: 980px;
-    max-width: 977.5px;
-    background-color: transparent;
-    margin-bottom: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding: 12px 0;
+  position: fixed;
+  bottom: 0;
+  width: 980px;
+  max-width: 977.5px;
+  background-color: transparent;
+  margin-bottom: 80px;
 }
 
 .h1-wrapper {
@@ -347,7 +347,6 @@ li.addTaskSubtaskItem:hover {
   width: calc(100% - 232px - 80px - 80px - 49px);
   max-width: 977.5px;
   background-color: transparent;
-
 }
 
 .addTaskConfirmAlignment {
@@ -502,7 +501,6 @@ li.addTaskSubtaskItem:hover {
 }
 
 @media (max-width: 1400px) {
-  
   #addTaskSubtaskList {
     max-height: 200px;
   }
