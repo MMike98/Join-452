@@ -253,13 +253,11 @@ async function handleCreateTask(event) {
   } finally {
     closeAddTaskSlider(event);
   }
-
   
   setTimeout(() => {
     window.location.href = "./board.html";
   }, 800); 
 }
-
 
 
 /**  Initialisiert den Add-Task-Slider, lädt Kontakte, Kategorien und rendert die ausgewählten Kontakte.  */
@@ -274,4 +272,14 @@ async function initAddTaskSlider() {
 }
 
 
-
+/** Opens Overlay for AddTask */
+function openAddTaskOverlay() {
+  if (window.innerWidth >= 1400) {
+    let overlay = document.getElementById("addTaskBoard");
+    if (overlay) {
+      overlay.classList.add("open");
+    }
+  } else {
+    window.location.href = "addtask.html";
+  }
+}

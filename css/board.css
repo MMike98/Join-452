@@ -229,66 +229,67 @@
   height: 48px;
   width: 246px;
   border-radius: 10px;
-  border: 1px dashed #B0B0B0;
-  background-color: #E7E7E7;
-  color: #B0B0B0;
+  border: 1px dashed #b0b0b0;
+  background-color: #e7e7e7;
+  color: #b0b0b0;
   font-size: 16px;
   font-weight: 400;
   gap: 10px;
 }
 
-.overlayBackground {
+.boardAddTask {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: calc(50% - 364px);
+  left: calc(50% - 538.75px);
+  width: 1077.5px;
+  height: 728px;
+  background-color: white;
   z-index: 9999;
-  color: #000;
-}
-
-.overlayBackground.active {
-  background-color: rgba(0,0,0,0.2) !important;
-}
-
-.overlay {
-  width: 1216px;
-  height: 870px;
-  background: #fff;
-  border-radius: 30px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-  transform: translateX(130%);         
-  transition: transform 0.3s ease;    
-  will-change: transform;
+  border-radius: 16px;
+  color: #000000;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
 }
 
-.overlay.open {
-    transform: translateX(0);
-}
-
-.overlay h1 {
-  color: #000 !important;
-}
-
-.sliderContent {
+.contentBoard {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  max-width: 977.5px;
   width: 100%;
-  height: 100%;
-  padding: 20px;
-  overflow: auto;
+  padding: 50px;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: 400;
 }
 
-.d_none {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+.addTaskButtonRequiredAlignmentBoard {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding: 12px 0;
+  width: 980px;
+  max-width: 977.5px;
+  background-color: transparent;
+}
+
+.addTaskButtonClearBoard {
+  border-radius: 10px;
+  border: 1px solid #2a3647;
+  height: 56px;
+  width: 110px;
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #2a3647;
+  padding: 16px;
+  background: #ffffff url("../assets/icons/iconoir_cancel.svg") no-repeat right
+    15px center;
+  background-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
 }
 
 @media (max-width: 1500px) {
@@ -320,6 +321,12 @@
 
   .card {
     height: fit-content;
+  }
+}
+
+@media (max-width: 1400px) {
+  .overlayBackground {
+    display: none;
   }
 }
 
@@ -383,11 +390,21 @@
 }
 
 @keyframes wiggleScale {
-  0%   { transform: scale(1) rotate(0deg); }
-  25%  { transform: scale(1.05) rotate(2deg); }
-  50%  { transform: scale(1.05) rotate(-2deg); }
-  75%  { transform: scale(1.05) rotate(2deg); }
-  100% { transform: scale(1) rotate(0deg); }
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.05) rotate(2deg);
+  }
+  50% {
+    transform: scale(1.05) rotate(-2deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 .card.wiggle {

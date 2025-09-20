@@ -39,6 +39,99 @@
         </div>
     </header>
     <main>
+        <div id="addTaskBoard" class="overlayBackground" onclick="closeOverlay(event)">
+            <div class="boardAddTask" onclick="event.stopPropagation()">
+                <div class="contentBoard">
+                    <h1>Add Task</h1>
+                    <form autocomplete="off" onsubmit="return required(event)">
+                        <div class="addTaskAlignment">
+                            <div class="addTaskInfos">
+                                <label for="addTaskTitle">Title<span class="requiredStar">*</span></label>
+                                <input type="text" id="addTaskTitle" name="addTaskTitle" placeholder="Enter a title">
+                                <div class="d_none errorTextAddTask errorTextAddTaskAlignmentTitle"
+                                    id="addTaskTextError">
+                                    This field is required</div>
+                                <label for="addTaskDescription">Description</label>
+                                <textarea id="addTaskDescription" name="addTaskDescription"
+                                    placeholder="Enter a Description"></textarea>
+                                <label for="addTaskDate">Due date<span class="requiredStar">*</span></label>
+                                <input type="date" id="addTaskDate" name="addTaskDate" placeholder="dd/mm/yyyy">
+                                <div class="d_none errorTextAddTask errorTextAddTaskAlignmentDate"
+                                    id="addTaskDateError">
+                                    This field is required</div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="addTaskInfos addTaskFurtherInfosHeight">
+                                <span>Priority</span>
+                                <div class="addTaskbuttonAlignment">
+                                    <button type="button" class="addTaskButtonPriority" id="urgent"
+                                        onclick="activate('urgent')">Urgent
+                                        <img id="urgentNotActive" src="../assets/icons/urgent.svg" alt="red arrow">
+                                        <img id="urgentActive" class="d_none" src="../assets/icons/white_arrow_up.svg"
+                                            alt="white arrow">
+                                    </button>
+                                    <button type="button" class="addTaskButtonPriority" id="medium"
+                                        onclick="activate('medium')">Medium
+                                        <img id="mediumNotActive" src="../assets/icons/medium.svg"
+                                            alt="orange equal sign">
+                                        <img id="mediumActive" class="d_none" src="../assets/icons/white_equal_sign.svg"
+                                            alt="white equal sign">
+                                    </button>
+                                    <button type="button" class="addTaskButtonPriority" id="low"
+                                        onclick="activate('low')">Low
+                                        <img id="lowNotActive" src="../assets/icons/low.svg" alt="green arrow">
+                                        <img id="lowActive" class="d_none" src="../assets/icons/white_arrow_down.svg"
+                                            alt="white arrow">
+                                    </button>
+                                </div>
+                                <label for="addTaskContacts">Assigned to</label>
+                                <input type="text" id="addTaskContacts" name="addTaskContacts"
+                                    placeholder="Select contacts to assign" onclick="toggleDropdownById('contacts')"
+                                    oninput="filterContacts()">
+                                <div class="d_none addTaskDropDownShadow" id="contacts">
+                                    <div class="addTaskDropDown" id="addTaskContactDropDown"></div>
+                                </div>
+                                <div id="addTaskContaktsSelected" class="d_none contactsSelectedAlignment"></div>
+                                <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
+                                <input type="text" id="addTaskCategory" name="addTaskCategory"
+                                    placeholder="Select task category" onclick="toggleDropdownById('category')">
+                                <div class="d_none addTaskDropDownShadow" id="category">
+                                    <div class="addTaskDropDown" id="addTaskCategoryDropDown"></div>
+                                </div>
+                                <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory"
+                                    id="addTaskCategoryError">This field is required</div>
+                                <label for="addTaskSubtasks">Subtasks</label>
+                                <div class="subtask-wrapper">
+                                    <input type="text" id="addTaskSubtasks" name="addTaskSubtasks"
+                                        placeholder="Add new subtask" oninput="changeSubtaskIcon()">
+                                    <div id="addTaskSubtaskConfirm" class="addTaskSubtaskConfirm d_none">
+                                        <img class="addTaskSubtaskIconBackgroundColor" src="../assets/icons/cross.svg"
+                                            alt="close" onclick="deleteSubtaskEntry()">
+                                        <div class="addTaskSubtaskLine"></div>
+                                        <img class="addTaskSubtaskIconBackgroundColor" src="../assets/icons/confirm.svg"
+                                            alt="confirm" onclick="confirmSubtaskEntry()">
+                                    </div>
+                                </div>
+                                <ul id="addTaskSubtaskList" class="d_none"></ul>
+                                <div class="requiredMobileView"><span class="requiredStar">*</span>This field is
+                                    required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="addTaskButtonRequiredAlignmentBoard">
+                            <div class="requiredMobile"><span class="requiredStar">*</span>This field is required</div>
+                            <div class="addTaskConfirmAlignment">
+                                <button type="button" class="addTaskButtonClearBoard"
+                                    onclick="clearAll()">Clear</button>
+                                <button type="submit" class="addTaskButtonCreateTask"
+                                    onclick="saveNewTask(event)">Create
+                                    Task</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <section class="nav-bar">
             <div class="nav-bar-header">
                 <div class="nav-bar-logo">
@@ -75,9 +168,10 @@
                 <div>
                     <h1>Board</h1>
                     <div>
-                        <input id="searchBoard" type="text" class="search-bar" placeholder="Find Task" autocomplete="off">
-                        <button class="boardButton">Add Task <img src="../assets/icons/add_white.svg"
-                                alt="cross"></button>
+                        <input id="searchBoard" type="text" class="search-bar" placeholder="Find Task"
+                            autocomplete="off">
+                        <button class="boardButton" onclick="openAddTaskOverlay()">Add Task <img
+                                src="../assets/icons/add_white.svg" alt="cross"></button>
                     </div>
                 </div>
             </div>
@@ -91,7 +185,7 @@
                         </div>
                     </div>
                     <div id="to_do" class="card-list" ondrop="drop(event, 'to_do')" ondragover="allowDrop(event)">
-                       
+
                     </div>
                 </div>
                 <!-- IN PROGRESS -->
@@ -104,7 +198,7 @@
                     </div>
                     <div id="in_progress" class="card-list" ondrop="drop(event, 'in_progress')"
                         ondragover="allowDrop(event)">
-                
+
                     </div>
                 </div>
                 <!-- AWAIT FEEDBACK -->
@@ -117,101 +211,26 @@
                     </div>
                     <div id="await_feedback" class="card-list" ondrop="drop(event, 'await_feedback')"
                         ondragover="allowDrop(event)"> <!-- AWAIT FEEDBACK -->
-                      
-
                     </div>
                 </div>
                 <!-- DONE -->
-        <div>
-    <div class="content-header-buttons">Done
-        <div class="addTaskButtonContainer" onclick="openAddTaskSlider()">
-            <img class="addTaskButton" src="../assets/icons/plus_button.svg">
-            <img class="addTaskButtonHover" src="../assets/icons/add_hover.svg" alt="add">
-        </div>
-    </div>
-    <div id="done" class="card-list" ondrop="drop(event, 'done')" ondragover="allowDrop(event)">
-        <!-- done tasks or no-task -->
-    </div>
-</div>
+                <div>
+                    <div class="content-header-buttons">Done
+                        <div class="addTaskButtonContainer" onclick="openAddTaskSlider()">
+                            <img class="addTaskButton" src="../assets/icons/plus_button.svg">
+                            <img class="addTaskButtonHover" src="../assets/icons/add_hover.svg" alt="add">
+                        </div>
+                    </div>
+                    <div id="done" class="card-list" ondrop="drop(event, 'done')" ondragover="allowDrop(event)">
+                        <!-- done tasks or no-task -->
+                    </div>
+                </div>
             </div>
         </section>
     </main>
-    <!-- ADD TASK SLIDER -->
-     <div id="addTaskSlider" class="overlayBackground d_none" onclick="closeAddTaskSlider(event)">
-    <div class="overlay" onclick="event.stopPropagation()">
-        
-            
-             <div class="h1-wrapper">
-             <h1>Add Task</h1>
-             </div>
-             
-            <form autocomplete="off" onsubmit="return required(event)">
-                <div class="addTaskAlignment">
-                    <div class="addTaskInfos">
-                        <label for="addTaskTitle">Title<span class="requiredStar">*</span></label>
-                        <input type="text" id="addTaskTitle" name="addTaskTitle" placeholder="Enter a title" autocomplete="off">
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentTitle" id="addTaskTextError">This field is required</div>
-                        <label for="addTaskDescription">Description</label>
-                        <textarea id="addTaskDescription" name="addTaskDescription" placeholder="Enter a Description"></textarea>
-                        <label for="addTaskDate">Due date<span class="requiredStar">*</span></label>
-                        <input type="date" id="addTaskDate" name="addTaskDate" placeholder="dd/mm/yyyy" autocomplete="off">
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentDate" id="addTaskDateError">This field is required</div>
-                    </div>
-                    <div class="line"></div>
-                    <div class="addTaskInfos addTaskFurtherInfosHeight">
-                        <span>Priority</span>
-                        <div class="addTaskbuttonAlignment">
-                            <button type="button" class="addTaskButtonPriority" id="urgent" onclick="activate('urgent')">Urgent 
-                                <img id="urgentNotActive" src="../assets/icons/urgent.svg" alt="red arrow">
-                                <img id="urgentActive" class="d_none" src="../assets/icons/white_arrow_up.svg" alt="white arrow">
-                            </button>
-                            <button type="button" class="addTaskButtonPriority" id="medium" onclick="activate('medium')">Medium 
-                                <img id="mediumNotActive" src="../assets/icons/medium.svg" alt="orange equal sign">
-                                <img id="mediumActive" class="d_none" src="../assets/icons/white_equal_sign.svg" alt="white equal sign">
-                            </button>
-                            <button type="button" class="addTaskButtonPriority" id="low" onclick="activate('low')">Low
-                                <img id="lowNotActive" src="../assets/icons/low.svg" alt="green arrow">
-                                <img id="lowActive" class="d_none" src="../assets/icons/white_arrow_down.svg" alt="white arrow">
-                            </button>
-                        </div>
-                        <label for="addTaskContacts">Assigned to</label>
-                        <input autocomplete="off" type="text" id="addTaskContacts" name="addTaskContacts" placeholder="Select contacts to assign" onclick="toggleDropdownById('contacts')" oninput="filterContacts()">
-                        <div class="d_none addTaskDropDownShadow" id="contacts">
-                            <div class="addTaskDropDown" id="addTaskContactDropDown"></div>
-                        </div>
-                        <div id="addTaskContaktsSelected" class="d_none contactsSelectedAlignment"></div>
-                        <label for="addTaskCategory">Category<span class="requiredStar">*</span></label>
-                        <input autocomplete="off" type="text" id="addTaskCategory" name="addTaskCategory" placeholder="Select task category" onclick="toggleDropdownById('category')">
-                        <div class="d_none addTaskDropDownShadow" id="category">
-                            <div class="addTaskDropDown" id="addTaskCategoryDropDown"></div>
-                        </div>
-                        <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory" id="addTaskCategoryError">This field is required</div>
-                        <label for="addTaskSubtasks">Subtasks</label>
-                        <div class="subtask-wrapper">
-                            <input autocomplete="off" type="text" id="addTaskSubtasks" name="addTaskSubtasks" placeholder="Add new subtask" oninput="changeSubtaskIcon()">
-                            <div id="addTaskSubtaskConfirm" class="addTaskSubtaskConfirm d_none">
-                                <img src="../assets/icons/cross.svg" alt="close" onclick="deleteSubtaskEntry()">
-                                <div class="addTaskSubtaskLine"></div>
-                                <img class="addTaskSubtaskIconBackgroundColor" src="../assets/icons/confirm.svg" alt="confirm" onclick="confirmSubtaskEntry()">
-                            </div>
-                        </div>
-                        <ul id="addTaskSubtaskList" class="d_none"></ul>
-                        <div class="requiredMobileView"><span class="requiredStar">*</span>This field is required</div>
-                    </div>
-                </div>
-                <div class="addTaskButtonRequiredAlignment">
-                    <div class="requiredMobile"><span class="requiredStar">*</span>This field is required</div>
-                    <div class="addTaskConfirmAlignment">
-                        <button type="button" class="addTaskButtonClear" onclick="clearAll()">Clear</button>
-                        <button type="button" class="addTaskButtonCreateTask" onclick="handleCreateTask(event)">Create Task</button>
-                    </div>
-                </div>
-            </form>
-        
-             <!-- AddTask Inhalt Ende-->
-        </div>
     </div>
-</div>
+    </div>
+    </div>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
-const BASE_URL = "https://join-gruppenarbeit-a540b-default-rtdb.europe-west1.firebasedatabase.app";
+const BASE_URL =
+  "https://join-gruppenarbeit-a540b-default-rtdb.europe-west1.firebasedatabase.app";
 
 let circleColors = [
   "#FF7A00",
@@ -31,7 +32,6 @@ window.addEventListener("mouseup", function (event) {
   }
 });
 
-
 /** Fetchs Contacts from API */
 async function fetchContacts() {
   let url = `${BASE_URL}/contacts.json`;
@@ -61,10 +61,22 @@ function getInitials(name) {
   return firstInitial + secondInitial;
 }
 
+/** Closes the contact add/edit overlays and resets the form. */
+function closeOverlay(event) {
+  if (event && event.target !== event.currentTarget) {
+    return;
+  }
 
+  const overlayIds = ["contactAdd","contactEdit","contactDetails","addTaskBoard",];
 
+  overlayIds.forEach((id) => {
+    let overlay = document.getElementById(id);
+    if (overlay && overlay.classList.contains("open")) {
+      overlay.classList.remove("open");
 
-
-
-
-
+      if (["contactAdd", "contactEdit", "contactDetails"].includes(id)) {
+        resetContactForm(id);
+      }
+    }
+  });
+}

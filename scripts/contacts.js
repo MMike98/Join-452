@@ -120,22 +120,6 @@ function addNewContact() {
   document.getElementById("contactAdd").classList.add("open");
 }
 
-/** Closes the contact add/edit overlays and resets the form. */
-function closeOverlay() {
-  let addOverlay = document.getElementById("contactAdd");
-  let editOverlay = document.getElementById("contactEdit");
-
-  if (addOverlay) {
-    addOverlay.classList.remove("open");
-    resetContactForm("contactAdd");
-  }
-
-  if (editOverlay) {
-    editOverlay.classList.remove("open");
-    resetContactForm("contactEdit");
-  }
-}
-
 /** Resets all input fields and error messages inside the given form. */
 function resetContactForm(overlayId) {
   let form = document.querySelector(`#${overlayId} form`);

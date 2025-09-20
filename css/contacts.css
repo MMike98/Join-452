@@ -247,31 +247,6 @@
   transition: transform 0.4s ease;
 }
 
-.overlayBackground {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.overlayBackground.open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.overlayBackground.open .overlay {
-  transform: translateX(0);
-}
-
 .overlayGrey {
   width: calc(467px - 48px - 48px);
   height: calc(100% - 66px - 66px);
@@ -421,7 +396,6 @@
   align-content: center;
   gap: 4px;
   padding: 16px;
-  background: #f6f7f8;
   justify-content: center;
   background-size: 25px;
 }

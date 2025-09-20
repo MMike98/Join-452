@@ -33,8 +33,7 @@
 }
 
 #addTaskSlider .addTaskButtonRequiredAlignment {
-      display: flex
-;
+    display: flex;
     justify-content: space-between;
     align-items: end;
     padding: 12px 0;
