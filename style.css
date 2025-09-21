@@ -153,8 +153,25 @@ input:-webkit-autofill {
   pointer-events: auto;
 }
 
-.overlayBackground.open .overlay {
+.overlayBackground.open .overlay .boardAddTask {
   transform: translateX(0);
+}
+
+.overlayBackground.open .boardAddTask {
+  transform: translateX(0);
+}
+
+.overlayClose {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 48px;
+}
+
+.overlayClose:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+  border-radius: 50%;
 }
 
 

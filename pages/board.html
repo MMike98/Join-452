@@ -42,6 +42,8 @@
         <div id="addTaskBoard" class="overlayBackground" onclick="closeOverlay(event)">
             <div class="boardAddTask" onclick="event.stopPropagation()">
                 <div class="contentBoard">
+                    <img class="overlayClose overlayCloseBoard" src="../assets/icons/cross.svg" alt="close"
+                        onclick="closeOverlay()">
                     <h1>Add Task</h1>
                     <form autocomplete="off" onsubmit="return required(event)">
                         <div class="addTaskAlignment">
@@ -166,7 +168,11 @@
         <section class="content">
             <div class="content-header">
                 <div>
-                    <h1>Board</h1>
+                    <div class="BoardHeader">
+                        <h1>Board</h1>
+                        <button class="addTaskButtonResponsive" onclick="openAddTaskOverlay()"><img
+                                src="../assets/icons/add_white.svg" alt="cross"></button>
+                    </div>
                     <div>
                         <input id="searchBoard" type="text" class="search-bar" placeholder="Find Task"
                             autocomplete="off">
