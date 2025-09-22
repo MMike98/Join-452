@@ -153,7 +153,7 @@ input:-webkit-autofill {
   pointer-events: auto;
 }
 
-.overlayBackground.open .overlay .boardAddTask {
+.overlayBackground.open .overlay {
   transform: translateX(0);
 }
 

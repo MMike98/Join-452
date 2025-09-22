@@ -67,7 +67,7 @@ function closeOverlay(event) {
     return;
   }
 
-  const overlayIds = ["contactAdd","contactEdit","contactDetails","addTaskBoard",];
+  let overlayIds = ["contactAdd","contactEdit","contactDetails","addTaskBoard",];
 
   overlayIds.forEach((id) => {
     let overlay = document.getElementById(id);

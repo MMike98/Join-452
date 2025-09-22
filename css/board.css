@@ -254,6 +254,12 @@
   transition: transform 0.4s ease;
 }
 
+.addTaskAlignmentBoard {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 424px;
+}
+
 .contentBoard {
   display: flex;
   flex: 1;

@@ -278,6 +278,7 @@ function openAddTaskOverlay() {
     let overlay = document.getElementById("addTaskBoard");
     if (overlay) {
       overlay.classList.add("open");
+      init();
     }
   } else {
     window.location.href = "addtask.html";

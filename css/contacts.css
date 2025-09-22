@@ -363,7 +363,7 @@
   align-content: center;
   gap: 4px;
   padding: 16px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel.svg") no-repeat right
+  background: #ffffff url("../assets/icons/iconoir_cancel.svg") no-repeat right
     15px center;
   justify-content: left;
   background-size: 25px;
@@ -374,7 +374,7 @@
   color: #29abe2;
   padding-left: 15px;
   padding-bottom: 15px;
-  background: #f6f7f8 url("../assets/icons/iconoir_cancel_hover.svg") no-repeat
+  background: #ffffff url("../assets/icons/iconoir_cancel_hover.svg") no-repeat
     right 14px center;
   background-size: 25px;
   display: flex;
