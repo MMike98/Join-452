@@ -11,6 +11,7 @@ async function initBoard() {
   buildContactIndexMap(contacts);
   setupSearch();
   updateHTML();
+  setupDropzoneHighlight();
 }
 
 /** Builds a map from contact names to indices based on sorted first names. Filters invalid contacts and returns sorted array. */
@@ -283,4 +284,35 @@ function openAddTaskOverlay() {
   } else {
     window.location.href = "addtask.html";
   }
+}
+
+/** Sets up visual feedback for drag-and-drop operations on task columns. */
+function setupDropzoneHighlight() {
+  const columnIds = ['to_do', 'in_progress', 'await_feedback', 'done'];
+  const overCounters = new WeakMap();
+
+  columnIds.forEach(id => {
+    const col = document.getElementById(id);
+
+    overCounters.set(col, 0);
+
+    col.addEventListener('dragenter', (e) => {
+      overCounters.set(col, overCounters.get(col) + 1);
+      col.classList.add('drop-target');
+    });
+
+    col.addEventListener('dragleave', () => {
+      const n = overCounters.get(col) - 1;
+      overCounters.set(col, n);
+      if (n <= 0) {
+        col.classList.remove('drop-target');
+        overCounters.set(col, 0);
+      }
+    });
+
+    col.addEventListener('drop', () => {
+      col.classList.remove('drop-target');
+      overCounters.set(col, 0);
+    });
+  });
 }
