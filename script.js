@@ -61,13 +61,18 @@ function getInitials(name) {
   return firstInitial + secondInitial;
 }
 
-/** Closes the contact add/edit overlays and resets the form. */
+/** Closes overlays and resets the form. */
 function closeOverlay(event) {
   if (event && event.target !== event.currentTarget) {
     return;
   }
 
-  let overlayIds = ["contactAdd","contactEdit","contactDetails","addTaskBoard",];
+  let overlayIds = [
+    "contactAdd",
+    "contactEdit",
+    "contactDetails",
+    "addTaskBoard",
+  ];
 
   overlayIds.forEach((id) => {
     let overlay = document.getElementById(id);
@@ -76,6 +81,9 @@ function closeOverlay(event) {
 
       if (["contactAdd", "contactEdit", "contactDetails"].includes(id)) {
         resetContactForm(id);
+      }
+      if (id === "addTaskBoard") {
+        clearAll();
       }
     }
   });

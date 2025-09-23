@@ -427,19 +427,19 @@ li.addTaskSubtaskItem:hover {
 .errorTextAddTaskAlignmentTitle {
   text-align: left;
   position: absolute;
-  top: 382px;
+  top: 412px;
 }
 
 .errorTextAddTaskAlignmentDate {
   text-align: left;
   position: absolute;
-  top: 655px;
+  top: 685px;
 }
 
 .errorTextAddTaskAlignmentCategory {
   text-align: left;
   position: absolute;
-  top: 592px;
+  top: 620px;
 }
 
 .urgent {
@@ -536,7 +536,7 @@ li.addTaskSubtaskItem:hover {
   }
 
   .errorTextAddTaskAlignmentCategory {
-    top: 967px;
+    top: 987px;
   }
 
   .addTaskSuccessful {
@@ -629,7 +629,7 @@ li.addTaskSubtaskItem:hover {
   }
 
   .errorTextAddTaskAlignmentCategory {
-    top: 880px;
+    top: 860px;
   }
 
   .errorTextAddTaskAlignmentDate {

@@ -286,6 +286,37 @@ function openAddTaskOverlay() {
   }
 }
 
+/** Saves new Task (Task added via Overlay on Board) */
+async function saveNewTaskOverlay(event) {
+  event.preventDefault();
+  
+  let { title, description, duedate, category, priority, assigned, subtasks } = getTaskInformation();
+
+  if (!required(event)) return;
+
+  let newId = await getNextTaskId();
+
+  let newTask = {
+    title,
+    description,
+    duedate,
+    category,
+    priority,
+    assigned,
+    subtasks,
+    id: newId,
+    status: "to_do",
+  };
+
+  await loadTaskIntoAPI(newTask);
+
+  task = await fetchTasks();
+
+  clearAll();
+  closeOverlay();
+  updateHTML();
+}
+
 /** Sets up visual feedback for drag-and-drop operations on task columns. */
 function setupDropzoneHighlight() {
   const columnIds = ['to_do', 'in_progress', 'await_feedback', 'done'];

@@ -50,7 +50,7 @@
                             <div class="addTaskInfos">
                                 <label for="addTaskTitle">Title<span class="requiredStar">*</span></label>
                                 <input type="text" id="addTaskTitle" name="addTaskTitle" placeholder="Enter a title">
-                                <div class="d_none errorTextAddTask errorTextAddTaskAlignmentTitle"
+                                <div class="d_none errorTextAddTask errorTextAddTaskAlignmentTitleBoard"
                                     id="addTaskTextError">
                                     This field is required</div>
                                 <label for="addTaskDescription">Description</label>
@@ -58,7 +58,7 @@
                                     placeholder="Enter a Description"></textarea>
                                 <label for="addTaskDate">Due date<span class="requiredStar">*</span></label>
                                 <input type="date" id="addTaskDate" name="addTaskDate" placeholder="dd/mm/yyyy">
-                                <div class="d_none errorTextAddTask errorTextAddTaskAlignmentDate"
+                                <div class="d_none errorTextAddTask errorTextAddTaskAlignmentDateBoard"
                                     id="addTaskDateError">
                                     This field is required</div>
                             </div>
@@ -100,7 +100,7 @@
                                 <div class="d_none addTaskDropDownShadow" id="category">
                                     <div class="addTaskDropDown" id="addTaskCategoryDropDown"></div>
                                 </div>
-                                <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategory"
+                                <div class="d_none errorTextAddTask errorTextAddTaskAlignmentCategoryBoard"
                                     id="addTaskCategoryError">This field is required</div>
                                 <label for="addTaskSubtasks">Subtasks</label>
                                 <div class="subtask-wrapper">
@@ -126,7 +126,7 @@
                                 <button type="button" class="addTaskButtonClearBoard"
                                     onclick="clearAll()">Clear</button>
                                 <button type="submit" class="addTaskButtonCreateTask"
-                                    onclick="saveNewTask(event)">Create
+                                    onclick="saveNewTaskOverlay(event)">Create
                                     Task</button>
                             </div>
                         </div>

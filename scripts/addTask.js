@@ -7,7 +7,7 @@ function init() {
   showUserInitial();
   loadContactsIntoDropdown();
   loadCategoriesIntoDropdown();
-  activate('medium');
+  activate("medium");
   setMinDate();
 }
 
@@ -62,7 +62,7 @@ function required(event) {
 function activate(priority) {
   let priorities = ["urgent", "medium", "low"];
 
-  priorities.forEach(prio => {
+  priorities.forEach((prio) => {
     let button = document.getElementById(prio);
     let notActiveImg = document.getElementById(prio + "NotActive");
     let activeImg = document.getElementById(prio + "Active");
@@ -92,7 +92,8 @@ function toggleDropdownById(dropdownId) {
 
 /** Rotates the arrow in the dropdown, when the menu is open */
 function toggleDropdownInputArrow(dropdownId, isOpen) {
-  let inputId = dropdownId === "contacts" ? "addTaskContacts" : "addTaskCategory";
+  let inputId =
+    dropdownId === "contacts" ? "addTaskContacts" : "addTaskCategory";
   let input = document.getElementById(inputId);
   input.classList.toggle("open", isOpen);
 }
@@ -100,9 +101,15 @@ function toggleDropdownInputArrow(dropdownId, isOpen) {
 /** Closes all dropdowns when clicking somewhere else outside the menu */
 window.onclick = function (event) {
   let dropdowns = [
-    { inputId: "addTaskContacts", wrapperId: "contacts", labelFor: "addTaskContacts", },
     {
-      inputId: "addTaskCategory", wrapperId: "category", labelFor: "addTaskCategory",
+      inputId: "addTaskContacts",
+      wrapperId: "contacts",
+      labelFor: "addTaskContacts",
+    },
+    {
+      inputId: "addTaskCategory",
+      wrapperId: "category",
+      labelFor: "addTaskCategory",
     },
   ];
 
@@ -111,7 +118,8 @@ window.onclick = function (event) {
     let wrapper = document.getElementById(wrapperId);
     let label = document.querySelector(`label[for="${labelFor}"]`);
 
-    let clickedInside = input?.contains(event.target) || wrapper?.contains(event.target);
+    let clickedInside =
+      input?.contains(event.target) || wrapper?.contains(event.target);
 
     let clickedOnLabel = label?.contains(event.target);
 
@@ -137,9 +145,13 @@ async function loadContactsIntoDropdown() {
   let contactsObj = await fetchContacts();
   let contacts = Object.values(contactsObj);
 
-  contacts = contacts.filter(contact => contact.name && typeof contact.name === "string");
+  contacts = contacts.filter(
+    (contact) => contact.name && typeof contact.name === "string"
+  );
 
-  contacts.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+  contacts.sort((a, b) =>
+    a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+  );
 
   globalContacts = contacts;
   createLabels(contacts);
@@ -148,14 +160,15 @@ async function loadContactsIntoDropdown() {
   return contacts;
 }
 
-
 /** Creates a label element for a contact with a given index */
 function createLabel(contact, index) {
   let color = circleColors[index % circleColors.length];
 
   let label = document.createElement("label");
   label.id = `contactLabel-${index}`;
-  label.innerHTML = `<div id="contactChecked"><span class="circle" style="background-color: ${color};">${getInitials(contact.name)}</span>${contact.name}</div>`;
+  label.innerHTML = `<div id="contactChecked"><span class="circle" style="background-color: ${color};">${getInitials(
+    contact.name
+  )}</span>${contact.name}</div>`;
   return label;
 }
 
@@ -227,7 +240,7 @@ function renderSelectedContactCircles(contacts) {
   // Create a list [ { contact, originalIndex } ] only with the selected contacts that have a name
   const selectedContacts = Object.keys(contacts)
     .map((k, i) => ({ contact: contacts[k], i }))
-    .filter(item => item.contact?.name && selected[item.i] === 1);
+    .filter((item) => item.contact?.name && selected[item.i] === 1);
 
   const extra = Math.max(0, selectedContacts.length - 4);
   // If there are more than 4, show only the first 4; otherwise show up to 4
@@ -397,7 +410,8 @@ function confirmSubtaskEntry() {
 
   document.getElementById("addTaskSubtaskList").classList.remove("d_none");
 
-  document.getElementById("addTaskSubtaskList").innerHTML += confirmSubtaskEntryHTML(value);
+  document.getElementById("addTaskSubtaskList").innerHTML +=
+    confirmSubtaskEntryHTML(value);
 
   input.value = "";
   document.getElementById("addTaskSubtaskConfirm").classList.add("d_none");
@@ -453,12 +467,20 @@ function clearAll() {
   document.getElementById("addTaskDescription").value = "";
   document.getElementById("addTaskTitle").value = "";
 
-  deletesContacts();
+  document.querySelectorAll(".errorTextAddTask").forEach((error) => {
+    error.classList.add("d_none");
+  });
+
+  document.querySelectorAll(".inputError").forEach((el) => {
+    el.classList.remove("inputError");
+  });
 }
 
 /** Deletes selected contacts */
 function deletesContacts() {
-  for (let label of document.getElementById("addTaskContactDropDown").getElementsByTagName("label")) {
+  for (let label of document
+    .getElementById("addTaskContactDropDown")
+    .getElementsByTagName("label")) {
     label.classList.remove("contactSelected");
   }
 
@@ -479,12 +501,22 @@ function getTaskInformation() {
   let duedate = document.getElementById("addTaskDate").value;
   let category = document.getElementById("addTaskCategory").value;
 
-  let priority = selectedPriority ? selectedPriority.charAt(0).toUpperCase() + selectedPriority.slice(1) : "";
+  let priority = selectedPriority
+    ? selectedPriority.charAt(0).toUpperCase() + selectedPriority.slice(1)
+    : "";
 
   let assigned = getTaskContactsInformation();
   let subtasks = getTaskSubtaskInformation();
 
-  return { title, description, duedate, category, priority, assigned, subtasks, };
+  return {
+    title,
+    description,
+    duedate,
+    category,
+    priority,
+    assigned,
+    subtasks,
+  };
 }
 
 /** Gets selected contacts */
@@ -521,11 +553,9 @@ async function getNextTaskId() {
 
   if (!tasks) return 0;
 
-
   const ids = Object.values(tasks)
-    .map(task => typeof task.id === 'number' ? task.id : -1)
-    .filter(id => id >= 0);
-
+    .map((task) => (typeof task.id === "number" ? task.id : -1))
+    .filter((id) => id >= 0);
 
   const nextId = ids.length > 0 ? Math.max(...ids) + 1 : 0;
 
@@ -545,7 +575,17 @@ async function saveNewTask(event) {
 
   const newId = await getNextTaskId();
 
-  let newTask = { title, description, duedate, category, priority, assigned, subtasks, id: newId, status: "to_do" };
+  let newTask = {
+    title,
+    description,
+    duedate,
+    category,
+    priority,
+    assigned,
+    subtasks,
+    id: newId,
+    status: "to_do",
+  };
 
   await loadTaskIntoAPI(newTask);
 
@@ -554,7 +594,7 @@ async function saveNewTask(event) {
   document.getElementById("addTaskSuccessful").classList.remove("d_none");
 
   setTimeout(() => {
-    window.location.href = "board.html"; // Oder dein Board-Pfad
+    window.location.href = "board.html";
   }, 1000);
 }
 
@@ -581,8 +621,8 @@ async function loadTaskIntoAPI(newTask) {
 function setMinDate() {
   let today = new Date();
   let yyyy = today.getFullYear();
-  let mm = String(today.getMonth() + 1).padStart(2, '0');
-  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, "0");
+  let dd = String(today.getDate()).padStart(2, "0");
   let minDate = `${yyyy}-${mm}-${dd}`;
-  document.getElementById('addTaskDate').setAttribute('min', minDate);
+  document.getElementById("addTaskDate").setAttribute("min", minDate);
 }

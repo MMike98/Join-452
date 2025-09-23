@@ -266,7 +266,7 @@
   display: flex;
   flex: 1;
   flex-direction: row;
-  max-width: 977.5px;
+  max-width: 1000px;
   width: 100%;
   padding: 50px;
   flex-direction: column;
@@ -336,6 +336,24 @@
   justify-content: space-between;
   width: 100%;
   align-items: baseline;
+}
+
+.errorTextAddTaskAlignmentTitleBoard {
+  text-align: left;
+  position: absolute;
+  top: 255px;
+}
+
+.errorTextAddTaskAlignmentDateBoard {
+  text-align: left;
+  position: absolute;
+  top: 530px;
+}
+
+.errorTextAddTaskAlignmentCategoryBoard {
+  text-align: left;
+  position: absolute;
+  top: 465px;
 }
 
 @media (max-width: 1500px) {
