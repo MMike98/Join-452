@@ -317,6 +317,27 @@ async function saveNewTaskOverlay(event) {
   updateHTML();
 }
 
+/** Prevents the overlay click from closing the dropdowns when the user interacts with elements inside the dropdowns. */
+document.addEventListener("DOMContentLoaded", function() {
+  let boardAddTask = document.getElementById("boardAddTask");
+  if (boardAddTask) {
+    boardAddTask.addEventListener("click", function(event) {
+      let dropdowns = ["contacts", "category"];
+      let clickedInsideDropdown = dropdowns.some(id => {
+        let dropdown = document.getElementById(id);
+        return dropdown && dropdown.contains(event.target);
+      });
+
+      if (clickedInsideDropdown) {
+        event.stopPropagation();
+      }
+    });
+  } else {
+    console.warn("Element with ID 'boardAddTask' not found.");
+  }
+});
+
+
 /** Sets up visual feedback for drag-and-drop operations on task columns. */
 function setupDropzoneHighlight() {
   const columnIds = ['to_do', 'in_progress', 'await_feedback', 'done'];

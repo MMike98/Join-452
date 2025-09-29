@@ -14,6 +14,7 @@
     <script src="../scripts/board.js"></script>
     <script src="../scripts/boardTemplates.js"></script>
     <script src="../scripts/addTask.js"></script>
+    <script src="../scripts/addTaskTemplates.js"></script>
     <script src="../scripts/contacts.js"></script>
 
     <link rel="stylesheet" href="../style.css">
@@ -40,7 +41,7 @@
     </header>
     <main>
         <div id="addTaskBoard" class="overlayBackground" onclick="closeOverlay(event)">
-            <div class="boardAddTask" onclick="event.stopPropagation()">
+            <div class="boardAddTask" id="boardAddTask">
                 <div class="contentBoard">
                     <img class="overlayClose overlayCloseBoard" src="../assets/icons/cross.svg" alt="close"
                         onclick="closeOverlay()">

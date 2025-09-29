@@ -474,6 +474,21 @@ function clearAll() {
   document.querySelectorAll(".inputError").forEach((el) => {
     el.classList.remove("inputError");
   });
+
+  selected = [];
+
+  document.getElementById("addTaskContacts").value = "";
+
+  let container = document.getElementById("addTaskContaktsSelected");
+  container.innerHTML = "";
+  container.classList.add("d_none");
+
+  let labels = document
+    .getElementById("addTaskContactDropDown")
+    .getElementsByTagName("label");
+  for (let label of labels) {
+    label.classList.remove("contactSelected");
+  }
 }
 
 /** Deletes selected contacts */
