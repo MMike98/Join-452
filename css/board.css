@@ -355,6 +355,21 @@
   top: 465px;
 }
 
+.addTaskSubtaskListScroll {
+  overflow-y: initial !important;
+}
+
+@keyframes wiggle {
+  0%   { transform: rotate(0deg); }
+  33%  { transform: rotate(4deg); }
+  66%  { transform: rotate(-4deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.wiggle {
+  animation: wiggle 0.2s ease-in-out;
+}
+
 @media (max-width: 1500px) {
   .content-body {
     flex-direction: column;
