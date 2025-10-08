@@ -72,6 +72,7 @@ function closeOverlay(event) {
     "contactEdit",
     "contactDetails",
     "addTaskBoard",
+    "infoOverlay",
   ];
 
   overlayIds.forEach((id) => {

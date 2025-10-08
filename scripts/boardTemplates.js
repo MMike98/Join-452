@@ -39,3 +39,32 @@ function generateTaskHTML(task, key, categoryClass = "default") {
     </div>
   `;
 }
+
+function generateInfoTaskHTML(t) {
+  return `
+    <img src="../assets/icons/cross.svg" 
+         alt="close" 
+         class="overlayClose" 
+         onclick="closeInfoTask()">
+    <div class="infoTaskCategory">${t.category || ""}</div>
+    <h2>${t.title || ""}</h2>
+    <p>${t.description || ""}</p>
+    <div><strong>Due date:</strong> ${t.duedate || t.date || ""}</div>
+    <div><strong>Priority:</strong> ${t.priority || ""}</div>
+    <div><strong>Contacts:</strong> ${
+      t.assigned?.length ? t.assigned.join(", ") : "No contacts"
+    }</div>
+    <div><strong>Subtasks:</strong></div>
+    <ul>
+      ${
+        t.subtasks?.length
+          ? t.subtasks
+              .map(
+                (s) => `<li>${s.done ? "✅" : "⬜"} ${s.title || s}</li>`
+              )
+              .join("")
+          : "<li>No subtasks</li>"
+      }
+    </ul>
+  `;
+}

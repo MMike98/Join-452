@@ -161,6 +161,10 @@ input:-webkit-autofill {
   transform: translateX(0);
 }
 
+.overlayBackground.open .infoTask {
+  transform: translateX(0);
+}
+
 .overlayClose {
   width: 32px;
   height: 32px;

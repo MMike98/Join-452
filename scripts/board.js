@@ -51,6 +51,8 @@ function updateHTML(query = "") {
 
     updateColumn(status, tasksInStatus);
   });
+
+  addCardClickHandlers();
 }
 
 /** Updates a single column based on its task status. */
@@ -377,5 +379,34 @@ function setupDropzoneHighlight() {
       col.classList.remove("drop-target");
       overCounters.set(col, 0);
     });
+  });
+}
+
+/** Renders the information of a task inside the overlay and makes it visible. */
+function renderInfoTask(t) {
+  let overlay = document.getElementById("infoOverlay");
+  let infoTask = document.getElementById("infoTask");
+  if (!overlay || !infoTask || !t) return;
+
+  infoTask.innerHTML = generateInfoTaskHTML(t);
+
+  overlay.classList.add("open");
+}
+
+/** Opens the info overlay by adding the 'open' class.*/
+function openInfoOverlay() {
+  let overlay = document.getElementById("infoOverlay");
+  if (overlay) {
+    overlay.classList.add("open");
+  }
+}
+
+/** Adds click event handlers to task cards to render their info in the overlay. */
+function addCardClickHandlers() {
+  Object.entries(task).forEach(([key, t]) => {
+    let card = document.getElementById(`card-${key}`);
+    if (card) {
+      card.addEventListener("click", () => renderInfoTask(t));
+    }
   });
 }
