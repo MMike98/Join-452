@@ -175,7 +175,6 @@ function getCategoryClass(category) {
 function generateAssignedUsers(assigned) {
   if (!assigned || !Array.isArray(assigned)) return "";
 
-  // filtra só nomes válidos
   const validUsers = assigned.filter(
     (name) => typeof name === "string" && name.trim() !== ""
   );
@@ -409,4 +408,23 @@ function addCardClickHandlers() {
       card.addEventListener("click", () => renderInfoTask(t));
     }
   });
+}
+
+//** Change format of date */
+function formatDate(dateString) {
+  if (!dateString) return "";
+
+  let [year, month, day] = dateString.split("-");
+  return `${day}/${month}/${year}`;
+}
+
+
+
+function generateAssignedUserCircle(name) {
+  const initials = name
+    .split(" ")
+    .map((n) => n[0]?.toUpperCase())
+    .join("")
+    .slice(0, 2); // Nur die ersten 2 Buchstaben
+  return `<div class="user-circle">${initials}</div>`;
 }
