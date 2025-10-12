@@ -45,8 +45,8 @@ function generateInfoTaskHTML(t, key) {
   let dueDateFormatted = formatDate(t.duedate);
 
   return `
-    <img src="../assets/icons/cross.svg" alt="close" class="overlayClose overlayCloseInfoAlignment" onclick="closeOverlay()">
-    <div class="card-header">
+      <div class="card-header">
+      <img src="../assets/icons/cross.svg" alt="close" class="overlayClose overlayCloseInfoAlignment" onclick="closeOverlay()">
       <p class="${categoryClass}" id="info-card-${key}">${t.category}</p>
     </div>
     <h1>${t.title}</h1>
@@ -66,7 +66,7 @@ function generateInfoTaskHTML(t, key) {
       </tr>
     </table>
     <div>
-      <div class="intoTaskText">Contacts:</div>
+      <div class="intoTaskText">Assigned To:</div>
       <table class="infoContactsTable">
         ${t.assigned?.length? t.assigned
               .map((name) => `
@@ -81,18 +81,44 @@ function generateInfoTaskHTML(t, key) {
         }
       </table>
     </div>
-    <div class="intoTaskText">Subtasks:</div>
-    <ul>
-      ${
-        t.subtasks?.length
-          ? t.subtasks
-              .map(
-                (s) => `<li> ${s.title || s}</li>`
-              )
-              .join("")
-          : "<li>No subtasks</li>"
-      }
-    </ul>
+    <div class="intoTaskText">Subtasks:
+<ul>
+  ${
+    (
+    (t.subtasks?.length
+      ? t.subtasks
+          .map(
+            (s, i) => `
+            <div class="checkPP">
+              <input type="checkbox" class="checkBox" id="checkPP-${i}" name="checkPP" value="${s.title || s}">
+              <label for="checkPP-${i}" class="custom-checkbox">
+                <span class="checkbox-icon"></span>
+                <h5>${s.title || s}</h5>
+              </label>
+            </div>`
+          )
+          .join("")
+      : ""
+    ) +
+    (t.subtasksDone?.length
+      ? t.subtasksDone
+          .map(
+            (s, i) => `
+            <div class="checkPP">
+              <input type="checkbox" class="checkBox" id="checkDone-${i}" name="checkPP" value="${s.title || s}" checked>
+              <label for="checkDone-${i}" class="custom-checkbox">
+                <span class="checkbox-icon"></span>
+                <h5>${s.title || s}</h5>
+              </label>
+            </div>`
+          )
+          .join("")
+      : ""      
+    )
+  ) || "<li>No subtasks</li>"
+  }
+</ul>
+</div>
   `;
 }
 

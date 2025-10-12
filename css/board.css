@@ -375,7 +375,7 @@
   top: calc(45% - 350px);
   left: calc(50% - 222.5px);
   width: 445px;
-  height: 700px;
+  height: auto;
   background-color: white;
   z-index: 9999;
   border-radius: 30px;
@@ -437,6 +437,49 @@ ul {
   list-style-type: none;
 }
 
+.checkPP {
+  display: flex;
+  align-items: center;
+  padding-top: 14px;
+}
+
+.checkBox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox-icon {
+  width: 24px;
+  height: 24px;
+  background-image: url("../assets/icons/checkbox-empty.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 8px;
+}
+
+.checkBox:not(:checked) + .custom-checkbox:hover .checkbox-icon {
+  background-image: url("../assets/icons/checkbox-hover.svg");
+}
+
+.checkBox:checked + .custom-checkbox .checkbox-icon {
+  background-image: url("../assets/icons/checkbox-checked.svg");
+}
+
+.checkBox:checked + .custom-checkbox:hover .checkbox-icon {
+  background-image: url("../assets/icons/checkbox-checked-hover.svg");
+}
+
+h5 {
+  font-size: 16px;
+  font-weight: 400;
+}
 
 @media (max-width: 1500px) {
   .content-body {
