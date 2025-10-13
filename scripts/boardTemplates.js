@@ -91,7 +91,7 @@ function generateInfoTaskHTML(t, key) {
           .map(
             (s, i) => `
             <div class="checkPP">
-              <input type="checkbox" class="checkBox" id="checkPP-${i}" name="checkPP" value="${s.title || s}">
+              <input type="checkbox" class="checkBox" id="checkPP-${i}" name="checkPP" value="${s.title || s}" onchange="toggleSubtask('${key}', '${s.title || s}', this.checked)">
               <label for="checkPP-${i}" class="custom-checkbox">
                 <span class="checkbox-icon"></span>
                 <h5>${s.title || s}</h5>
@@ -106,7 +106,7 @@ function generateInfoTaskHTML(t, key) {
           .map(
             (s, i) => `
             <div class="checkPP">
-              <input type="checkbox" class="checkBox" id="checkDone-${i}" name="checkPP" value="${s.title || s}" checked>
+              <input type="checkbox" class="checkBox" id="checkDone-${i}" name="checkPP" value="${s.title || s}" checked onchange="toggleSubtask('${key}', '${s.title || s}', this.checked)">
               <label for="checkDone-${i}" class="custom-checkbox">
                 <span class="checkbox-icon"></span>
                 <h5>${s.title || s}</h5>

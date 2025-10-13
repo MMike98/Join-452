@@ -455,3 +455,37 @@ async function DeleteTask(key) {
 function editTask(key) {
   return `editTask('${key}')`;
 }
+
+async function toggleSubtask(key, subtaskTitle, isChecked) {
+  try {
+    if (!task[key]) return;
+
+    task[key].subtasks = task[key].subtasks || [];
+    task[key].subtasksDone = task[key].subtasksDone || [];
+
+    task[key].subtasks = task[key].subtasks.filter(s => (s.title || s) !== subtaskTitle);
+    task[key].subtasksDone = task[key].subtasksDone.filter(s => (s.title || s) !== subtaskTitle);
+
+    if (isChecked) {
+      task[key].subtasksDone.push(subtaskTitle);
+    } else {
+      task[key].subtasks.push(subtaskTitle);
+    }
+
+    const url = `${BASE_URL}/tasks/${key}.json`;
+    await fetch(url, {
+      method: "PATCH",
+      body: JSON.stringify({
+        subtasks: task[key].subtasks,
+        subtasksDone: task[key].subtasksDone
+      }),
+    });
+
+    renderInfoTask(task[key], key);
+    updateHTML();
+
+  } catch (err) {
+    console.error("Error toggling subtask:", err);
+    alert("Could not update subtask. Please try again.");
+  }
+}
