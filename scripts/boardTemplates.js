@@ -45,9 +45,10 @@ function generateInfoTaskHTML(t, key) {
   let dueDateFormatted = formatDate(t.duedate);
 
   return `
+    <div class="infoTaskContent">
       <div class="card-header">
-      <img src="../assets/icons/cross.svg" alt="close" class="overlayClose overlayCloseInfoAlignment" onclick="closeOverlay()">
       <p class="${categoryClass}" id="info-card-${key}">${t.category}</p>
+      <img src="../assets/icons/cross.svg" alt="close" class="overlayClose overlayCloseInfoAlignment" onclick="closeOverlay()">
     </div>
     <h1>${t.title}</h1>
     <div class="infoCardDescription">${t.description}</div>
@@ -90,7 +91,7 @@ function generateInfoTaskHTML(t, key) {
           .map(
             (s, i) => `
             <div class="checkPP">
-              <input type="checkbox" class="checkBox" id="checkPP-${i}" name="checkPP" value="${s.title || s}">
+              <input type="checkbox" class="checkBox" id="checkPP-${i}" name="checkPP" value="${s.title || s}" onchange="toggleSubtask('${key}', '${s.title || s}', this.checked)">
               <label for="checkPP-${i}" class="custom-checkbox">
                 <span class="checkbox-icon"></span>
                 <h5>${s.title || s}</h5>
@@ -105,7 +106,7 @@ function generateInfoTaskHTML(t, key) {
           .map(
             (s, i) => `
             <div class="checkPP">
-              <input type="checkbox" class="checkBox" id="checkDone-${i}" name="checkPP" value="${s.title || s}" checked>
+              <input type="checkbox" class="checkBox" id="checkDone-${i}" name="checkPP" value="${s.title || s}" checked onchange="toggleSubtask('${key}', '${s.title || s}', this.checked)">
               <label for="checkDone-${i}" class="custom-checkbox">
                 <span class="checkbox-icon"></span>
                 <h5>${s.title || s}</h5>
@@ -118,6 +119,11 @@ function generateInfoTaskHTML(t, key) {
   ) || "<li>No subtasks</li>"
   }
 </ul>
+<div class="infoTaskButtons">
+  <button class="deleteButton" onclick="DeleteTask('${key}')"><img src="../assets/icons/trash_black.svg" alt="delete">Delete</button>
+  <div class="line"></div>
+  <button class="editButton" onclick="editTask('${key}')"><img src="../assets/icons/edit.svg" alt="delete">Edit</button>
+</div>
 </div>
   `;
 }

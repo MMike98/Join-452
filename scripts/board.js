@@ -162,9 +162,9 @@ function getCategoryClass(category) {
   if (!category) return "default";
 
   switch (category.toLowerCase().trim()) {
-    case "call":
-      return "blue";
     case "user story":
+      return "blue";
+    case "technical task":
       return "green";
     default:
       return "default";
@@ -382,12 +382,12 @@ function setupDropzoneHighlight() {
 }
 
 /** Renders the information of a task inside the overlay and makes it visible. */
-function renderInfoTask(t) {
+function renderInfoTask(t, key) {
   let overlay = document.getElementById("infoOverlay");
   let infoTask = document.getElementById("infoTask");
   if (!overlay || !infoTask || !t) return;
 
-  infoTask.innerHTML = generateInfoTaskHTML(t);
+  infoTask.innerHTML = generateInfoTaskHTML(t, key);
 
   overlay.classList.add("open");
 }
@@ -405,7 +405,7 @@ function addCardClickHandlers() {
   Object.entries(task).forEach(([key, t]) => {
     let card = document.getElementById(`card-${key}`);
     if (card) {
-      card.addEventListener("click", () => renderInfoTask(t));
+      card.addEventListener("click", () => renderInfoTask(t, key));
     }
   });
 }
@@ -420,3 +420,11 @@ function formatDate(dateString) {
 
 
 
+function generateAssignedUserCircle(name) {
+  const initials = name
+    .split(" ")
+    .map((n) => n[0]?.toUpperCase())
+    .join("")
+    .slice(0, 2); // Nur die ersten 2 Buchstaben
+  return `<div class="user-circle">${initials}</div>`;
+}
