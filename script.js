@@ -32,14 +32,55 @@ window.addEventListener("mouseup", function (event) {
   }
 });
 
+/** Fetches the current user's name or returns 'Guest' if not logged in */
 async function fetchCurrentUser() {
+  let userRole = localStorage.getItem("userRole");
   let email = localStorage.getItem("userEmail");
-  let userData = await getUserByEmail(email);
-  let userId = Object.keys(userData)[0];
-  let user = userData[userId];
-  let userName = user.name ;
-  return userName;
+
+  if (userRole === "guest" || !email) {
+    return "Guest";
+  }
+
+  try {
+    let userData = await getUserByEmail(email);
+
+    if (!userData || Object.keys(userData).length === 0) {
+      console.warn("No user found for email:", email);
+      return "Guest";
+    }
+
+    let userId = Object.keys(userData)[0];
+    let user = userData[userId];
+
+    if (!user || !user.name) {
+      console.warn("User data is missing 'name' field:", user);
+      return "Guest";
+    }
+
+    return user.name;
+  } catch (error) {
+    console.error("Error fetching current user:", error);
+    return "Guest";
+  }
 }
+
+/** Fetches a user from Firebase by email */
+async function getUserByEmail(email) {
+  if (!email) return {};
+
+  try {
+    let url = `${BASE_URL}/users.json?orderBy=%22email%22&equalTo=%22${email}%22`;
+    let response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching user by email:", error);
+    return {};
+  }
+}
+
 
 /** Fetchs Contacts from API */
 async function fetchContacts() {
@@ -76,7 +117,7 @@ function closeOverlay(event) {
     return;
   }
 
-  let overlayIds = [
+  const overlayIds = [
     "contactAdd",
     "contactEdit",
     "contactDetails",
@@ -85,7 +126,7 @@ function closeOverlay(event) {
   ];
 
   overlayIds.forEach((id) => {
-    let overlay = document.getElementById(id);
+    const overlay = document.getElementById(id);
     if (overlay && overlay.classList.contains("open")) {
       overlay.classList.remove("open");
 
@@ -97,4 +138,16 @@ function closeOverlay(event) {
       }
     }
   });
+
+  const anyOverlayOpen = overlayIds.some((id) => {
+    const o = document.getElementById(id);
+    return o && o.classList.contains("open");
+  });
+  
+  if (anyOverlayOpen) {
+    document.body.classList.add("no-scroll");
+  } else {
+    document.body.classList.remove("no-scroll");
+  }
 }
+

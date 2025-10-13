@@ -399,7 +399,6 @@
 }
 
 .infoTaskContent{
-  overflow: scroll;
   height: 100%;
   gap: 24px;
   display: flex;
@@ -533,6 +532,31 @@ h5 {
 .infoTaskButtons button:hover img {
   filter: brightness(0) saturate(100%) invert(57%) sepia(91%) saturate(2162%) hue-rotate(170deg) brightness(95%) contrast(91%);
 }
+
+.infoTaskScroll {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-height: 700px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.noSubTasks {
+  color: #000000;
+  padding-top: 14px;
+}
+
+.checkPP h5 {
+  color: #000;
+  margin: 0;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
 
 @media (max-width: 1500px) {
   .content-body {

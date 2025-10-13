@@ -8,7 +8,6 @@ async function initBoard() {
 
   let contacts = await fetchContacts();
   currentUser = await fetchCurrentUser();
-  console.log(currentUser);
 
   buildContactIndexMap(contacts);
   setupSearch();
@@ -298,6 +297,8 @@ function openAddTaskOverlay() {
   } else {
     window.location.href = "addtask.html";
   }
+
+  document.body.classList.add("no-scroll");
 }
 
 /** Saves new Task (Task added via Overlay on Board) */
@@ -390,9 +391,11 @@ function renderInfoTask(t, key) {
   if (!overlay || !infoTask || !t) return;
 
   infoTask.innerHTML = generateInfoTaskHTML(t, key);
-
   overlay.classList.add("open");
+
+  document.body.classList.add("no-scroll");
 }
+
 
 /** Opens the info overlay by adding the 'open' class.*/
 function openInfoOverlay() {
@@ -437,4 +440,65 @@ function isYou(name) {
     typeof name === "string" &&
     name.trim().toLowerCase() === currentUser.trim().toLowerCase()
   );
+}
+
+/** Handles (un)checking of a subtask and updates Firebase + UI. */
+async function toggleSubtask(taskKey, subtaskTitle, isChecked) {
+  try {
+    if (!task[taskKey]) {
+      console.warn(`Task not found for key: ${taskKey}`);
+      return;
+    }
+
+    const t = task[taskKey];
+
+    if (!Array.isArray(t.subtasks)) t.subtasks = [];
+    if (!Array.isArray(t.subtasksDone)) t.subtasksDone = [];
+
+    if (isChecked) {
+      t.subtasksDone.push(subtaskTitle);
+      t.subtasks = t.subtasks.filter((s) => s !== subtaskTitle);
+    } else {
+      t.subtasks.push(subtaskTitle);
+      t.subtasksDone = t.subtasksDone.filter((s) => s !== subtaskTitle);
+    }
+
+    await fetch(`${BASE_URL}/tasks/${taskKey}.json`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        subtasks: t.subtasks,
+        subtasksDone: t.subtasksDone,
+      }),
+    });
+
+    updateHTML();
+
+  } catch (error) {
+    console.error("Error toggling subtask:", error);
+  }
+}
+
+/** Deletes a task from Firebase and updates the board */
+async function DeleteTask(taskKey) {
+  if (!taskKey) {
+    console.error("DeleteTask: No task key provided");
+    return;
+  }
+
+  try {
+    const url = `${BASE_URL}/tasks/${taskKey}.json`;
+    const response = await fetch(url, { method: "DELETE" });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete task ${taskKey}`);
+    }
+
+    delete task[taskKey];
+
+    updateHTML();
+    closeOverlay();
+
+  } catch (error) {
+    console.error("Error deleting task:", error);
+  }
 }
