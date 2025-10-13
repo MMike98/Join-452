@@ -73,7 +73,7 @@ function generateInfoTaskHTML(t, key) {
               .map((name) => `
                   <tr>
                     <td class="contact-icon-cell">${generateAssignedUsers([name])}</td>
-                    <td class="contact-name-cell">${name}</td>
+                    <td class="contact-name-cell">${name}${isYou(name) ? ' <span>(You)</span>' : ''}</td>
                   </tr>
                 `
               )

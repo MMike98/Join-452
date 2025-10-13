@@ -7,6 +7,8 @@ async function initBoard() {
   task = await fetchTasks();
 
   let contacts = await fetchContacts();
+  currentUser = await fetchCurrentUser();
+  console.log(currentUser);
 
   buildContactIndexMap(contacts);
   setupSearch();
@@ -427,4 +429,12 @@ function generateAssignedUserCircle(name) {
     .join("")
     .slice(0, 2); // Nur die ersten 2 Buchstaben
   return `<div class="user-circle">${initials}</div>`;
+}
+
+function isYou(name) {
+  return (
+    !!currentUser &&
+    typeof name === "string" &&
+    name.trim().toLowerCase() === currentUser.trim().toLowerCase()
+  );
 }
