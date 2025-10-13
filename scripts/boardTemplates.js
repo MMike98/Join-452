@@ -45,6 +45,7 @@ function generateInfoTaskHTML(t, key) {
   let dueDateFormatted = formatDate(t.duedate);
 
   return `
+    <div class="infoTaskContent">
       <div class="card-header">
       <img src="../assets/icons/cross.svg" alt="close" class="overlayClose overlayCloseInfoAlignment" onclick="closeOverlay()">
       <p class="${categoryClass}" id="info-card-${key}">${t.category}</p>
@@ -118,6 +119,7 @@ function generateInfoTaskHTML(t, key) {
   ) || "<li>No subtasks</li>"
   }
 </ul>
+</div>
 </div>
   `;
 }

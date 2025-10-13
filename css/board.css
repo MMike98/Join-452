@@ -375,7 +375,7 @@
   top: calc(45% - 350px);
   left: calc(50% - 222.5px);
   width: 445px;
-  height: auto;
+  height: 700px;
   background-color: white;
   z-index: 9999;
   border-radius: 30px;
@@ -384,10 +384,15 @@
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
   transform: translateX(100%);
   transition: transform 0.4s ease;
+  font-size: 20px;
+}
+
+.infoTaskContent{
+  overflow: scroll;
+  height: 100%;
+  gap: 24px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  font-size: 20px;
 }
 
 .overlayCloseInfoAlignment {
