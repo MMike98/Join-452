@@ -123,6 +123,13 @@
   cursor: pointer;
 }
 
+.card-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
 .card-header > p {
   padding-inline: 16px;
   padding-block: 4px;
@@ -315,6 +322,9 @@
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   transition: 0s;
 }
+.infoTaskContent > .card-header {
+  justify-content: space-between;
+}
 
 .overlayCloseBoard {
   left: 1000px;
@@ -396,6 +406,7 @@
 }
 
 .overlayCloseInfoAlignment {
+  position: unset;
   left: 445px
 }
 
@@ -484,6 +495,42 @@ ul {
 h5 {
   font-size: 16px;
   font-weight: 400;
+}
+
+.infoTaskButtons {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  gap: 8px;
+}
+
+.editButton, .deleteButton {
+  background-color: unset;
+  color: #2A3647;
+  padding: unset;
+  font-weight: 400;
+  font-size: 16px;
+  font-family: "Inter";
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.infoTaskButtons > .line {
+  height: 24px;
+  margin: unset;
+}
+
+.infoTaskButtons button:hover {
+  transition: unset;
+  background-color: unset;
+  color: #29ABE2;
+  box-shadow: unset;
+  font-weight: 700;
+}
+
+.infoTaskButtons button:hover img {
+  filter: brightness(0) saturate(100%) invert(57%) sepia(91%) saturate(2162%) hue-rotate(170deg) brightness(95%) contrast(91%);
 }
 
 @media (max-width: 1500px) {

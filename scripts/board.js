@@ -428,3 +428,11 @@ function generateAssignedUserCircle(name) {
     .slice(0, 2); // Nur die ersten 2 Buchstaben
   return `<div class="user-circle">${initials}</div>`;
 }
+
+function DeleteTask(key) {
+  return `deleteTask('${key}')`;
+}
+
+function editTask(key) {
+  return `editTask('${key}')`;
+}
