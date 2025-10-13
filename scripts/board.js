@@ -162,9 +162,9 @@ function getCategoryClass(category) {
   if (!category) return "default";
 
   switch (category.toLowerCase().trim()) {
-    case "call":
-      return "blue";
     case "user story":
+      return "blue";
+    case "technical task":
       return "green";
     default:
       return "default";
