@@ -447,7 +447,7 @@ async function DeleteTask(key) {
 
   } catch (err) {
     console.error(err);
-    alert("Não foi possível eliminar a tarefa. Tenta novamente.");
+    alert("Could not delete the task. Please try again.");
   }
 }
 
