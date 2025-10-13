@@ -382,12 +382,12 @@ function setupDropzoneHighlight() {
 }
 
 /** Renders the information of a task inside the overlay and makes it visible. */
-function renderInfoTask(t) {
+function renderInfoTask(t, key) {
   let overlay = document.getElementById("infoOverlay");
   let infoTask = document.getElementById("infoTask");
   if (!overlay || !infoTask || !t) return;
 
-  infoTask.innerHTML = generateInfoTaskHTML(t);
+  infoTask.innerHTML = generateInfoTaskHTML(t, key);
 
   overlay.classList.add("open");
 }
@@ -405,7 +405,7 @@ function addCardClickHandlers() {
   Object.entries(task).forEach(([key, t]) => {
     let card = document.getElementById(`card-${key}`);
     if (card) {
-      card.addEventListener("click", () => renderInfoTask(t));
+      card.addEventListener("click", () => renderInfoTask(t, key));
     }
   });
 }
@@ -429,9 +429,28 @@ function generateAssignedUserCircle(name) {
   return `<div class="user-circle">${initials}</div>`;
 }
 
-function DeleteTask(key) {
-  return `deleteTask('${key}')`;
+async function DeleteTask(key) {
+  try {
+
+    if (!confirm("Are you sure you want to delete this task?")) return;
+
+    const url = `${BASE_URL}/tasks/${key}.json`;
+    
+    await fetch(url, { method: "DELETE" });
+
+    if (task && typeof task === "object") {
+    delete task[key];
+    }
+
+    closeOverlay?.();
+    updateHTML();
+
+  } catch (err) {
+    console.error(err);
+    alert("Could not delete the task. Please try again.");
+  }
 }
+
 
 function editTask(key) {
   return `editTask('${key}')`;
