@@ -32,6 +32,15 @@ window.addEventListener("mouseup", function (event) {
   }
 });
 
+async function fetchCurrentUser() {
+  let email = localStorage.getItem("userEmail");
+  let userData = await getUserByEmail(email);
+  let userId = Object.keys(userData)[0];
+  let user = userData[userId];
+  let userName = user.name ;
+  return userName;
+}
+
 /** Fetchs Contacts from API */
 async function fetchContacts() {
   let url = `${BASE_URL}/contacts.json`;

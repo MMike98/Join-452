@@ -7,6 +7,8 @@ async function initBoard() {
   task = await fetchTasks();
 
   let contacts = await fetchContacts();
+  currentUser = await fetchCurrentUser();
+  console.log(currentUser);
 
   buildContactIndexMap(contacts);
   setupSearch();
@@ -488,4 +490,12 @@ async function toggleSubtask(key, subtaskTitle, isChecked) {
     console.error("Error toggling subtask:", err);
     alert("Could not update subtask. Please try again.");
   }
+}
+
+function isYou(name) {
+  return (
+    !!currentUser &&
+    typeof name === "string" &&
+    name.trim().toLowerCase() === currentUser.trim().toLowerCase()
+  );
 }
