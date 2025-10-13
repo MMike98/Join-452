@@ -420,11 +420,3 @@ function formatDate(dateString) {
 
 
 
-function generateAssignedUserCircle(name) {
-  const initials = name
-    .split(" ")
-    .map((n) => n[0]?.toUpperCase())
-    .join("")
-    .slice(0, 2); // Nur die ersten 2 Buchstaben
-  return `<div class="user-circle">${initials}</div>`;
-}
