@@ -123,6 +123,7 @@ function closeOverlay(event) {
     "contactDetails",
     "addTaskBoard",
     "infoOverlay",
+    "editTaskOverlay",
   ];
 
   overlayIds.forEach((id) => {
@@ -135,6 +136,9 @@ function closeOverlay(event) {
       }
       if (id === "addTaskBoard") {
         clearAll();
+      }
+      if (id === "editTaskOverlay") {
+        resetPriorityButtons();
       }
     }
   });
@@ -150,4 +154,5 @@ function closeOverlay(event) {
     document.body.classList.remove("no-scroll");
   }
 }
+
 

@@ -138,6 +138,78 @@
         <div class="overlayBackground" id="infoOverlay" onclick="closeOverlay(event)">
             <div class="infoTask" id="infoTask"></div>
         </div>
+        <div id="editTaskOverlay" class="overlayBackground" onclick="closeOverlay(event), closeEditTaskOverlay()">
+            <div class="infoTask editAlign" onclick="event.stopPropagation()">
+                <img src="../assets/icons/cross.svg" class="overlayCloseEdit" onclick="closeOverlay(event)">
+                <input type="hidden" id="editTaskKey">
+                <label for="editTitle">Title</label>
+                <input type="text" id="editTitle">
+                <label for="editDescription">Description</label>
+                <textarea id="editDescription"></textarea>
+                <label for="editDueDate">Due date</label>
+                <input type="date" id="editDueDate" class="dateFont">
+                <label>Priority</label>
+                <div class="addTaskbuttonAlignment">
+                    <button type="button" class="addTaskButtonPriority" id="urgentEditBtn"
+                        onclick="activateEdit('urgent')">Urgent
+                        <img id="urgentNotActiveEdit" src="../assets/icons/urgent.svg" alt="red arrow">
+                        <img id="urgentActiveEdit" class="d_none" src="../assets/icons/white_arrow_up.svg"
+                            alt="white arrow">
+                    </button>
+                    <button type="button" class="addTaskButtonPriority" id="mediumEditBtn"
+                        onclick="activateEdit('medium')">Medium
+                        <img id="mediumNotActiveEdit" src="../assets/icons/medium.svg" alt="orange equal sign">
+                        <img id="mediumActiveEdit" class="d_none" src="../assets/icons/white_equal_sign.svg"
+                            alt="white equal sign">
+                    </button>
+                    <button type="button" class="addTaskButtonPriority" id="lowEditBtn"
+                        onclick="activateEdit('low')">Low
+                        <img id="lowNotActiveEdit" src="../assets/icons/low.svg" alt="green arrow">
+                        <img id="lowActiveEdit" class="d_none" src="../assets/icons/white_arrow_down.svg"
+                            alt="white arrow">
+                    </button>
+                </div>
+
+
+
+
+
+
+
+                <div id="editAssignedContainer">
+                    <label>Assigned to</label>
+                    <input type="text" id="editTaskContacts" placeholder="Select contacts to assign" readonly
+                        onclick="toggleEditDropdown()">
+                    <div class="d_none addTaskDropDownShadow" id="editContactsDropdown">
+                        <div class="addTaskDropDown" id="editTaskContactDropDown"></div>
+                    </div>
+                    <div id="editTaskContactsSelected" class="d_none contactsSelectedAlignment"></div>
+                </div>
+                <label>Subtasks</label>
+                <div class="subtask-wrapper">
+                    <input type="text" id="editSubtaskInput" placeholder="Add new subtask"
+                        oninput="toggleEditSubtaskIcons()">
+                    <div id="editSubtaskConfirm" class="addTaskSubtaskConfirm d_none">
+                        <img src="../assets/icons/cross.svg" onclick="clearEditSubtaskInput()">
+                        <div class="addTaskSubtaskLine"></div>
+                        <img src="../assets/icons/confirm.svg" onclick="addEditSubtask()">
+                    </div>
+                </div>
+                <ul id="editSubtaskList" class="addTaskSubtaskListScroll"></ul>
+                <button class="addTaskButtonCreateTask" onclick="saveEditedTask()">
+                    Ok
+                </button>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
         <section class="nav-bar">
             <div class="nav-bar-header">
                 <div class="nav-bar-logo">

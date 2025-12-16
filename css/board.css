@@ -371,10 +371,18 @@
 }
 
 @keyframes wiggle {
-  0%   { transform: rotate(0deg); }
-  33%  { transform: rotate(4deg); }
-  66%  { transform: rotate(-4deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  33% {
+    transform: rotate(4deg);
+  }
+  66% {
+    transform: rotate(-4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .wiggle {
@@ -398,7 +406,7 @@
   font-size: 20px;
 }
 
-.infoTaskContent{
+.infoTaskContent {
   height: 100%;
   gap: 24px;
   display: flex;
@@ -407,11 +415,11 @@
 
 .overlayCloseInfoAlignment {
   position: unset;
-  left: 445px
+  left: 445px;
 }
 
 .infoTaskTable td:first-child {
-  color: #2A3647;
+  color: #2a3647;
   width: 120px;
 }
 
@@ -436,7 +444,7 @@
 }
 
 .intoTaskText {
-  color: #2A3647;
+  color: #2a3647;
 }
 
 .infoContactsTable {
@@ -504,9 +512,10 @@ h5 {
   gap: 8px;
 }
 
-.editButton, .deleteButton {
+.editButton,
+.deleteButton {
   background-color: unset;
-  color: #2A3647;
+  color: #2a3647;
   padding: unset;
   font-weight: 400;
   font-size: 16px;
@@ -524,13 +533,14 @@ h5 {
 .infoTaskButtons button:hover {
   transition: unset;
   background-color: unset;
-  color: #29ABE2;
+  color: #29abe2;
   box-shadow: unset;
   font-weight: 700;
 }
 
 .infoTaskButtons button:hover img {
-  filter: brightness(0) saturate(100%) invert(57%) sepia(91%) saturate(2162%) hue-rotate(170deg) brightness(95%) contrast(91%);
+  filter: brightness(0) saturate(100%) invert(57%) sepia(91%) saturate(2162%)
+    hue-rotate(170deg) brightness(95%) contrast(91%);
 }
 
 .infoTaskScroll {
@@ -557,6 +567,29 @@ body.no-scroll {
   overflow: hidden;
 }
 
+.overlayCloseEdit {
+  position: static;
+  margin-left: 410px;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 20px;
+}
+
+.overlayCloseEdit:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+  border-radius: 50%;
+}
+
+.editAlign {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+input[type="date"] {
+  font-family: "Inter", sans-serif;
+}
 
 @media (max-width: 1500px) {
   .content-body {
@@ -682,7 +715,7 @@ body.no-scroll {
 }
 
 .card-list.drop-target {
-  background-color: #E9ECEF;
-  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.06);
+  background-color: #e9ecef;
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.06);
   border-radius: 12px;
 }
