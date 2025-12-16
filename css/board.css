@@ -581,15 +581,74 @@ body.no-scroll {
   border-radius: 50%;
 }
 
-.editAlign {
+input[type="date"] {
+  font-family: "Inter", sans-serif;
+}
+
+.scrollAlign {
+  padding-right: 5px;
+  display: flex;
+  gap: 8px;
+  height: 600px;
+}
+
+.scrollAlign > textarea {
+  width: auto;
+  min-height: 80px;
+}
+
+.scrollAlign > input {
+  width: auto;
+}
+
+.editAssignedAlign {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-input[type="date"] {
-  font-family: "Inter", sans-serif;
+.editAssignedAlign > div > input {
+  width: 384px;
 }
+
+.circleEdit {
+  margin-right: 0;
+}
+
+.dropdown-input {
+    position: relative;
+    display: inline-block;
+}
+
+#editTaskContacts {
+    position: relative;
+    z-index: 1;
+}
+
+#editAssignedArrow {
+    position: absolute;
+    top: 43%;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    z-index: 2;
+}
+
+#editTaskContacts.dropdownOpen + #editAssignedArrow {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.shadowEdit {
+  width: 426px !important;
+  z-index: 0 !important;
+}
+
+.dropDownEdit {
+  width: 420px !important;
+}
+
 
 @media (max-width: 1500px) {
   .content-body {

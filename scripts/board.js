@@ -780,18 +780,37 @@ function renderEditContactDropdown() {
     dropdown.innerHTML = "";
 
     editGlobalContacts.forEach((contact, i) => {
+        const color = getColorForName(contact.name);
+        const initials = getInitials(contact.name);
+
         const label = document.createElement("label");
         label.id = `editContactLabel-${i}`;
-        label.className = editSelected[i] === 1 ? "contactSelected" : "";
+        label.classList.add("contact-item");
+        label.style.display = "flex";
+        label.style.justifyContent = "space-between";
+        label.style.alignItems = "center";
+        label.style.padding = "5px 10px"; 
+        label.style.cursor = "pointer";
+
         label.innerHTML = `
-            <div class="contact-item">
-                <span class="circle" style="background-color:${getColorForName(contact.name)}">
-                    ${getInitials(contact.name)}
-                </span>
-                ${contact.name}
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span class="circle" style="background-color:${color}">${initials}</span>
+                <span class="contact-name">${contact.name}</span>
             </div>
+            <img class="contact-checkbox" 
+                 src="${editSelected[i] === 1 ? '../assets/icons/checkbox-checked.svg' : '../assets/icons/checkbox-empty.svg'}"
+                 alt="checkbox">
         `;
-        label.onclick = () => toggleEditSelection(i);
+
+        label.addEventListener("mouseenter", () => {
+            label.style.backgroundColor = "#f0f0f0"; 
+        });
+        label.addEventListener("mouseleave", () => {
+            label.style.backgroundColor = "transparent";
+        });
+
+        label.addEventListener("click", () => toggleEditSelection(i));
+
         dropdown.appendChild(label);
     });
 }
@@ -799,8 +818,16 @@ function renderEditContactDropdown() {
 /** Toggles the selection of a contact in the edit overlay. */
 function toggleEditSelection(index) {
     editSelected[index] = editSelected[index] === 1 ? 0 : 1;
+
     const label = document.getElementById(`editContactLabel-${index}`);
     if (label) label.classList.toggle("contactSelected", editSelected[index] === 1);
+
+    const checkboxImg = label.querySelector(".contact-checkbox");
+    if (checkboxImg) {
+        checkboxImg.src = editSelected[index] === 1
+            ? '../assets/icons/checkbox-checked.svg'
+            : '../assets/icons/checkbox-empty.svg';
+    }
 
     renderEditContactCircles();
 }
@@ -815,7 +842,7 @@ function renderEditContactCircles() {
 
     selectedContacts.forEach(contact => {
         const circle = document.createElement("span");
-        circle.className = "circle";
+        circle.className = "circle circleEdit";
         circle.textContent = getInitials(contact.name);
         circle.style.backgroundColor = getColorForName(contact.name);
         container.appendChild(circle);
@@ -877,9 +904,13 @@ function toggleDropdownById(id) {
 
 /** Toggles the visibility of the contacts dropdown in the edit task overlay. */
 function toggleEditDropdown() {
+    const input = document.getElementById("editTaskContacts");
     const dropdown = document.getElementById("editContactsDropdown");
-    if (!dropdown) return;
+
+    if (!input || !dropdown) return;
+
     dropdown.classList.toggle("d_none");
+    input.classList.toggle("dropdownOpen");
 }
 
 /** Closes the edit task overlay and resets the UI. */
