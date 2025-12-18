@@ -616,28 +616,28 @@ input[type="date"] {
 }
 
 .dropdown-input {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 #editTaskContacts {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 }
 
 #editAssignedArrow {
-    position: absolute;
-    top: 43%;
-    right: 20px;
-    width: 10px;
-    height: 10px;
-    transform: translateY(-50%);
-    transition: transform 0.3s ease;
-    z-index: 2;
+  position: absolute;
+  top: 43%;
+  right: 20px;
+  width: 10px;
+  height: 10px;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+  z-index: 2;
 }
 
 #editTaskContacts.dropdownOpen + #editAssignedArrow {
-    transform: translateY(-50%) rotate(180deg);
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .shadowEdit {
@@ -649,6 +649,78 @@ input[type="date"] {
   width: 420px !important;
 }
 
+.subtask-wrapper > input {
+  width: 384px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  position: relative;
+  padding-left: 16px;
+}
+
+.subtask-item::before {
+  position: absolute;
+  left: 0;
+  font-size: 18px;
+  line-height: 1;
+  color: #000;
+}
+
+.subtask-actions {
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.subtask-actions img + img {
+  border-left: 1px solid #ccc;
+}
+
+.subtask-item:hover .subtask-actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.subtask-item:hover {
+  background-color: #f5f7f9;
+  border-radius: 10px;
+}
+
+.subtask-actions img {
+  cursor: pointer;
+}
+
+.scrollEdit {
+  margin-top: -10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  gap: 8px;
+}
+
+.scrollEdit li {
+  margin-bottom: 3px;
+  height: 30px;
+  padding-right: 15px;
+}
+
+li .subtask-content::before {
+  content: "•";
+  margin-right: 8px;
+}
+
+.editStyle {
+  margin-left: -16px !important;
+  width: 394px !important;
+}
+
+.subtask-wrapper-edit {
+  position: static !important;
+}
 
 @media (max-width: 1500px) {
   .content-body {
