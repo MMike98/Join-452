@@ -722,6 +722,12 @@ li .subtask-content::before {
   position: static !important;
 }
 
+.buttonEdit {
+  width: 93px !important;
+  position: static;
+  margin-left: 335px;
+}
+
 @media (max-width: 1500px) {
   .content-body {
     flex-direction: column;
@@ -757,6 +763,16 @@ li .subtask-content::before {
 @media (max-width: 1400px) {
   .overlayBackground {
     display: none;
+  }
+
+  .overlayBackground.overlayBackgroundResponsive,
+  .overlayBackground.overlayBackgroundResponsive.open,
+  .overlayBackground.overlayBackgroundResponsive.active {
+    display: flex !important;
+  }
+
+  .infoTaskResponsive {
+    position: static;
   }
 }
 

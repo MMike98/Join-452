@@ -293,17 +293,17 @@ async function initAddTaskSlider() {
 
 /** Opens Overlay for AddTask */
 function openAddTaskOverlay() {
-  if (window.innerWidth >= 1400) {
-    let overlay = document.getElementById("addTaskBoard");
-    if (overlay) {
-      overlay.classList.add("open");
-      init();
-    }
-  } else {
+  if (window.innerWidth < 1400) {
     window.location.href = "addtask.html";
+    return;
   }
 
+  const overlay = document.getElementById("addTaskBoard");
+  if (!overlay) return;
+
+  overlay.classList.add("open");
   document.body.classList.add("no-scroll");
+  init();
 }
 
 /** Saves new Task (Task added via Overlay on Board) */
@@ -557,6 +557,11 @@ function activateEdit(priority) {
   const notActiveIcon = document.getElementById(priority + "NotActiveEdit");
   if (activeIcon) activeIcon.classList.remove("d_none");
   if (notActiveIcon) notActiveIcon.classList.add("d_none");
+
+  const overlay = document.getElementById("editTaskOverlay");
+  if (overlay) {
+    overlay.dataset.priority = priority;
+  }
 }
 
 /** Sets the task priority in the edit overlay and updates button states. */
@@ -1040,6 +1045,23 @@ function handleEditSubtaskKey(e, index, done = false) {
         renderEditSubtasks();
     }
 }
+
+/** Handles window resize events for the "Add Task" overlay.*/
+function handleResizeAddTaskOverlay() {
+  const overlay = document.getElementById("addTaskBoard");
+  if (!overlay) return;
+
+  const isOpen = overlay.classList.contains("open");
+
+  if (window.innerWidth < 1400 && isOpen) {
+    closeOverlay();
+    document.body.classList.remove("no-scroll");
+    window.location.href = "addtask.html";
+  }
+}
+
+/** Listen for window resize events to adapt the Add Task overlay behavior. */
+window.addEventListener("resize", handleResizeAddTaskOverlay);
 
 
 

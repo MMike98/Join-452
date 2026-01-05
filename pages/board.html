@@ -135,11 +135,11 @@
                 </div>
             </div>
         </div>
-        <div class="overlayBackground" id="infoOverlay" onclick="closeOverlay(event)">
-            <div class="infoTask" id="infoTask"></div>
+        <div class="overlayBackground overlayBackgroundResponsive" id="infoOverlay" onclick="closeOverlay(event)">
+            <div class="infoTask infoTaskResponsive" id="infoTask"></div>
         </div>
-        <div id="editTaskOverlay" class="overlayBackground" onclick="closeOverlay(event), closeEditTaskOverlay()">
-            <div class="infoTask" onclick="event.stopPropagation()">
+        <div id="editTaskOverlay" class="overlayBackground overlayBackgroundResponsive" onclick="closeOverlay(event), closeEditTaskOverlay()">
+            <div class="infoTask infoTaskResponsive" onclick="event.stopPropagation()">
                 <img src="../assets/icons/cross.svg" class="overlayCloseEdit" onclick="closeOverlay(event)">
                 <div class="infoTaskScroll scrollAlign">
                     <input type="hidden" id="editTaskKey">
@@ -194,7 +194,7 @@
                     </div>
                     <ul id="editSubtaskList" class="addTaskSubtaskListScroll scrollEdit d_none"></ul>
                 </div>
-                <button class="addTaskButtonCreateTask" onclick="saveEditedTask()">
+                <button class="addTaskButtonCreateTask buttonEdit" onclick="saveEditedTask()">
                     Ok
                 </button>
             </div>
