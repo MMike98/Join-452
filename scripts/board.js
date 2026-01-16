@@ -156,7 +156,6 @@ async function updateFirebase(taskId, newStatus) {
       method: "PATCH",
       body: JSON.stringify(payload),
     });
-    console.log(`Status for Task ${taskId} updated to '${newStatus}'.`);
   } catch (error) {
     console.error("Error updating Firebase:", error);
     throw error;
@@ -285,7 +284,6 @@ async function initAddTaskSlider() {
   clearAll();
   showUserInitial();
   let contacts = await loadContactsIntoDropdown();
-  console.log("contacts in initAddTaskSlider:", contacts);
   setupClickHandler();
   await loadCategoriesIntoDropdown();
   renderSelectedContactCircles(contacts);

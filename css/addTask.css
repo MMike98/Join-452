@@ -518,7 +518,7 @@ li.addTaskSubtaskItem:hover {
   }
 
   .content {
-    width: 440px;
+    width: auto;
   }
 
   .addTaskButtonRequiredAlignment {

@@ -459,9 +459,7 @@ function clearAll() {
   document.getElementById("addTaskSubtaskList").innerHTML = "";
   document.getElementById("addTaskCategory").value = "";
 
-  document.getElementById("urgent").classList.remove("urgent");
-  document.getElementById("medium").classList.remove("medium");
-  document.getElementById("low").classList.remove("low");
+  activate("medium");
 
   document.getElementById("addTaskDate").value = "";
   document.getElementById("addTaskDescription").value = "";

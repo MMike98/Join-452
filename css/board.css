@@ -101,9 +101,7 @@
 .card-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
-  min-height: 500px;
   width: 260px;
   border: #000;
 }
@@ -394,7 +392,7 @@
   top: calc(45% - 350px);
   left: calc(50% - 222.5px);
   width: 445px;
-  height: 700px;
+  height: 85vh;
   background-color: white;
   z-index: 9999;
   border-radius: 30px;
@@ -404,6 +402,7 @@
   transform: translateX(100%);
   transition: transform 0.4s ease;
   font-size: 20px;
+  overflow-y: auto;
 }
 
 .infoTaskContent {
@@ -569,7 +568,7 @@ body.no-scroll {
 
 .overlayCloseEdit {
   position: static;
-  margin-left: 410px;
+  margin-left: 92%;
   width: 32px;
   height: 32px;
   margin-bottom: 20px;
@@ -608,7 +607,7 @@ input[type="date"] {
 }
 
 .editAssignedAlign > div > input {
-  width: 384px;
+  width: calc(100% - 42px);
 }
 
 .circleEdit {
@@ -650,7 +649,7 @@ input[type="date"] {
 }
 
 .subtask-wrapper > input {
-  width: 384px;
+  width: calc(100% - 42px);
 }
 
 .subtask-item {
@@ -725,7 +724,7 @@ li .subtask-content::before {
 .buttonEdit {
   width: 93px !important;
   position: static;
-  margin-left: 335px;
+  margin-left: 75%;
 }
 
 @media (max-width: 1500px) {
@@ -749,6 +748,7 @@ li .subtask-content::before {
     overflow-x: auto;
     scroll-behavior: smooth;
     padding: 10px;
+    width: auto;
   }
 
   .card-content {
@@ -773,16 +773,17 @@ li .subtask-content::before {
 
   .infoTaskResponsive {
     position: static;
+    padding: 30px 20px;
   }
-}
 
-@media (max-width: 1140px) {
   .content-header > div {
     flex-direction: column;
     align-items: flex-start;
     height: 160px;
   }
+}
 
+@media (max-width: 1140px) {
   .content {
     padding-top: 176px;
     padding-right: 0;
@@ -836,6 +837,10 @@ li .subtask-content::before {
 
   .content-header-buttons {
     width: 100%;
+  }
+
+  .buttonEdit {
+    margin-left: 60%;
   }
 }
 
