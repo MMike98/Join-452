@@ -187,7 +187,7 @@
   transform: translateY(-50%);
   width: 30px;
   height: 30px;
-  background-image: url("../assets/icons/visibility_off.svg");
+  background-image: url("./assets/icons/visibility_off.svg");
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
@@ -238,7 +238,7 @@
 }
 
 .passwordInput {
-  background-image: url("../assets/icons/visibility_off.svg") !important;
+  background-image: url("./assets/icons/visibility_off.svg") !important;
 }
 
 .confirmError:focus {
