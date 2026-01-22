@@ -9,6 +9,7 @@
   flex-direction: column;
   font-size: 20px;
   font-weight: 400;
+  max-height: 1000px;
 }
 
 .addTaskAlignment {
@@ -501,10 +502,6 @@ li.addTaskSubtaskItem:hover {
 }
 
 @media (max-width: 1400px) {
-  #addTaskSubtaskList {
-    max-height: 200px;
-  }
-
   .addTaskAlignment {
     flex-direction: column;
   }
@@ -685,8 +682,8 @@ li.addTaskSubtaskItem:hover {
     }
 
     .addTaskButtonRequiredAlignment {
-      width: calc(100% - 10px);
-      justify-content: flex-start;
+      width: calc(100% - 17px);
+      justify-content: center;
     }
 
     .addTaskConfirmAlignment {

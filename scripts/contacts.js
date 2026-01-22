@@ -25,7 +25,8 @@ function generateContactListHTML(contacts) {
   let currentLetter = "";
 
   contacts.forEach((contact, index) => {
-    let firstLetter = contact.name.trim()[0].toUpperCase();
+    let firstChar = contact.name.trim()[0];
+    let firstLetter = isNaN(firstChar) ? firstChar.toUpperCase() : "1–9";
 
     if (firstLetter !== currentLetter) {
       currentLetter = firstLetter;
@@ -50,7 +51,13 @@ function toggleContactDetails(index, forceOpen = false) {
 
   if (isDesktop) {
     if (
-      handleDesktopToggle(index, forceOpen, container, contactsList, contactDetails)
+      handleDesktopToggle(
+        index,
+        forceOpen,
+        container,
+        contactsList,
+        contactDetails
+      )
     )
       return;
   } else {
@@ -69,7 +76,7 @@ function toggleContactDetails(index, forceOpen = false) {
 }
 
 /** Desktop view */
-function handleDesktopToggle(index, forceOpen, container, contactsList,) {
+function handleDesktopToggle(index, forceOpen, container, contactsList) {
   if (!forceOpen && activeContactIndex === index) {
     container.classList.remove("slide-in");
     removeContactHighlights();
@@ -127,11 +134,11 @@ function resetContactForm(overlayId) {
 
   form.reset();
 
-  form.querySelectorAll("input").forEach(input => {
+  form.querySelectorAll("input").forEach((input) => {
     input.classList.remove("inputError");
   });
 
-  form.querySelectorAll(".errorText").forEach(error => {
+  form.querySelectorAll(".errorText").forEach((error) => {
     error.classList.add("d_none");
   });
 }
@@ -185,7 +192,7 @@ function validateNameField(input) {
 function validateEmailFieldEdit(input) {
   let errorEmpty = input.nextElementSibling;
   let errorInvalid = errorEmpty.nextElementSibling;
-  
+
   errorEmpty.classList.add("d_none");
   errorInvalid.classList.add("d_none");
   input.classList.remove("inputError");
@@ -238,7 +245,7 @@ function validateEmailField(input, errorSelector) {
   let errorDivs = document.querySelectorAll(errorSelector);
   let emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
-  errorDivs.forEach(div => div.classList.add("d_none"));
+  errorDivs.forEach((div) => div.classList.add("d_none"));
   input.classList.remove("inputError");
 
   if (!email) {
@@ -262,7 +269,7 @@ function validatePhoneField(input, errorSelector) {
   let errorDivs = document.querySelectorAll(errorSelector);
   let phoneRegex = /^\+[1-9][0-9]{1,3}[1-9][0-9]{4,}$/;
 
-  errorDivs.forEach(div => div.classList.add("d_none"));
+  errorDivs.forEach((div) => div.classList.add("d_none"));
   input.classList.remove("inputError");
 
   if (!phone) {
@@ -309,7 +316,7 @@ function extractContactData(nameInput, mailInput, phoneInput) {
 
 /** Clears form field values and removes input error classes. */
 function clearFormFields(...inputs) {
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     input.value = "";
     input.classList.remove("inputError");
   });
@@ -320,13 +327,13 @@ function clearAllErrors() {
   let errorTexts = document.querySelectorAll(".errorText");
   let errorInputs = document.querySelectorAll(".inputError");
 
-  errorTexts.forEach(div => div.classList.add("d_none"));
-  errorInputs.forEach(input => input.classList.remove("inputError"));
+  errorTexts.forEach((div) => div.classList.add("d_none"));
+  errorInputs.forEach((input) => input.classList.remove("inputError"));
 }
 
 /** Handles UI updates after successfully saving a new contact. */
 function handlePostSave(newContact) {
-  let newIndex = contacts.findIndex(c => c.name === newContact.name);
+  let newIndex = contacts.findIndex((c) => c.name === newContact.name);
   closeOverlay();
   if (newIndex !== -1) toggleContactDetails(newIndex);
   showSuccessMessage();
@@ -405,7 +412,9 @@ function editContact(index, color) {
 function renderEditAvatar(contact, color) {
   let avatarContainer = document.getElementById("editContactAvatar");
 
-  avatarContainer.innerHTML = `<span class="circle circleDetails circlePosition" style="background-color: ${color};">${getInitials(contact.name)}</span>`;
+  avatarContainer.innerHTML = `<span class="circle circleDetails circlePosition" style="background-color: ${color};">${getInitials(
+    contact.name
+  )}</span>`;
 }
 
 /** Saves the edited contact in the API*/

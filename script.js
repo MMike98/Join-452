@@ -100,14 +100,24 @@ async function fetchTasks() {
 
 /** Extracts the initials of the signed up name */
 function getInitials(name) {
-  let nameParts = name.split(" ");
+  if (!name) return "";
+
+  let trimmedName = name.trim();
+  let firstChar = trimmedName.charAt(0);
+
+  if (!isNaN(firstChar)) {
+    return firstChar;
+  }
+
+  let nameParts = trimmedName.split(" ");
 
   if (nameParts.length === 1) {
     return nameParts[0].charAt(0).toUpperCase();
   }
 
-  let firstInitial = nameParts[0]?.charAt(0).toUpperCase();
-  let secondInitial = nameParts[1]?.charAt(0).toUpperCase();
+  let firstInitial = nameParts[0].charAt(0).toUpperCase();
+  let secondInitial = nameParts[1].charAt(0).toUpperCase();
+
   return firstInitial + secondInitial;
 }
 

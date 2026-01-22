@@ -508,6 +508,8 @@ async function DeleteTask(taskKey) {
 /** Opens the edit task overlay and fills in the task's details. */
 async function editTask(key) {
   closeOverlay();
+  clearEditSubtaskInput();
+  
   const t = task[key];
   if (!t) return;
 

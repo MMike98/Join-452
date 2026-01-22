@@ -799,15 +799,16 @@
   }
 
   .errorTextNameAlignment {
-    top: 434px;
+    top: 402px;
   }
 
   .errorTextMailAlignment {
-    top: 489px;
+    top: 459px;
   }
 
   .errorTextPhoneAlignment {
-    top: 549px;
+    top: 517px;
+    width: 100%;
   }
 }
 
