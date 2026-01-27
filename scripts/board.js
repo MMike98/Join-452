@@ -26,7 +26,7 @@ function buildContactIndexMap(contacts) {
     ? contacts
     : Object.values(contacts);
   let validContacts = contactsArray.filter(
-    (c) => c.name && typeof c.name === "string"
+    (c) => c.name && typeof c.name === "string",
   );
 
   let sortedContacts = validContacts.sort((a, b) => {
@@ -50,15 +50,38 @@ function updateHTML(query = "") {
   statuses.forEach((status) => {
     const tasksInStatus = Object.entries(task)
       .filter(([_, t]) => t.status === status)
-      .filter(([_, t]) => {
-        if (!query) return true;
-        return t.title?.toLowerCase().includes(query.toLowerCase());
-      });
+      .filter(([_, t]) => taskMatchesQuery(t, query));
 
     updateColumn(status, tasksInStatus);
   });
 
   addCardClickHandlers();
+}
+
+/** Prüft, ob eine Aufgabe dem aktuellen Suchbegriff entspricht. */
+function taskMatchesQuery(task, query) {
+  if (!query) return true;
+  query = query.toLowerCase();
+
+  const titleMatch = task.title?.toLowerCase().includes(query);
+  const descriptionMatch = task.description?.toLowerCase().includes(query);
+
+  const subtaskMatch = Array.isArray(task.subtasks) &&
+    task.subtasks.some(st => st.toLowerCase().includes(query));
+
+  const subtaskDoneMatch = Array.isArray(task.subtasksDone) &&
+    task.subtasksDone.some(st => st.toLowerCase().includes(query));
+
+  const assignedMatch = Array.isArray(task.assigned) &&
+    task.assigned.some(name => name.toLowerCase().includes(query));
+
+  return (
+    titleMatch ||
+    descriptionMatch ||
+    subtaskMatch ||
+    subtaskDoneMatch ||
+    assignedMatch
+  );
 }
 
 /** Updates a single column based on its task status. */
@@ -124,7 +147,7 @@ async function moveTo(status, key) {
         () => {
           newCard.classList.remove("wiggle");
         },
-        { once: true }
+        { once: true },
       );
     }
   });
@@ -181,7 +204,7 @@ function generateAssignedUsers(assigned) {
   if (!assigned || !Array.isArray(assigned)) return "";
 
   const validUsers = assigned.filter(
-    (name) => typeof name === "string" && name.trim() !== ""
+    (name) => typeof name === "string" && name.trim() !== "",
   );
 
   const maxVisible = 4;
@@ -509,7 +532,7 @@ async function DeleteTask(taskKey) {
 async function editTask(key) {
   closeOverlay();
   clearEditSubtaskInput();
-  
+
   const t = task[key];
   if (!t) return;
 
@@ -738,23 +761,23 @@ async function loadEditContacts(selectedAssigned) {
     : Object.values(contactsData || {});
 
   let validContacts = contactsArray.filter(
-    (c) => c && c.name && typeof c.name === "string"
+    (c) => c && c.name && typeof c.name === "string",
   );
   validContacts.sort((a, b) =>
     a.name
       .split(" ")[0]
       .toLowerCase()
-      .localeCompare(b.name.split(" ")[0].toLowerCase())
+      .localeCompare(b.name.split(" ")[0].toLowerCase()),
   );
 
   editGlobalContacts = validContacts;
 
   editSelected = validContacts.map((c) =>
     selectedAssigned.some(
-      (name) => name.trim().toLowerCase() === c.name.trim().toLowerCase()
+      (name) => name.trim().toLowerCase() === c.name.trim().toLowerCase(),
     )
       ? 1
-      : 0
+      : 0,
   );
 
   renderEditContactDropdown();
@@ -776,8 +799,8 @@ function createEditContactLabels(contacts) {
     label.innerHTML = `
             <div class="contact-item">
                 <span class="circle" style="background-color:${color}">${getInitials(
-      contact.name
-    )}</span>
+                  contact.name,
+                )}</span>
                 ${contact.name}
             </div>
         `;
@@ -858,7 +881,7 @@ function renderEditContactCircles() {
 
   container.innerHTML = "";
   const selectedContacts = editGlobalContacts.filter(
-    (c, i) => editSelected[i] === 1
+    (c, i) => editSelected[i] === 1,
   );
 
   selectedContacts.forEach((contact) => {
@@ -886,7 +909,7 @@ function renderEditSubtasks() {
 
   list.classList.remove("d_none");
 
-editSubtasks.forEach((subtask, index) => {
+  editSubtasks.forEach((subtask, index) => {
     list.innerHTML += `
        <li class="subtask-item">
         <div class="subtask-content"><span>${subtask}</span></div>
@@ -896,9 +919,9 @@ editSubtasks.forEach((subtask, index) => {
         </div>
        </li>
     `;
-});
+  });
 
-editSubtasksDone.forEach((subtask, index) => {
+  editSubtasksDone.forEach((subtask, index) => {
     list.innerHTML += `
        <li class="subtask-item">
         <div class="subtask-content"><span>${subtask}</span></div>
@@ -908,8 +931,7 @@ editSubtasksDone.forEach((subtask, index) => {
         </div>
        </li>
     `;
-});
-
+  });
 }
 
 /** Toggles the completion status of a subtask. Moves a subtask between "active" and "completed" lists. */
@@ -987,21 +1009,21 @@ function clearEditSubtaskInput() {
 
 /** Deletes a completed subtask from the list of completed subtasks. */
 function deleteEditSubtask(index, done = false) {
-    if (done) {
-        editSubtasksDone.splice(index, 1);
-    } else {
-        editSubtasks.splice(index, 1);
-    }
-    renderEditSubtasks();
+  if (done) {
+    editSubtasksDone.splice(index, 1);
+  } else {
+    editSubtasks.splice(index, 1);
+  }
+  renderEditSubtasks();
 }
 
 /** Start editing a subtask directly in the edit overlay. Updates the subtask <li> element to show an input field with confirm and delete icons. */
 function startEditEditSubtask(index, done = false) {
-    const list = document.getElementById("editSubtaskList");
-    const li = list.children[index + (done ? editSubtasks.length : 0)];
-    const text = done ? editSubtasksDone[index] : editSubtasks[index];
+  const list = document.getElementById("editSubtaskList");
+  const li = list.children[index + (done ? editSubtasks.length : 0)];
+  const text = done ? editSubtasksDone[index] : editSubtasks[index];
 
-    li.innerHTML = `
+  li.innerHTML = `
       <div class="subtask-wrapper subtask-wrapper-edit">
         <input type="text"
                class="subtaskEdit editStyle"
@@ -1019,31 +1041,31 @@ function startEditEditSubtask(index, done = false) {
       </div>
     `;
 
-    li.querySelector("input").focus();
+  li.querySelector("input").focus();
 }
 
 /** Confirm the edit of a subtask and update the corresponding array. */
 function confirmEditSubtaskEntry(index, value, done = false) {
-    const text = value.trim();
-    if (!text) return renderEditSubtasks();
+  const text = value.trim();
+  if (!text) return renderEditSubtasks();
 
-    if (done) {
-        editSubtasksDone[index] = text;
-    } else {
-        editSubtasks[index] = text;
-    }
+  if (done) {
+    editSubtasksDone[index] = text;
+  } else {
+    editSubtasks[index] = text;
+  }
 
-    renderEditSubtasks();
+  renderEditSubtasks();
 }
 
 /** Handle keyboard events while editing a subtask. Pressing Enter confirms the edit; Escape cancels it. */
 function handleEditSubtaskKey(e, index, done = false) {
-    if (e.key === "Enter") {
-        confirmEditSubtaskEntry(index, e.target.value, done);
-    }
-    if (e.key === "Escape") {
-        renderEditSubtasks();
-    }
+  if (e.key === "Enter") {
+    confirmEditSubtaskEntry(index, e.target.value, done);
+  }
+  if (e.key === "Escape") {
+    renderEditSubtasks();
+  }
 }
 
 /** Handles window resize events for the "Add Task" overlay.*/
@@ -1062,6 +1084,3 @@ function handleResizeAddTaskOverlay() {
 
 /** Listen for window resize events to adapt the Add Task overlay behavior. */
 window.addEventListener("resize", handleResizeAddTaskOverlay);
-
-
-

@@ -234,7 +234,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 48px;
+  height: 250px;
   width: 246px;
   border-radius: 10px;
   border: 1px dashed #b0b0b0;
@@ -389,7 +389,7 @@
 
 .infoTask {
   position: fixed;
-  top: calc(45% - 350px);
+  top: calc(45% - 370px);
   left: calc(50% - 222.5px);
   width: 445px;
   height: 85vh;
@@ -773,7 +773,6 @@ li .subtask-content::before {
 
   .infoTaskResponsive {
     position: static;
-    padding: 30px 20px;
   }
 
   .content-header > div {
@@ -827,6 +826,11 @@ li .subtask-content::before {
   .addTaskButtonResponsive {
     display: flex;
   }
+
+  .infoTaskResponsive {
+    padding: 30px 20px;
+    height: 90%;
+  }
 }
 
 @media (max-width: 440px) {
@@ -863,7 +867,9 @@ li .subtask-content::before {
 }
 
 .card-list {
-  transition: background-color 120ms ease, box-shadow 120ms ease;
+  transition:
+    background-color 120ms ease,
+    box-shadow 120ms ease;
 }
 
 .card-list.drop-target {

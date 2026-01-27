@@ -216,6 +216,9 @@ function toggleSelection(label) {
 
   selected[idx] = selected[idx] === 1 ? 0 : 1;
   label.classList.toggle("contactSelected", selected[idx] === 1);
+
+  toggleSelectedContactsDiv();
+  renderSelectedContactCircles(globalContacts);
 }
 
 /** Displays the selected contacts under the dropdown menu if the drop down menu is closed */
