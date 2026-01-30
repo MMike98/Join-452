@@ -880,17 +880,30 @@ function renderEditContactCircles() {
   if (!container) return;
 
   container.innerHTML = "";
+
   const selectedContacts = editGlobalContacts.filter(
-    (c, i) => editSelected[i] === 1,
+    (c, i) => editSelected[i] === 1
   );
 
-  selectedContacts.forEach((contact) => {
+  const maxVisible = 4;
+  const visibleContacts = selectedContacts.slice(0, maxVisible);
+  const remaining = selectedContacts.length - maxVisible;
+
+  visibleContacts.forEach((contact) => {
     const circle = document.createElement("span");
     circle.className = "circle circleEdit";
     circle.textContent = getInitials(contact.name);
     circle.style.backgroundColor = getColorForName(contact.name);
     container.appendChild(circle);
   });
+
+  if (remaining > 0) {
+    const moreCircle = document.createElement("span");
+    moreCircle.className = "circle circleEdit more";
+    moreCircle.textContent = `+${remaining}`;
+    moreCircle.style.backgroundColor = "black";
+    container.appendChild(moreCircle);
+  }
 
   container.classList.toggle("d_none", selectedContacts.length === 0);
 }
@@ -932,14 +945,6 @@ function renderEditSubtasks() {
        </li>
     `;
   });
-}
-
-/** Toggles the completion status of a subtask. Moves a subtask between "active" and "completed" lists. */
-function toggleEditSubtaskIcons() {
-  const input = document.getElementById("editSubtaskInput");
-  const icons = document.getElementById("editSubtaskConfirm");
-
-  icons.classList.toggle("d_none", input.value.trim() === "");
 }
 
 /** Toggles the visibility of a dropdown menu by its ID. */

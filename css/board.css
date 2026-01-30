@@ -591,7 +591,7 @@ input[type="date"] {
   padding-right: 5px;
   display: flex;
   gap: 8px;
-  height: 600px;
+  height: calc(100% - 131px);
 }
 
 .scrollAlign > textarea {
@@ -728,6 +728,7 @@ li .subtask-content::before {
   width: 93px !important;
   position: static;
   margin-left: 75%;
+  margin-top: 20px;
 }
 
 @media (max-width: 1500px) {
@@ -833,6 +834,10 @@ li .subtask-content::before {
   .infoTaskResponsive {
     padding: 30px 20px;
     height: 90%;
+  }
+
+  .infoTaskEdit {
+    height: 90% !important;
   }
 }
 
