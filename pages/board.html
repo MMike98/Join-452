@@ -121,15 +121,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="addTaskButtonRequiredAlignmentBoard">
-                            <div class="requiredMobile"><span class="requiredStar">*</span>This field is required</div>
-                            <div class="addTaskConfirmAlignment">
-                                <button type="button" class="addTaskButtonClearBoard"
-                                    onclick="clearAll()">Clear</button>
-                                <button type="submit" class="addTaskButtonCreateTask"
-                                    onclick="saveNewTaskOverlay(event)">Create
-                                    Task</button>
-                            </div>
+                        <div class="requiredMobile"><span class="requiredStar">*</span>This field is required</div>
+                        <div class="addTaskConfirmAlignment addTaskConfirmAlignmentBoard">
+                            <button type="button" class="addTaskButtonClearBoard" onclick="clearAll()">Clear</button>
+                            <button type="submit" class="addTaskButtonCreateTask"
+                                onclick="saveNewTaskOverlay(event)">Create
+                                Task</button>
                         </div>
                     </form>
                 </div>
@@ -138,7 +135,8 @@
         <div class="overlayBackground overlayBackgroundResponsive" id="infoOverlay" onclick="closeOverlay(event)">
             <div class="infoTask infoTaskResponsive" id="infoTask"></div>
         </div>
-        <div id="editTaskOverlay" class="overlayBackground overlayBackgroundResponsive" onclick="closeOverlay(event), closeEditTaskOverlay()">
+        <div id="editTaskOverlay" class="overlayBackground overlayBackgroundResponsive"
+            onclick="closeOverlay(event), closeEditTaskOverlay()">
             <div class="infoTask infoTaskResponsive infoTaskEdit" onclick="event.stopPropagation()">
                 <img src="../assets/icons/cross.svg" class="overlayCloseEdit" onclick="closeOverlay(event)">
                 <div class="infoTaskScroll scrollAlign">

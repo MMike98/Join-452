@@ -5,7 +5,7 @@
   background-color: #f6f7f8;
   max-width: 977.5px;
   width: 100%;
-  padding: 206px 80px 64px 328px;
+  padding: 206px 80px 0 328px;
   flex-direction: column;
   font-size: 20px;
   font-weight: 400;
@@ -33,7 +33,7 @@
   margin-left: 0;
 }
 
-#addTaskSlider .addTaskButtonRequiredAlignment {
+#addTaskSlider {
   display: flex;
   justify-content: space-between;
   align-items: end;
@@ -338,22 +338,13 @@ li.addTaskSubtaskItem:hover {
   align-items: center;
 }
 
-.addTaskButtonRequiredAlignment {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  padding: 12px 0;
-  position: fixed;
-  bottom: 0;
-  width: calc(100% - 232px - 80px - 80px - 49px);
-  max-width: 977.5px;
-  background-color: transparent;
-}
-
 .addTaskConfirmAlignment {
   display: flex;
   gap: 16px;
   z-index: 2000;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  align-self: end;
 }
 
 .addTaskButtonClear {
@@ -518,18 +509,8 @@ li.addTaskSubtaskItem:hover {
     width: auto;
   }
 
-  .addTaskButtonRequiredAlignment {
-    width: 440px;
-    padding: 12px 0;
-    align-items: center;
-    justify-content: flex-end;
-    z-index: 4000;
-    background-color: #f5f7f9;
-  }
-
   .requiredMobileView {
     display: block;
-    padding-bottom: 180px;
   }
 
   .errorTextAddTaskAlignmentCategory {
@@ -616,11 +597,6 @@ li.addTaskSubtaskItem:hover {
     height: auto;
   }
 
-  .addTaskButtonRequiredAlignment {
-    width: 396px;
-    bottom: 80px;
-  }
-
   .requiredMobileView {
     font-size: 16px;
   }
@@ -641,66 +617,69 @@ li.addTaskSubtaskItem:hover {
     width: 396px;
   }
 
-  @media (max-width: 440px) {
-    .content {
-      width: calc(100% - 20px);
-      padding: 80px 10px 64px 10px;
-    }
+  .addTaskConfirmAlignment {
+    padding-bottom: 25px;
+  }
+}
 
-    input,
-    textarea,
-    .requiredMobileView,
-    label {
-      width: 85%;
-      background-position: 93%;
-    }
+@media (max-width: 440px) {
+  .content {
+    width: calc(100% - 20px);
+    padding: 80px 10px 64px 10px;
+  }
 
-    .addTaskbuttonAlignment {
-      flex-direction: column;
-      align-items: center;
-    }
+  input,
+  textarea,
+  .requiredMobileView,
+  label {
+    width: 85%;
+    background-position: 93%;
+  }
 
-    .addTaskDropDownShadow {
-      width: calc(100% - 1px);
-    }
+  .addTaskbuttonAlignment {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .addTaskDropDown {
-      width: 99%;
-    }
+  .addTaskDropDownShadow {
+    width: calc(100% - 1px);
+  }
 
-    #addTaskContacts,
-    #addTaskCategory {
-      background-position: 93%;
-    }
+  .addTaskDropDown {
+    width: 99%;
+  }
 
-    .addTaskInfos {
-      width: 100%;
-    }
+  #addTaskContacts,
+  #addTaskCategory {
+    background-position: 93%;
+  }
 
-    .addTaskAlignment {
-      width: 100%;
-    }
+  .addTaskInfos {
+    width: 100%;
+  }
 
-    .addTaskButtonRequiredAlignment {
-      width: calc(100% - 17px);
-      justify-content: center;
-    }
+  .addTaskAlignment {
+    width: 100%;
+  }
 
-    .addTaskConfirmAlignment {
-      gap: 5px;
-    }
+  .addTaskConfirmAlignment {
+    gap: 5px;
+  }
 
-    .errorTextAddTask {
-      width: calc(100% - 20px);
-    }
+  .errorTextAddTask {
+    width: calc(100% - 20px);
+  }
 
-    .addTaskSuccessful {
-      width: 300px;
-      left: calc(50% - 150px);
-    }
+  .addTaskSuccessful {
+    width: 300px;
+    left: calc(50% - 150px);
+  }
 
-    .addTaskButtonCreateTask {
-      width: 180px;
-    }
+  .addTaskButtonCreateTask {
+    width: 180px;
+  }
+
+  .addTaskConfirmAlignment {
+    padding-bottom: 100px;
   }
 }

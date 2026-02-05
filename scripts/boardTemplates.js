@@ -1,32 +1,42 @@
 function generateTaskHTML(task, key, categoryClass = "default") {
-  const totalSubtasks =
-    (task.subtasks ? task.subtasks.length : 0) +
-    (task.subtasksDone ? task.subtasksDone.length : 0);
+  const openSubtasks = task.subtasks?.length || 0;
+  const doneSubtasks = task.subtasksDone?.length || 0;
+  const totalSubtasks = openSubtasks + doneSubtasks;
 
-  const doneSubtasks = task.subtasksDone ? task.subtasksDone.length : 0;
+  const progress =
+    totalSubtasks === 0 ? 0 : (doneSubtasks / totalSubtasks) * 100;
+
+  const progressHTML =
+    totalSubtasks > 0
+      ? `
+        <div class="card-progress">
+          <div class="progress-bar">
+            <div class="progress-bar-content" style="width:${progress}%"></div>
+          </div>
+          <p>${doneSubtasks}/${totalSubtasks} Subtasks</p>
+        </div>
+      `
+      : "";
 
   return `
-    <div draggable="true" 
-     ondragstart="startDragging('${key}')" 
-     class="card" 
-     id="card-${key}" 
-     data-key="${key}">
+    <div draggable="true"
+      ondragstart="startDragging('${key}')"
+      class="card"
+      id="card-${key}"
+      data-key="${key}">
+      
       <div class="card-content">
         <div class="card-header">
           <p class="${categoryClass}">${task.category}</p>
         </div>
+
         <div class="card-body">
           <h3>${task.title}</h3>
           <p>${task.description}</p>
         </div>
-        <div class="card-progress">
-          <div class="progress-bar">
-            <div class="progress-bar-content" style="width:${
-              (doneSubtasks / (totalSubtasks || 1)) * 100
-            }%"></div>
-          </div>
-          <p>${doneSubtasks}/${totalSubtasks} Subtasks</p>
-        </div>
+
+        ${progressHTML}
+
         <div class="card-footer">
           <div class="profile">
             ${generateAssignedUsers(task.assigned)}
@@ -39,6 +49,7 @@ function generateTaskHTML(task, key, categoryClass = "default") {
     </div>
   `;
 }
+
 
 function generateInfoTaskHTML(t, key) {
   let categoryClass = getCategoryClass(t.category); 

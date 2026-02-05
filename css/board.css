@@ -372,6 +372,11 @@
   height: calc(100% - 48px - 48px - 59px) !important;
 }
 
+.addTaskConfirmAlignmentBoard {
+  display: flex;
+  justify-content: end;
+}
+
 @keyframes wiggle {
   0% {
     transform: rotate(0deg);
@@ -397,6 +402,7 @@
   left: calc(50% - 222.5px);
   width: 445px;
   height: 85vh;
+  max-height: 805px;
   background-color: white;
   z-index: 9999;
   border-radius: 30px;
@@ -652,7 +658,7 @@ input[type="date"] {
 }
 
 .subtask-wrapper > input {
-  width: calc(100% - 42px);
+  width: calc(100% - 44px);
 }
 
 .subtask-item {
@@ -764,7 +770,7 @@ li .subtask-content::before {
   }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1399px) {
   .overlayBackground {
     display: none;
   }
@@ -797,6 +803,7 @@ li .subtask-content::before {
 @media (max-width: 840px) {
   .content {
     padding: 128px 10px 80px 10px;
+    width: calc(100% - 50px) !important;
   }
 
   h1 {
@@ -834,10 +841,15 @@ li .subtask-content::before {
   .infoTaskResponsive {
     padding: 30px 20px;
     height: 90%;
+    max-height: 805px;
   }
 
   .infoTaskEdit {
     height: 90% !important;
+  }
+
+  .content-body {
+    padding-bottom: 100px;
   }
 }
 
