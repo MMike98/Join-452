@@ -133,6 +133,14 @@ textarea {
   background-color: white;
 }
 
+#addTaskContacts {
+  z-index: 7;
+}
+
+#addTaskCategory {
+  z-index: 4;
+}
+
 #addTaskContacts,
 #addTaskCategory {
   background-image: url("../assets/icons/arrow_drop_down.svg");
@@ -159,7 +167,7 @@ textarea {
 .addTaskDropDown {
   width: 437px;
   background-color: white;
-  max-height: calc(336px - 48px);
+  max-height: calc(336px - 80px);
   overflow-y: auto;
   margin: 0 1px;
 }
@@ -173,7 +181,9 @@ textarea {
   background-color: #ffffff;
   padding: 8px 0;
   max-height: 336px;
-  z-index: 1;
+  z-index: 6;
+  position: absolute;
+  top: 540px;
 }
 
 .addTaskDropDown label {
@@ -492,6 +502,11 @@ li.addTaskSubtaskItem:hover {
   display: none;
 }
 
+.position {
+  top: 640px;
+  z-index: 3;
+}
+
 @media (max-width: 1400px) {
   .addTaskAlignment {
     flex-direction: column;
@@ -517,8 +532,20 @@ li.addTaskSubtaskItem:hover {
     top: 987px;
   }
 
+  .errorTextAddTaskAlignmentDate {
+    top: 682px;
+  }
+
   .addTaskSuccessful {
     left: calc(50% - 163px);
+  }
+
+  .position {
+    top: 1000px !important;
+  }
+
+  .addTaskDropDownShadow {
+    top: 908px;
   }
 }
 
@@ -602,15 +629,15 @@ li.addTaskSubtaskItem:hover {
   }
 
   .errorTextAddTaskAlignmentCategory {
-    top: 860px;
+    top: 808px;
   }
 
   .errorTextAddTaskAlignmentDate {
-    top: 555px;
+    top: 502px;
   }
 
   .errorTextAddTaskAlignmentTitle {
-    top: 290px;
+    top: 240px;
   }
 
   .errorTextAddTask {
@@ -619,6 +646,14 @@ li.addTaskSubtaskItem:hover {
 
   .addTaskConfirmAlignment {
     padding-bottom: 25px;
+  }
+
+  .position {
+    top: 830px !important;
+  }
+
+  .addTaskDropDownShadow {
+    top: 725px;
   }
 }
 
@@ -642,11 +677,13 @@ li.addTaskSubtaskItem:hover {
   }
 
   .addTaskDropDownShadow {
-    width: calc(100% - 1px);
+    max-width: 388px;
+    width: 96%;
+    top: 318px;
   }
 
   .addTaskDropDown {
-    width: 99%;
+    width: auto;
   }
 
   #addTaskContacts,
@@ -656,6 +693,7 @@ li.addTaskSubtaskItem:hover {
 
   .addTaskInfos {
     width: 100%;
+    position: relative;
   }
 
   .addTaskAlignment {
@@ -681,5 +719,51 @@ li.addTaskSubtaskItem:hover {
 
   .addTaskConfirmAlignment {
     padding-bottom: 100px;
+  }
+
+  .position {
+    top: 410px !important;
+  }
+
+  .errorTextAddTaskAlignmentCategory {
+    top: 395px;
+  }
+
+  .errorTextAddTaskAlignmentDate {
+    top: 337px;
+  }
+
+  .errorTextAddTaskAlignmentTitle {
+    top: 75px;
+  }
+}
+
+@media (max-width: 410px) {
+  .addTaskDropDownShadow {
+    width: 96%;
+  }
+}
+
+@media (max-width: 390px) {
+  .addTaskDropDownShadow {
+    width: 97%;
+  }
+}
+
+@media (max-width: 370px) {
+  .addTaskDropDownShadow {
+    width: 98%;
+  }
+}
+
+@media (max-width: 350px) {
+  .addTaskDropDownShadow {
+    width: 99%;
+  }
+}
+
+@media (max-width: 330px) {
+  .addTaskDropDownShadow {
+    width: 100%;
   }
 }
