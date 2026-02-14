@@ -247,10 +247,10 @@
 
 .boardAddTask {
   position: fixed;
-  top: calc(50% - 364px);
+  top: calc(50% - 417.5px);
   left: calc(50% - 538.75px);
   width: 1077.5px;
-  height: 728px;
+  height: 835px;
   background-color: white;
   z-index: 9999;
   border-radius: 16px;
@@ -265,7 +265,7 @@
 .addTaskAlignmentBoard {
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 424px;
+  max-height: 500px;
 }
 
 .contentBoard {
@@ -349,19 +349,19 @@
 .errorTextAddTaskAlignmentTitleBoard {
   text-align: left;
   position: absolute;
-  top: 235px;
+  top: 252px;
 }
 
 .errorTextAddTaskAlignmentDateBoard {
   text-align: left;
   position: absolute;
-  top: 510px;
+  top: 525px;
 }
 
 .errorTextAddTaskAlignmentCategoryBoard {
   text-align: left;
   position: absolute;
-  top: 445px;
+  top: 462px;
 }
 
 .addTaskSubtaskListScroll {
@@ -750,6 +750,10 @@ li .subtask-content::before {
 .positionCategory {
   top: 460px !important;
   z-index: 3 !important;
+}
+
+.addTaskSubtaskListBoard {
+  min-height: 100px !important;
 }
 
 @media (max-width: 1500px) {

@@ -9,6 +9,10 @@ function init() {
   loadCategoriesIntoDropdown();
   activate("medium");
   setMinDate();
+
+  document
+    .getElementById("addTaskDate")
+    .addEventListener("change", validateDateInput);
 }
 
 /** Check if the required input is available */
@@ -146,11 +150,11 @@ async function loadContactsIntoDropdown() {
   let contacts = Object.values(contactsObj);
 
   contacts = contacts.filter(
-    (contact) => contact.name && typeof contact.name === "string"
+    (contact) => contact.name && typeof contact.name === "string",
   );
 
   contacts.sort((a, b) =>
-    a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+    a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
   );
 
   globalContacts = contacts;
@@ -167,7 +171,7 @@ function createLabel(contact, index) {
   let label = document.createElement("label");
   label.id = `contactLabel-${index}`;
   label.innerHTML = `<div id="contactChecked"><span class="circle" style="background-color: ${color};">${getInitials(
-    contact.name
+    contact.name,
   )}</span>${contact.name}</div>`;
   return label;
 }
@@ -635,10 +639,35 @@ async function loadTaskIntoAPI(newTask) {
 
 /** Sets the minimum selectable date in the date input field to today's date. This prevents users from selecting past dates for the task deadline. */
 function setMinDate() {
+  const input = document.getElementById("addTaskDate");
+
   let today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   let yyyy = today.getFullYear();
   let mm = String(today.getMonth() + 1).padStart(2, "0");
   let dd = String(today.getDate()).padStart(2, "0");
+
   let minDate = `${yyyy}-${mm}-${dd}`;
-  document.getElementById("addTaskDate").setAttribute("min", minDate);
+  let maxDate = `${yyyy + 5}-${mm}-${dd}`;
+
+  input.min = minDate;
+  input.max = maxDate;
+}
+
+/** Validates the selected date in the task date input field. Ensures that the entered date is not in the past. If a past date is detected, the input value is automatically reset to today's date (local time, without timezone issues).*/
+function validateDateInput() {
+ const input = document.getElementById("addTaskDate");
+  const selectedDate = new Date(input.value);
+
+  let today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (selectedDate < today) {
+    let yyyy = today.getFullYear();
+    let mm = String(today.getMonth() + 1).padStart(2, "0");
+    let dd = String(today.getDate()).padStart(2, "0");
+
+    input.value = `${yyyy}-${mm}-${dd}`;
+  }
 }
