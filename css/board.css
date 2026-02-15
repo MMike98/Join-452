@@ -396,6 +396,18 @@
   animation: wiggle 0.2s ease-in-out;
 }
 
+.card-snap {
+  animation: wiggleScale 0.3s ease-in-out;
+}
+
+@keyframes wiggleScale {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.05) rotate(2deg); }
+  50% { transform: scale(1.05) rotate(-2deg); }
+  75% { transform: scale(1.05) rotate(2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
 .infoTask {
   position: fixed;
   top: calc(45% - 370px);
@@ -884,8 +896,8 @@ li .subtask-content::before {
 
 @media (max-width: 440px) {
   .content-header > div > div > input {
-    width: calc(100vw - 70px);
-    background-position: calc(100vw - 100px);
+    width: 100%;
+    background-position: 90%;
   }
 
   .content-header-buttons {
@@ -935,3 +947,8 @@ li .subtask-content::before {
   box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.06);
   border-radius: 12px;
 }
+
+
+
+
+

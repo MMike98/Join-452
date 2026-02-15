@@ -6,6 +6,9 @@ let editSelected = [];
 let editSelectedPriority = null;
 let editSubtasks = [];
 let editSubtasksDone = [];
+let draggedCard = null;
+let placeholder = null;
+let offsetY = 0;
 
 /** Initializes the board by fetching tasks and contacts, building the contact index map, and updating the HTML. */
 async function initBoard() {
@@ -634,11 +637,6 @@ async function saveEditedTask() {
   const dueDate = document.getElementById("editDueDate").value.trim();
   const assignedUsers = getSelectedAssignedUsers();
 
-  if (!title || !description) {
-    console.warn("Title and description are required.");
-    return;
-  }
-
   const updatedTask = {
     title: title,
     description: description,
@@ -1089,3 +1087,96 @@ function handleResizeAddTaskOverlay() {
 
 /** Listen for window resize events to adapt the Add Task overlay behavior. */
 window.addEventListener("resize", handleResizeAddTaskOverlay);
+
+/** Handles the start of a touch drag on a task card. Creates a placeholder, separates the card from the layout, and prevents page scrolling. */
+document.addEventListener('touchstart', e => {
+  const card = e.target.closest('.card');
+  if (!card) return;
+
+  draggedCard = card;
+
+  placeholder = document.createElement('div');
+  placeholder.classList.add('card-placeholder');
+  placeholder.style.width = `${card.offsetWidth}px`;
+  placeholder.style.height = `${card.offsetHeight}px`;
+  card.parentElement.insertBefore(placeholder, card);
+
+  const rect = card.getBoundingClientRect();
+  offsetY = e.touches[0].clientY - rect.top;
+
+  draggedCard.classList.add('dragging');
+  draggedCard.style.position = 'absolute';
+  draggedCard.style.zIndex = 999;
+  draggedCard.style.pointerEvents = 'none';
+  draggedCard.style.width = `${card.offsetWidth}px`;
+  draggedCard.style.left = `${rect.left}px`;
+  draggedCard.style.top = `${rect.top}px`;
+
+  document.body.classList.add('no-scroll');
+});
+
+/** Handles moving the dragged card along with the touch. Only vertical movement is allowed. Updates placeholder position in the list. */
+document.addEventListener('touchmove', e => {
+  if (!draggedCard) return;
+  e.preventDefault();
+
+  const touch = e.touches[0];
+
+  draggedCard.style.top = `${touch.clientY - offsetY}px`;
+
+  const rect = placeholder.getBoundingClientRect();
+  draggedCard.style.left = `${rect.left}px`;
+
+  const lists = Array.from(document.querySelectorAll('.card-list'));
+  lists.forEach(list => {
+    const listRect = list.getBoundingClientRect();
+    if (touch.clientY > listRect.top && touch.clientY < listRect.bottom) {
+      list.classList.add('drop-target');
+
+      const cards = Array.from(list.querySelectorAll('.card:not(.dragging)'));
+      let inserted = false;
+      for (const card of cards) {
+        const cardRect = card.getBoundingClientRect();
+        if (touch.clientY < cardRect.top + cardRect.height / 2) {
+          list.insertBefore(placeholder, card);
+          inserted = true;
+          break;
+        }
+      }
+      if (!inserted) list.appendChild(placeholder);
+    } else {
+      list.classList.remove('drop-target');
+    }
+  });
+}, { passive: false });
+
+/** Handles the end of a touch drag. Places the dragged card in the new position, updates the backend status, resets styles, removes placeholder, and allows page scrolling again. */
+document.addEventListener('touchend', async e => {
+  if (!draggedCard) return;
+
+  placeholder.parentElement.insertBefore(draggedCard, placeholder);
+
+  const newStatus = placeholder.parentElement.id;
+  const key = draggedCard.dataset.key;
+
+  await moveTo(newStatus, key);
+
+  draggedCard.classList.remove('dragging');
+  draggedCard.style.position = '';
+  draggedCard.style.zIndex = '';
+  draggedCard.style.pointerEvents = '';
+  draggedCard.style.left = '';
+  draggedCard.style.top = '';
+  draggedCard.style.width = '';
+
+  document.querySelectorAll('.card-list.drop-target').forEach(list => {
+    list.classList.remove('drop-target');
+  });
+
+  placeholder.remove();
+  placeholder = null;
+  draggedCard = null;
+
+  document.body.classList.remove('no-scroll');
+});
+
