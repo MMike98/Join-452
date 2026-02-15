@@ -17,42 +17,6 @@
   padding-top: 50px;
 }
 
-#addTaskSlider .addTaskAlignment {
-  display: flex;
-  padding-top: 50px;
-}
-
-#addTaskSlider form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#addTaskSlider h1 {
-  align-self: flex-start;
-  margin-left: 0;
-}
-
-#addTaskSlider {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  padding: 12px 0;
-  position: fixed;
-  bottom: 0;
-  width: 980px;
-  max-width: 977.5px;
-  background-color: transparent;
-  margin-bottom: 80px;
-}
-
-.h1-wrapper {
-  display: flex;
-  align-items: flex-start;
-  width: 970px;
-  margin-top: 80px;
-}
-
 .addTaskInfos {
   display: flex;
   flex-direction: column;
@@ -235,6 +199,7 @@ label.contactSelected:hover #contactChecked {
   display: flex;
   margin: -13px 0 13px 0;
   gap: 8px;
+  height: 40px;
 }
 
 #addTaskContaktsSelected .circle {
@@ -441,7 +406,7 @@ li.addTaskSubtaskItem:hover {
 .errorTextAddTaskAlignmentCategory {
   text-align: left;
   position: absolute;
-  top: 620px;
+  top: 667px;
 }
 
 .urgent {
@@ -487,7 +452,7 @@ li.addTaskSubtaskItem:hover {
   height: 74px;
   width: 326px;
   background-color: #2a3647;
-  z-index: 3;
+  z-index: 9;
   border-radius: 20px;
   color: white;
   font-size: 20px;
@@ -503,7 +468,7 @@ li.addTaskSubtaskItem:hover {
 }
 
 .position {
-  top: 640px;
+  top: 692px;
   z-index: 3;
 }
 
@@ -529,7 +494,7 @@ li.addTaskSubtaskItem:hover {
   }
 
   .errorTextAddTaskAlignmentCategory {
-    top: 987px;
+    top: 1030px;
   }
 
   .errorTextAddTaskAlignmentDate {
@@ -541,7 +506,7 @@ li.addTaskSubtaskItem:hover {
   }
 
   .position {
-    top: 1000px !important;
+    top: 1057px !important;
   }
 
   .addTaskDropDownShadow {
@@ -561,6 +526,7 @@ li.addTaskSubtaskItem:hover {
     height: 112px;
     display: flex;
     align-items: end;
+    padding-top: 10px;
   }
 
   .addTaskAlignment {
@@ -629,7 +595,7 @@ li.addTaskSubtaskItem:hover {
   }
 
   .errorTextAddTaskAlignmentCategory {
-    top: 808px;
+    top: 860px;
   }
 
   .errorTextAddTaskAlignmentDate {
@@ -649,7 +615,7 @@ li.addTaskSubtaskItem:hover {
   }
 
   .position {
-    top: 830px !important;
+    top: 890px !important;
   }
 
   .addTaskDropDownShadow {
@@ -722,11 +688,11 @@ li.addTaskSubtaskItem:hover {
   }
 
   .position {
-    top: 410px !important;
+    top: 475px !important;
   }
 
   .errorTextAddTaskAlignmentCategory {
-    top: 395px;
+    top: 453px;
   }
 
   .errorTextAddTaskAlignmentDate {

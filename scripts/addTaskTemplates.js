@@ -36,3 +36,14 @@ function createSubtaskHTML(value) {
     </li>
   `;
 }
+
+function contactLabelTemplate(contact, color) {
+  return `
+    <div id="contactChecked">
+      <span class="circle" style="background-color: ${color};">${getInitials(contact.name,)}</span>
+      ${contact.name}
+    </div>
+  `;
+}
+
+
