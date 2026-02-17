@@ -25,25 +25,17 @@ async function initBoard() {
 
 /** Builds a map from contact names to indices based on sorted first names. Filters invalid contacts and returns sorted array. */
 function buildContactIndexMap(contacts) {
-  let contactsArray = Array.isArray(contacts)
-    ? contacts
-    : Object.values(contacts);
-  let validContacts = contactsArray.filter(
-    (c) => c.name && typeof c.name === "string",
+  let arr = Array.isArray(contacts) ? contacts : Object.values(contacts);
+  let valid = arr.filter((c) => c.name && typeof c.name === "string");
+  valid.sort((a, b) =>
+    a.name
+      .split(" ")[0]
+      .toLowerCase()
+      .localeCompare(b.name.split(" ")[0].toLowerCase()),
   );
-
-  let sortedContacts = validContacts.sort((a, b) => {
-    let firstNameA = a.name.split(" ")[0].toLowerCase();
-    let firstNameB = b.name.split(" ")[0].toLowerCase();
-    return firstNameA.localeCompare(firstNameB);
-  });
-
   contactIndexMap = {};
-  sortedContacts.forEach((contact, index) => {
-    contactIndexMap[contact.name] = index;
-  });
-
-  return sortedContacts;
+  valid.forEach((c, i) => (contactIndexMap[c.name] = i));
+  return valid;
 }
 
 /** Updates all task columns in the UI based on current task data. */
@@ -61,30 +53,18 @@ function updateHTML(query = "") {
   addCardClickHandlers();
 }
 
-/** Prüft, ob eine Aufgabe dem aktuellen Suchbegriff entspricht. */
+/** Checks if a task matches the current search query. */
 function taskMatchesQuery(task, query) {
   if (!query) return true;
   query = query.toLowerCase();
-
-  const titleMatch = task.title?.toLowerCase().includes(query);
-  const descriptionMatch = task.description?.toLowerCase().includes(query);
-
-  const subtaskMatch = Array.isArray(task.subtasks) &&
-    task.subtasks.some(st => st.toLowerCase().includes(query));
-
-  const subtaskDoneMatch = Array.isArray(task.subtasksDone) &&
-    task.subtasksDone.some(st => st.toLowerCase().includes(query));
-
-  const assignedMatch = Array.isArray(task.assigned) &&
-    task.assigned.some(name => name.toLowerCase().includes(query));
-
-  return (
-    titleMatch ||
-    descriptionMatch ||
-    subtaskMatch ||
-    subtaskDoneMatch ||
-    assignedMatch
-  );
+  const matchArray = [
+    task.title,
+    task.description,
+    ...(task.subtasks || []),
+    ...(task.subtasksDone || []),
+    ...(task.assigned || []),
+  ];
+  return matchArray.some(v => v.toLowerCase().includes(query));
 }
 
 /** Updates a single column based on its task status. */
@@ -112,11 +92,7 @@ function generateEmptyColumnHTML(status) {
     done: "No tasks Done",
   };
 
-  return `
-    <div class="no-task">
-      <p>${statusMessages[status]}</p>
-    </div>
-  `;
+  return emptyColumnTemplate(statusMessages[status]);
 }
 
 /** Starts dragging a task. */
@@ -129,39 +105,31 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
-/** Moves the currently dragged task to a new status and updates Firebase. */
+/** Moves a task to a new status and updates Firebase + UI */
 async function moveTo(status, key) {
-  task[key]["status"] = status;
+  task[key].status = status;
 
-  try {
-    await updateFirebase(key, status);
-  } catch (error) {
-    console.error("Error updating status in Firebase:", error);
-  }
+  try { await updateFirebase(key, status); } 
+  catch (e) { console.error("Firebase error:", e); }
 
   updateHTML();
+  animateCardWiggle(key);
+}
 
-  requestAnimationFrame(() => {
-    let newCard = document.getElementById(`card-${key}`);
-    if (newCard) {
-      newCard.classList.add("wiggle");
-      newCard.addEventListener(
-        "animationend",
-        () => {
-          newCard.classList.remove("wiggle");
-        },
-        { once: true },
-      );
-    }
-  });
+/** Animates the card with a wiggle effect */
+function animateCardWiggle(key) {
+  const card = document.getElementById(`card-${key}`);
+  if (!card) return;
+
+  card.classList.add("wiggle");
+  card.addEventListener(
+    "animationend",
+    () => card.classList.remove("wiggle"),
+    { once: true }
+  );
 }
 
 /** Handles drop event to move task to new status. */
-// function drop(ev, newStatus) {
-// ev.preventDefault();
-//  moveTo(newStatus);
-// }
-
 function drop(ev, newStatus) {
   ev.preventDefault();
 
@@ -202,39 +170,28 @@ function getCategoryClass(category) {
   }
 }
 
-/** Generates HTML for assigned users with color-coded initials. */
+/** Generates assigned user HTML with colored circles */
 function generateAssignedUsers(assigned) {
-  if (!assigned || !Array.isArray(assigned)) return "";
-
-  const validUsers = assigned.filter(
-    (name) => typeof name === "string" && name.trim() !== "",
-  );
+  if (!Array.isArray(assigned) || !assigned.length) return "";
 
   const maxVisible = 4;
-  const visibleUsers = validUsers.slice(0, maxVisible);
-  const remaining = validUsers.length - maxVisible;
+  let html = "";
 
-  let html = visibleUsers
-    .map((name) => {
-      let initials = getInitials(name);
-      let color = getColorForName(name);
-      return `
-      <div class="profile-icon" style="background-color: ${color}">
-        ${initials}
-      </div>
-    `;
-    })
-    .join("");
+  const visibleUsers = assigned.slice(0, maxVisible);
+  visibleUsers.forEach(name => {
+    html += userCircleHTML(name, getColorForName(name));
+  });
 
-  if (remaining > 0) {
-    html += `
-      <div class="profile-icon" style="background-color: black">
-        +${remaining}
-      </div>
-    `;
-  }
+  const remaining = assigned.length - maxVisible;
+  if (remaining > 0) html += userCircleHTML(`+${remaining}`, "black");
 
   return html;
+}
+
+/** Returns HTML for a single user circle with given color */
+function userCircleHTML(name, color) {
+  const initials = name.startsWith("+") ? name : getInitials(name);
+  return `<div class="profile-icon" style="background-color: ${color}">${initials}</div>`;
 }
 
 /** Returns a color string for a contact name based on its index in contactIndexMap. */
@@ -261,8 +218,7 @@ function setupSearch() {
   });
 }
 
-/**
- * Öffnet den Add-Task-Slider und initialisiert ihn. */
+/** Öffnet den Add-Task-Slider und initialisiert ihn. */
 async function openAddTaskSlider() {
   const slider = document.getElementById("addTaskSlider");
   const panel = slider.querySelector(".overlay");
@@ -330,31 +286,20 @@ function openAddTaskOverlay() {
   init();
 }
 
-/** Saves new Task (Task added via Overlay on Board) */
+/** Template for creating a new task object */
+function createTaskTemplate(info, id) {
+  return { ...info, id: id, status: "to_do" };
+}
+
+/** Saves a new task from the overlay */
 async function saveNewTaskOverlay(event) {
   event.preventDefault();
-
-  let { title, description, duedate, category, priority, assigned, subtasks } =
-    getTaskInformation();
-
   if (!required(event)) return;
 
-  let newId = await getNextTaskId();
-
-  let newTask = {
-    title,
-    description,
-    duedate,
-    category,
-    priority,
-    assigned,
-    subtasks,
-    id: newId,
-    status: "to_do",
-  };
+  const info = getTaskInformation();
+  const newTask = createTaskTemplate(info, await getNextTaskId());
 
   await loadTaskIntoAPI(newTask);
-
   task = await fetchTasks();
 
   clearAll();
@@ -383,33 +328,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /** Sets up visual feedback for drag-and-drop operations on task columns. */
+/** Template: drag/drop visual feedback for columns */
 function setupDropzoneHighlight() {
-  const columnIds = ["to_do", "in_progress", "await_feedback", "done"];
+  const columnIds = ["to_do","in_progress","await_feedback","done"];
   const overCounters = new WeakMap();
 
-  columnIds.forEach((id) => {
-    const col = document.getElementById(id);
+  const enter = col => { overCounters.set(col,(overCounters.get(col)||0)+1); col.classList.add("drop-target"); };
+  const leave = col => { let n=(overCounters.get(col)||1)-1; overCounters.set(col,n<=0?0:n); if(n<=0) col.classList.remove("drop-target"); };
+  const drop = col => { col.classList.remove("drop-target"); overCounters.set(col,0); };
 
-    overCounters.set(col, 0);
-
-    col.addEventListener("dragenter", (e) => {
-      overCounters.set(col, overCounters.get(col) + 1);
-      col.classList.add("drop-target");
-    });
-
-    col.addEventListener("dragleave", () => {
-      const n = overCounters.get(col) - 1;
-      overCounters.set(col, n);
-      if (n <= 0) {
-        col.classList.remove("drop-target");
-        overCounters.set(col, 0);
-      }
-    });
-
-    col.addEventListener("drop", () => {
-      col.classList.remove("drop-target");
-      overCounters.set(col, 0);
-    });
+  columnIds.forEach(id => {
+    const col = document.getElementById(id); if(!col) return;
+    overCounters.set(col,0);
+    col.addEventListener("dragenter",()=>enter(col));
+    col.addEventListener("dragleave",()=>leave(col));
+    col.addEventListener("drop",()=>drop(col));
   });
 }
 
@@ -451,15 +384,17 @@ function formatDate(dateString) {
   return `${day}/${month}/${year}`;
 }
 
+//** Generates an HTML element for a user's initials inside a circle. */
 function generateAssignedUserCircle(name) {
   const initials = name
     .split(" ")
     .map((n) => n[0]?.toUpperCase())
     .join("")
-    .slice(0, 2); // Nur die ersten 2 Buchstaben
+    .slice(0, 2);
   return `<div class="user-circle">${initials}</div>`;
 }
 
+//** Checks if the given name matches the current logged-in user. */
 function isYou(name) {
   return (
     !!currentUser &&
@@ -468,66 +403,42 @@ function isYou(name) {
   );
 }
 
-/** Handles (un)checking of a subtask and updates Firebase + UI. */
+/** Toggles a subtask's done status and updates Firebase + UI. */
 async function toggleSubtask(taskKey, subtaskTitle, isChecked) {
-  try {
-    if (!task[taskKey]) {
-      console.warn(`Task not found for key: ${taskKey}`);
-      return;
-    }
-
-    const t = task[taskKey];
-
-    if (!Array.isArray(t.subtasks)) t.subtasks = [];
-    if (!Array.isArray(t.subtasksDone)) t.subtasksDone = [];
-
-    if (isChecked) {
-      if (!t.subtasksDone.includes(subtaskTitle)) {
-        t.subtasksDone.push(subtaskTitle);
-      }
-      t.subtasks = t.subtasks.filter((s) => s !== subtaskTitle);
-    } else {
-      if (!t.subtasks.includes(subtaskTitle)) {
-        t.subtasks.push(subtaskTitle);
-      }
-      t.subtasksDone = t.subtasksDone.filter((s) => s !== subtaskTitle);
-    }
-
-    await fetch(`${BASE_URL}/tasks/${taskKey}.json`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        subtasks: t.subtasks,
-        subtasksDone: t.subtasksDone,
-      }),
-    });
-
-    updateHTML();
-  } catch (error) {
-    console.error("Error toggling subtask:", error);
+  if (!task[taskKey]) return console.warn(`Task not found: ${taskKey}`);
+  const t = task[taskKey];
+  t.subtasks ??= [];
+  t.subtasksDone ??= [];
+  if (isChecked) {
+    t.subtasksDone.includes(subtaskTitle) || t.subtasksDone.push(subtaskTitle);
+    t.subtasks = t.subtasks.filter((s) => s !== subtaskTitle);
+  } else {
+    t.subtasks.includes(subtaskTitle) || t.subtasks.push(subtaskTitle);
+    t.subtasksDone = t.subtasksDone.filter((s) => s !== subtaskTitle);
   }
+  await patchTaskSubtasks(taskKey, t.subtasks, t.subtasksDone);
+  updateHTML();
+}
+
+/** Template for PATCH request of subtasks */
+async function patchTaskSubtasks(taskKey, subtasks, subtasksDone) {
+  await fetch(`${BASE_URL}/tasks/${taskKey}.json`, {
+    method: "PATCH",
+    body: JSON.stringify({ subtasks, subtasksDone }),
+  });
 }
 
 /** Deletes a task from Firebase and updates the board */
 async function DeleteTask(taskKey) {
-  if (!taskKey) {
-    console.error("DeleteTask: No task key provided");
-    return;
-  }
-
+  if (!taskKey) return console.error("No task key provided");
   try {
-    const url = `${BASE_URL}/tasks/${taskKey}.json`;
-    const response = await fetch(url, { method: "DELETE" });
-
-    if (!response.ok) {
-      throw new Error(`Failed to delete task ${taskKey}`);
-    }
-
+    const res = await fetch(`${BASE_URL}/tasks/${taskKey}.json`, { method: "DELETE" });
+    if (!res.ok) throw new Error(`Failed to delete task ${taskKey}`);
     delete task[taskKey];
-
     updateHTML();
     closeOverlay();
-  } catch (error) {
-    console.error("Error deleting task:", error);
+  } catch (e) {
+    console.error("Error deleting task:", e);
   }
 }
 
@@ -558,112 +469,68 @@ async function editTask(key) {
   document.body.classList.add("no-scroll");
 }
 
-/** Activates a priority button and updates the UI in the edit overlay. */
+/** Activates a priority button and updates edit overlay */
 function activateEdit(priority) {
-  const priorities = ["urgent", "medium", "low"];
-
-  priorities.forEach((p) => {
-    const btn = document.getElementById(p + "EditBtn");
-    if (!btn) return;
-
-    btn.classList.remove("urgent", "medium", "low");
-
-    const activeIcon = document.getElementById(p + "ActiveEdit");
-    const notActiveIcon = document.getElementById(p + "NotActiveEdit");
-    if (activeIcon) activeIcon.classList.add("d_none");
-    if (notActiveIcon) notActiveIcon.classList.remove("d_none");
+  ["urgent","medium","low"].forEach(p=>{
+    const btn=document.getElementById(p+"EditBtn");
+    if(btn){btn.classList.remove("urgent","medium","low");
+      ["Active","NotActive"].forEach(a=>{
+        const i=document.getElementById(p+a+"Edit");
+        if(i) i.classList.toggle("d_none",a==="Active")
+      })
+    }
   });
-
-  const activeBtn = document.getElementById(priority + "EditBtn");
-  if (activeBtn) {
-    activeBtn.classList.add(priority);
-  }
-
-  const activeIcon = document.getElementById(priority + "ActiveEdit");
-  const notActiveIcon = document.getElementById(priority + "NotActiveEdit");
-  if (activeIcon) activeIcon.classList.remove("d_none");
-  if (notActiveIcon) notActiveIcon.classList.add("d_none");
-
-  const overlay = document.getElementById("editTaskOverlay");
-  if (overlay) {
-    overlay.dataset.priority = priority;
-  }
+  const btn=document.getElementById(priority+"EditBtn");
+  if(btn) btn.classList.add(priority);
+  ["Active","NotActive"].forEach(a=>{
+    const i=document.getElementById(priority+a+"Edit");
+    if(i) i.classList.toggle("d_none",a!=="Active")
+  });
+  const o=document.getElementById("editTaskOverlay");
+  if(o) o.dataset.priority=priority;
 }
 
-/** Sets the task priority in the edit overlay and updates button states. */
-function setPriorityEdit(priority) {
-  if (!priority) priority = "low";
+/** Sets task priority in edit overlay and updates buttons */
+function setPriorityEdit(priority="low") {
   priority = priority.toLowerCase();
-
-  ["urgent", "medium", "low"].forEach((p) => {
-    const btn = document.getElementById(p + "EditBtn");
-    const active = document.getElementById(p + "ActiveEdit");
-    const notActive = document.getElementById(p + "NotActiveEdit");
-    if (btn) btn.classList.remove("urgent", "medium", "low");
-    if (active) active.classList.add("d_none");
-    if (notActive) notActive.classList.remove("d_none");
+  ["urgent","medium","low"].forEach(p=>{
+    const b=document.getElementById(p+"EditBtn"),
+          a=document.getElementById(p+"ActiveEdit"),
+          n=document.getElementById(p+"NotActiveEdit");
+    if(b) b.classList.remove("urgent","medium","low");
+    if(a) a.classList.add("d_none");
+    if(n) n.classList.remove("d_none");
   });
-
-  const activeBtn = document.getElementById(priority + "EditBtn");
-  const activeIcon = document.getElementById(priority + "ActiveEdit");
-  const notActiveIcon = document.getElementById(priority + "NotActiveEdit");
-
-  if (activeBtn) {
-    activeBtn.classList.add(priority);
-  }
-  if (activeIcon) {
-    activeIcon.classList.remove("d_none");
-  }
-  if (notActiveIcon) {
-    notActiveIcon.classList.add("d_none");
-  }
-
-  const overlay = document.getElementById("editTaskOverlay");
-  if (overlay) {
-    overlay.dataset.priority = priority;
-  }
+  const b=document.getElementById(priority+"EditBtn"),
+        a=document.getElementById(priority+"ActiveEdit"),
+        n=document.getElementById(priority+"NotActiveEdit");
+  if(b) b.classList.add(priority);
+  if(a) a.classList.remove("d_none");
+  if(n) n.classList.add("d_none");
+  const o=document.getElementById("editTaskOverlay");
+  if(o) o.dataset.priority=priority;
 }
 
-/** Saves the edited task data to the backend (e.g., Firebase). */
+/** Saves edited task to backend and updates UI */
 async function saveEditedTask() {
   const key = document.getElementById("editTaskKey").value;
-  if (!key) return;
+  if(!key) return;
 
-  const overlay = document.getElementById("editTaskOverlay");
-  const priority = overlay ? overlay.dataset.priority : "low";
-
-  const title = document.getElementById("editTitle").value.trim();
-  const description = document.getElementById("editDescription").value.trim();
-  const dueDate = document.getElementById("editDueDate").value.trim();
-  const assignedUsers = getSelectedAssignedUsers();
-
-  const updatedTask = {
-    title: title,
-    description: description,
-    duedate: dueDate,
-    priority: priority,
-    assigned: assignedUsers,
-    subtasks: editSubtasks,
-    subtasksDone: editSubtasksDone,
-  };
-
+  const o=document.getElementById("editTaskOverlay"),
+        priority=o?.dataset.priority||"low",
+        updatedTask={
+          title: document.getElementById("editTitle").value.trim(),
+          description: document.getElementById("editDescription").value.trim(),
+          duedate: document.getElementById("editDueDate").value.trim(),
+          priority, assigned: getSelectedAssignedUsers(),
+          subtasks: editSubtasks, subtasksDone: editSubtasksDone
+        };
   try {
-    const response = await fetch(`${BASE_URL}/tasks/${key}.json`, {
-      method: "PATCH",
-      body: JSON.stringify(updatedTask),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error saving task. Status: ${response.status}`);
-    }
-
-    Object.assign(task[key], updatedTask);
-
-    closeOverlay();
-    updateHTML();
-  } catch (error) {
-    console.error("Error saving edited task:", error);
-  }
+    const res=await fetch(`${BASE_URL}/tasks/${key}.json`,{method:"PATCH",body:JSON.stringify(updatedTask)});
+    if(!res.ok) throw new Error(`Error saving task. Status: ${res.status}`);
+    Object.assign(task[key],updatedTask);
+    closeOverlay(); updateHTML();
+  } catch(e){console.error("Error saving edited task:",e);}
 }
 
 /** Returns the list of selected assigned users for the task. */
@@ -751,72 +618,36 @@ function activateEditPriority(priority) {
   });
 }
 
-/** Loads contacts for the edit overlay and marks selected ones. */
+/** Loads contacts for edit overlay and marks selected ones */
 async function loadEditContacts(selectedAssigned) {
-  const contactsData = await fetchContacts();
-  let contactsArray = Array.isArray(contactsData)
-    ? contactsData
-    : Object.values(contactsData || {});
-
-  let validContacts = contactsArray.filter(
-    (c) => c && c.name && typeof c.name === "string",
-  );
-  validContacts.sort((a, b) =>
-    a.name
-      .split(" ")[0]
-      .toLowerCase()
-      .localeCompare(b.name.split(" ")[0].toLowerCase()),
-  );
-
-  editGlobalContacts = validContacts;
-
-  editSelected = validContacts.map((c) =>
-    selectedAssigned.some(
-      (name) => name.trim().toLowerCase() === c.name.trim().toLowerCase(),
-    )
-      ? 1
-      : 0,
-  );
-
+  const data = await fetchContacts();
+  const arr = Array.isArray(data)?data:Object.values(data||{});
+  const valid = arr.filter(c=>c?.name&&typeof c.name==="string")
+                   .sort((a,b)=>a.name.split(" ")[0].toLowerCase()
+                   .localeCompare(b.name.split(" ")[0].toLowerCase()));
+  editGlobalContacts = valid;
+  editSelected = valid.map(c=>selectedAssigned.some(
+    n=>n.trim().toLowerCase()===c.name.trim().toLowerCase())?1:0);
   renderEditContactDropdown();
   renderEditContactCircles();
 }
 
-/** Creates labels for contacts in the edit overlay dropdown. */
+/** Creates labels for contacts in the edit overlay dropdown */
 function createEditContactLabels(contacts) {
   const dropdown = document.getElementById("editTaskContactDropDown");
   if (!dropdown) return;
-
-  dropdown.innerHTML = "";
-
-  contacts.forEach((contact, index) => {
-    let color = circleColors[index % circleColors.length];
-    const label = document.createElement("label");
-    label.id = `editContactLabel-${index}`;
-    label.className = editSelected[index] === 1 ? "contactSelected" : "";
-    label.innerHTML = `
-            <div class="contact-item">
-                <span class="circle" style="background-color:${color}">${getInitials(
-                  contact.name,
-                )}</span>
-                ${contact.name}
-            </div>
-        `;
-
-    dropdown.appendChild(label);
-  });
+  dropdown.innerHTML = contacts
+    .map((c, i) => editContactLabelTemplate(c, circleColors[i % circleColors.length], editSelected[i]===1))
+    .join("");
 }
 
-/** Renders the contact dropdown in the edit overlay. */
+/** Renders the contact dropdown in the edit overlay */
 function renderEditContactDropdown() {
   const dropdown = document.getElementById("editTaskContactDropDown");
   if (!dropdown || !editGlobalContacts) return;
+
   dropdown.innerHTML = "";
-
   editGlobalContacts.forEach((contact, i) => {
-    const color = getColorForName(contact.name);
-    const initials = getInitials(contact.name);
-
     const label = document.createElement("label");
     label.id = `editContactLabel-${i}`;
     label.classList.add("contact-item");
@@ -826,27 +657,10 @@ function renderEditContactDropdown() {
     label.style.padding = "5px 10px";
     label.style.cursor = "pointer";
 
-    label.innerHTML = `
-            <div style="display:flex; align-items:center; gap:8px;">
-                <span class="circle" style="background-color:${color}">${initials}</span>
-                <span class="contact-name">${contact.name}</span>
-            </div>
-            <img class="contact-checkbox" 
-                 src="${
-                   editSelected[i] === 1
-                     ? "../assets/icons/checkbox-checked.svg"
-                     : "../assets/icons/checkbox-empty.svg"
-                 }"
-                 alt="checkbox">
-        `;
+    label.innerHTML = editContactInnerHTML(contact, editSelected[i] === 1);
 
-    label.addEventListener("mouseenter", () => {
-      label.style.backgroundColor = "#f0f0f0";
-    });
-    label.addEventListener("mouseleave", () => {
-      label.style.backgroundColor = "transparent";
-    });
-
+    label.addEventListener("mouseenter", () => label.style.backgroundColor = "#f0f0f0");
+    label.addEventListener("mouseleave", () => label.style.backgroundColor = "transparent");
     label.addEventListener("click", () => toggleEditSelection(i));
 
     dropdown.appendChild(label);
@@ -872,77 +686,28 @@ function toggleEditSelection(index) {
   renderEditContactCircles();
 }
 
-/** Renders the selected contact circles in the edit overlay. */
+/** Renders selected contact circles in the edit overlay */
 function renderEditContactCircles() {
-  const container = document.getElementById("editTaskContactsSelected");
-  if (!container) return;
+  const c = document.getElementById("editTaskContactsSelected");
+  if (!c) return;
 
-  container.innerHTML = "";
-
-  const selectedContacts = editGlobalContacts.filter(
-    (c, i) => editSelected[i] === 1
-  );
-
-  const maxVisible = 4;
-  const visibleContacts = selectedContacts.slice(0, maxVisible);
-  const remaining = selectedContacts.length - maxVisible;
-
-  visibleContacts.forEach((contact) => {
-    const circle = document.createElement("span");
-    circle.className = "circle circleEdit";
-    circle.textContent = getInitials(contact.name);
-    circle.style.backgroundColor = getColorForName(contact.name);
-    container.appendChild(circle);
-  });
-
-  if (remaining > 0) {
-    const moreCircle = document.createElement("span");
-    moreCircle.className = "circle circleEdit more";
-    moreCircle.textContent = `+${remaining}`;
-    moreCircle.style.backgroundColor = "black";
-    container.appendChild(moreCircle);
-  }
-
-  container.classList.toggle("d_none", selectedContacts.length === 0);
+  const selected = editGlobalContacts.filter((_, i) => editSelected[i] === 1);
+  const visible = selected.slice(0, 4);
+  c.innerHTML = visible.map(editContactCircleHTML).join("");
+  if (selected.length > 4) c.innerHTML += `<span class="circle circleEdit more" style="background-color:black">+${selected.length-4}</span>`;
 }
 
-/** Renders the list of subtasks in the edit task overlay, showing both active and completed subtasks. */
+/** Renders subtasks in the edit overlay */
 function renderEditSubtasks() {
   const list = document.getElementById("editSubtaskList");
   if (!list) return;
 
-  list.innerHTML = "";
-
-  if (editSubtasks.length === 0 && editSubtasksDone.length === 0) {
-    list.classList.add("d_none");
-    return;
-  }
-
+  if (editSubtasks.length === 0 && editSubtasksDone.length === 0) return list.classList.add("d_none");
   list.classList.remove("d_none");
 
-  editSubtasks.forEach((subtask, index) => {
-    list.innerHTML += `
-       <li class="subtask-item">
-        <div class="subtask-content"><span>${subtask}</span></div>
-        <div class="subtask-actions">
-          <img src="../assets/icons/edit.svg" onclick="startEditEditSubtask(${index}, false)">
-          <img src="../assets/icons/delete.svg" onclick="deleteEditSubtask(${index}, false)">
-        </div>
-       </li>
-    `;
-  });
-
-  editSubtasksDone.forEach((subtask, index) => {
-    list.innerHTML += `
-       <li class="subtask-item">
-        <div class="subtask-content"><span>${subtask}</span></div>
-        <div class="subtask-actions">
-          <img src="../assets/icons/edit.svg" onclick="startEditEditSubtask(${index}, true)">
-          <img src="../assets/icons/delete.svg" onclick="deleteEditSubtask(${index}, true)">
-        </div>
-       </li>
-    `;
-  });
+  list.innerHTML =
+    editSubtasks.map(activeSubtaskTemplate).join("") +
+    editSubtasksDone.map(doneSubtaskTemplate).join("");
 }
 
 /** Toggles the visibility of a dropdown menu by its ID. */
@@ -1020,30 +785,13 @@ function deleteEditSubtask(index, done = false) {
   renderEditSubtasks();
 }
 
-/** Start editing a subtask directly in the edit overlay. Updates the subtask <li> element to show an input field with confirm and delete icons. */
+/** Starts editing a subtask directly in the edit overlay */
 function startEditEditSubtask(index, done = false) {
   const list = document.getElementById("editSubtaskList");
   const li = list.children[index + (done ? editSubtasks.length : 0)];
   const text = done ? editSubtasksDone[index] : editSubtasks[index];
 
-  li.innerHTML = `
-      <div class="subtask-wrapper subtask-wrapper-edit">
-        <input type="text"
-               class="subtaskEdit editStyle"
-               value="${text}"
-               onkeydown="handleEditSubtaskKey(event, ${index}, ${done})"
-               onblur="confirmEditSubtaskEntry(${index}, this.value, ${done})">
-
-        <div class="addTaskSubtaskConfirm">
-          <img src="../assets/icons/trash_black.svg"
-               onclick="deleteEditSubtask(${index}, ${done})">
-          <div class="addTaskSubtaskLine"></div>
-          <img src="../assets/icons/confirm.svg"
-               onclick="confirmEditSubtaskEntry(${index}, this.closest('.subtask-wrapper').querySelector('input').value, ${done})">
-        </div>
-      </div>
-    `;
-
+  li.innerHTML = editSubtaskTemplate(text, index, done);
   li.querySelector("input").focus();
 }
 
@@ -1088,71 +836,99 @@ function handleResizeAddTaskOverlay() {
 /** Listen for window resize events to adapt the Add Task overlay behavior. */
 window.addEventListener("resize", handleResizeAddTaskOverlay);
 
-/** Handles the start of a touch drag on a task card. Creates a placeholder, separates the card from the layout, and prevents page scrolling. */
-document.addEventListener('touchstart', e => {
-  const card = e.target.closest('.card');
+
+
+
+let touchStartY = 0;
+let touchStartX = 0;
+let hasMoved = false;
+
+document.addEventListener("touchstart", (e) => {
+  const card = e.target.closest(".card");
   if (!card) return;
 
   draggedCard = card;
 
-  placeholder = document.createElement('div');
-  placeholder.classList.add('card-placeholder');
+  const rect = card.getBoundingClientRect();
+  touchStartY = e.touches[0].clientY;
+  touchStartX = e.touches[0].clientX;
+  hasMoved = false;
+
+  placeholder = document.createElement("div");
+  placeholder.classList.add("card-placeholder");
   placeholder.style.width = `${card.offsetWidth}px`;
   placeholder.style.height = `${card.offsetHeight}px`;
   card.parentElement.insertBefore(placeholder, card);
 
-  const rect = card.getBoundingClientRect();
-  offsetY = e.touches[0].clientY - rect.top;
-
-  draggedCard.classList.add('dragging');
-  draggedCard.style.position = 'absolute';
-  draggedCard.style.zIndex = 999;
-  draggedCard.style.pointerEvents = 'none';
-  draggedCard.style.width = `${card.offsetWidth}px`;
-  draggedCard.style.left = `${rect.left}px`;
-  draggedCard.style.top = `${rect.top}px`;
-
-  document.body.classList.add('no-scroll');
+  document.body.classList.add("no-scroll");
 });
 
-/** Handles moving the dragged card along with the touch. Only vertical movement is allowed. Updates placeholder position in the list. */
-document.addEventListener('touchmove', e => {
-  if (!draggedCard) return;
-  e.preventDefault();
+document.addEventListener(
+  "touchmove",
+  (e) => {
+    if (!draggedCard) return;
 
-  const touch = e.touches[0];
+    const touch = e.touches[0];
+    const deltaY = Math.abs(touch.clientY - touchStartY);
+    const deltaX = Math.abs(touch.clientX - touchStartX);
 
-  draggedCard.style.top = `${touch.clientY - offsetY}px`;
+    if (!hasMoved && (deltaY > 10 || deltaX > 10)) {
+      hasMoved = true;
 
-  const rect = placeholder.getBoundingClientRect();
-  draggedCard.style.left = `${rect.left}px`;
+      const rect = draggedCard.getBoundingClientRect();
+      draggedCard.classList.add("dragging");
+      draggedCard.style.position = "absolute";
+      draggedCard.style.zIndex = 999;
+      draggedCard.style.pointerEvents = "none";
+      draggedCard.style.width = `${rect.width}px`;
+      draggedCard.style.left = `${rect.left}px`;
+      draggedCard.style.top = `${rect.top}px`;
 
-  const lists = Array.from(document.querySelectorAll('.card-list'));
-  lists.forEach(list => {
-    const listRect = list.getBoundingClientRect();
-    if (touch.clientY > listRect.top && touch.clientY < listRect.bottom) {
-      list.classList.add('drop-target');
-
-      const cards = Array.from(list.querySelectorAll('.card:not(.dragging)'));
-      let inserted = false;
-      for (const card of cards) {
-        const cardRect = card.getBoundingClientRect();
-        if (touch.clientY < cardRect.top + cardRect.height / 2) {
-          list.insertBefore(placeholder, card);
-          inserted = true;
-          break;
-        }
-      }
-      if (!inserted) list.appendChild(placeholder);
-    } else {
-      list.classList.remove('drop-target');
+      offsetY = touch.clientY - rect.top;
     }
-  });
-}, { passive: false });
 
-/** Handles the end of a touch drag. Places the dragged card in the new position, updates the backend status, resets styles, removes placeholder, and allows page scrolling again. */
-document.addEventListener('touchend', async e => {
+    if (!hasMoved) return;
+
+    if (e.cancelable) e.preventDefault();
+
+    draggedCard.style.top = `${touch.clientY - offsetY}px`;
+    draggedCard.style.left = `${placeholder.getBoundingClientRect().left}px`;
+
+    const lists = Array.from(document.querySelectorAll(".card-list"));
+    lists.forEach((list) => {
+      const listRect = list.getBoundingClientRect();
+      if (touch.clientY > listRect.top && touch.clientY < listRect.bottom) {
+        list.classList.add("drop-target");
+
+        const cards = Array.from(list.querySelectorAll(".card:not(.dragging)"));
+        let inserted = false;
+        for (const card of cards) {
+          const cardRect = card.getBoundingClientRect();
+          if (touch.clientY < cardRect.top + cardRect.height / 2) {
+            list.insertBefore(placeholder, card);
+            inserted = true;
+            break;
+          }
+        }
+        if (!inserted) list.appendChild(placeholder);
+      } else {
+        list.classList.remove("drop-target");
+      }
+    });
+  },
+  { passive: false },
+);
+
+document.addEventListener("touchend", async (e) => {
   if (!draggedCard) return;
+
+  if (!hasMoved) {
+    draggedCard = null;
+    placeholder.remove();
+    placeholder = null;
+    document.body.classList.remove("no-scroll");
+    return;
+  }
 
   placeholder.parentElement.insertBefore(draggedCard, placeholder);
 
@@ -1161,22 +937,22 @@ document.addEventListener('touchend', async e => {
 
   await moveTo(newStatus, key);
 
-  draggedCard.classList.remove('dragging');
-  draggedCard.style.position = '';
-  draggedCard.style.zIndex = '';
-  draggedCard.style.pointerEvents = '';
-  draggedCard.style.left = '';
-  draggedCard.style.top = '';
-  draggedCard.style.width = '';
+  draggedCard.classList.remove("dragging");
+  draggedCard.style.position = "";
+  draggedCard.style.zIndex = "";
+  draggedCard.style.pointerEvents = "";
+  draggedCard.style.left = "";
+  draggedCard.style.top = "";
+  draggedCard.style.width = "";
 
-  document.querySelectorAll('.card-list.drop-target').forEach(list => {
-    list.classList.remove('drop-target');
+  document.querySelectorAll(".card-list.drop-target").forEach((list) => {
+    list.classList.remove("drop-target");
   });
 
   placeholder.remove();
   placeholder = null;
   draggedCard = null;
+  hasMoved = false;
 
-  document.body.classList.remove('no-scroll');
+  document.body.classList.remove("no-scroll");
 });
-

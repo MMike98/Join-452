@@ -364,7 +364,6 @@ function clearSubtasks() {
   const list = document.getElementById("addTaskSubtaskList");
   if (list) {
     list.innerHTML = "";
-    list.classList.add("d_none");
   }
 }
 

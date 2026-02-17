@@ -50,7 +50,6 @@ function generateTaskHTML(task, key, categoryClass = "default") {
   `;
 }
 
-
 function generateInfoTaskHTML(t, key) {
   let categoryClass = getCategoryClass(t.category); 
   let dueDateFormatted = formatDate(t.duedate);
@@ -163,3 +162,81 @@ function generateInfoTaskHTML(t, key) {
   `;
 }
 
+function emptyColumnTemplate(message) {
+  return `<div class="no-task"><p>${message}</p></div>`;
+}
+
+function editContactLabelTemplate(contact, color, selected) {
+  const selectedClass = selected ? "contactSelected" : "";
+  const initials = getInitials(contact.name);
+  return `
+    <label class="${selectedClass}">
+      <div class="contact-item">
+        <span class="circle" style="background-color:${color}">${initials}</span>
+        ${contact.name}
+      </div>
+    </label>
+  `;
+}
+
+function editContactInnerHTML(contact, selected) {
+  const color = getColorForName(contact.name);
+  const initials = getInitials(contact.name);
+  const checkboxSrc = selected
+    ? "../assets/icons/checkbox-checked.svg"
+    : "../assets/icons/checkbox-empty.svg";
+
+  return `
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span class="circle" style="background-color:${color}">${initials}</span>
+      <span class="contact-name">${contact.name}</span>
+    </div>
+    <img class="contact-checkbox" src="${checkboxSrc}" alt="checkbox">
+  `;
+}
+
+function editContactCircleHTML(contact) {
+  return `<span class="circle circleEdit" style="background-color:${getColorForName(contact.name)}">
+    ${getInitials(contact.name)}
+  </span>`;
+}
+
+function activeSubtaskTemplate(subtask, index) {
+  return `<li class="subtask-item">
+    <div class="subtask-content"><span>${subtask}</span></div>
+    <div class="subtask-actions">
+      <img src="../assets/icons/edit.svg" onclick="startEditEditSubtask(${index}, false)">
+      <img src="../assets/icons/delete.svg" onclick="deleteEditSubtask(${index}, false)">
+    </div>
+  </li>`;
+}
+
+function doneSubtaskTemplate(subtask, index) {
+  return `<li class="subtask-item done">
+    <div class="subtask-content"><span>${subtask}</span></div>
+    <div class="subtask-actions">
+      <img src="../assets/icons/edit.svg" onclick="startEditEditSubtask(${index}, true)">
+      <img src="../assets/icons/delete.svg" onclick="deleteEditSubtask(${index}, true)">
+    </div>
+  </li>`;
+}
+
+function editSubtaskTemplate(text, index, done = false) {
+  return `
+    <div class="subtask-wrapper subtask-wrapper-edit">
+      <input type="text"
+             class="subtaskEdit editStyle"
+             value="${text}"
+             onkeydown="handleEditSubtaskKey(event, ${index}, ${done})"
+             onblur="confirmEditSubtaskEntry(${index}, this.value, ${done})">
+
+      <div class="addTaskSubtaskConfirm">
+        <img src="../assets/icons/trash_black.svg"
+             onclick="deleteEditSubtask(${index}, ${done})">
+        <div class="addTaskSubtaskLine"></div>
+        <img src="../assets/icons/confirm.svg"
+             onclick="confirmEditSubtaskEntry(${index}, this.closest('.subtask-wrapper').querySelector('input').value, ${done})">
+      </div>
+    </div>
+  `;
+}

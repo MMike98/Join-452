@@ -247,10 +247,10 @@
 
 .boardAddTask {
   position: fixed;
-  top: calc(50% - 417.5px);
+  top: calc(50% - 442.5px);
   left: calc(50% - 538.75px);
   width: 1077.5px;
-  height: 835px;
+  height: 885px;
   background-color: white;
   z-index: 9999;
   border-radius: 16px;
@@ -265,7 +265,7 @@
 .addTaskAlignmentBoard {
   overflow-x: hidden;
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 550px;
 }
 
 .contentBoard {
@@ -361,7 +361,7 @@
 .errorTextAddTaskAlignmentCategoryBoard {
   text-align: left;
   position: absolute;
-  top: 462px;
+  top: 510px;
 }
 
 .addTaskSubtaskListScroll {
@@ -414,6 +414,10 @@
   font-size: 20px;
 }
 
+.infoTask > div > div > h1  {
+  height: auto;
+}
+
 .infoTaskContent {
   height: 100%;
   gap: 24px;
@@ -463,10 +467,6 @@
 .infoContactsTable td {
   padding: 7px 16px;
   vertical-align: middle;
-}
-
-ul {
-  list-style-type: none;
 }
 
 .checkPP {
@@ -744,16 +744,20 @@ li .subtask-content::before {
 }
 
 .positionContacts {
-  top: 365px !important;
+  top: 382px !important;
 }
 
 .positionCategory {
-  top: 460px !important;
+  top: 530px !important;
   z-index: 3 !important;
 }
 
 .addTaskSubtaskListBoard {
   min-height: 100px !important;
+}
+
+#addTaskContaktsSelected {
+  min-height: 40px;
 }
 
 @media (max-width: 1500px) {
