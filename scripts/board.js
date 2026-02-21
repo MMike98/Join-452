@@ -31,51 +31,6 @@ function buildContactIndexMap(contacts) {
   return valid;
 }
 
-/** Updates all task columns in the UI based on current task data. */
-function updateHTML(query = "") {
-  const statuses = ["to_do", "in_progress", "await_feedback", "done"];
-
-  statuses.forEach((status) => {
-    const tasksInStatus = Object.entries(task).filter(([_, t]) => t.status === status).filter(([_, t]) => taskMatchesQuery(t, query));
-
-    updateColumn(status, tasksInStatus);
-  });
-
-  addCardClickHandlers();
-}
-
-/** Checks if a task matches a search query in title, description, subtasks, or assigned users.
- * @param {Object} task - Task object containing title, description, subtasks, subtasksDone, assigned.
- * @param {string} query - Search string to match against.
- * @returns {boolean} True if the task matches the query. */
-function taskMatchesQuery(task, query) {
-  if (!query) return true;
-  query = query.toLowerCase();
-  return [task.title, task.description, ...(task.subtasks || []), ...(task.subtasksDone || []), ...(task.assigned || [])].some(v => v.toLowerCase().includes(query));
-}
-
-/** Updates a single column with tasks of a given status.
- * @param {string} status - Task status corresponding to the column ID.
- * @param {Array} tasks - Array of [key, task] pairs to render in the column. */
-function updateColumn(status, tasks) {
-  const column = document.getElementById(status);
-  column.innerHTML = tasks.length
-    ? tasks.map(([key, t]) => generateTaskHTML(t, key, getCategoryClass(t.category))).join("")
-    : generateEmptyColumnHTML(status);
-}
-
-/** Returns the fallback "no tasks" HTML used for all empty columns. */
-function generateEmptyColumnHTML(status) {
-  const statusMessages = {
-    to_do: "No tasks To Do",
-    in_progress: "No tasks In Progress",
-    await_feedback: "No tasks Await Feedback",
-    done: "No tasks Done",
-  };
-
-  return emptyColumnTemplate(statusMessages[status]);
-}
-
 /** Updates the task status in Firebase. */
 async function updateFirebase(taskId, newStatus) {
   let url = `${BASE_URL}/tasks/${taskId}.json`;
@@ -89,47 +44,10 @@ async function updateFirebase(taskId, newStatus) {
   }
 }
 
-/** Returns CSS class for a given task category. */
-function getCategoryClass(category) {
-  if (!category) return "default";
-
-  switch (category.toLowerCase().trim()) {
-    case "user story":
-      return "blue";
-    case "technical task":
-      return "green";
-    default:
-      return "default";
-  }
-}
-
-/** Generates assigned user HTML with colored circles */
-function generateAssignedUsers(assigned) {
-  if (!Array.isArray(assigned) || !assigned.length) return "";
-
-  const maxVisible = 4;
-  let html = "";
-
-  const visibleUsers = assigned.slice(0, maxVisible);
-  visibleUsers.forEach(name => {html += userCircleHTML(name, getColorForName(name));
-  });
-
-  const remaining = assigned.length - maxVisible;
-  if (remaining > 0) html += userCircleHTML(`+${remaining}`, "black");
-
-  return html;
-}
-
 /** Returns HTML for a single user circle with given color */
 function userCircleHTML(name, color) {
   const initials = name.startsWith("+") ? name : getInitials(name);
   return `<div class="profile-icon" style="background-color: ${color}">${initials}</div>`;
-}
-
-/** Returns a color string for a contact name based on its index in contactIndexMap. */
-function getColorForName(name) {
-  let index = contactIndexMap[name] ?? 0;
-  return circleColors[index % circleColors.length];
 }
 
 /** Returns the file path for a priority icon image. */
@@ -149,34 +67,6 @@ function setupSearch() {
   });
 }
 
-/** Öffnet den Add-Task-Slider und initialisiert ihn. */
-async function openAddTaskSlider() {
-  const slider = document.getElementById("addTaskSlider");
-  const panel = slider.querySelector(".overlay");
-
-  slider.classList.remove("d_none");
-
-  requestAnimationFrame(() => {
-    slider.classList.add("active");
-    panel.classList.add("open");
-  });
-
-  await initAddTaskSlider();
-}
-
-/**  Schließt den Add-Task-Slider mit Animation. */
-function closeAddTaskSlider(event) {
-  const slider = document.getElementById("addTaskSlider");
-  const panel = slider.querySelector(".overlay");
-
-  panel.classList.remove("open");
-  slider.classList.remove("active");
-
-  setTimeout(() => {
-    slider.classList.add("d_none");
-  }, 350);
-}
-
 /** Behandelt das Erstellen einer neuen Aufgabe, speichert sie und schließt den Slider. */
 async function handleCreateTask(event) {
   try {
@@ -194,27 +84,12 @@ async function handleCreateTask(event) {
 
 /**  Initialisiert den Add-Task-Slider, lädt Kontakte, Kategorien und rendert die ausgewählten Kontakte.  */
 async function initAddTaskSlider() {
-  clearAll();
+  clearBoardOverlay();
   showUserInitial();
   let contacts = await loadContactsIntoDropdown();
   setupClickHandler();
   await loadCategoriesIntoDropdown();
   renderSelectedContactCircles(contacts);
-}
-
-/** Opens Overlay for AddTask */
-function openAddTaskOverlay() {
-  if (window.innerWidth < 1400) {
-    window.location.href = "addtask.html";
-    return;
-  }
-
-  const overlay = document.getElementById("addTaskBoard");
-  if (!overlay) return;
-
-  overlay.classList.add("open");
-  document.body.classList.add("no-scroll");
-  init();
 }
 
 /** Template for creating a new task object */
@@ -233,54 +108,9 @@ async function saveNewTaskOverlay(event) {
   await loadTaskIntoAPI(newTask);
   task = await fetchTasks();
 
-  clearAll();
+  clearBoardOverlay();
   closeOverlay();
   updateHTML();
-}
-
-/** Stops overlay clicks from closing dropdowns when interacting inside them. */
-document.addEventListener("DOMContentLoaded", () => {
-  const board = document.getElementById("boardAddTask");
-  if (!board) return console.warn("Element with ID 'boardAddTask' not found.");
-
-  const dropdowns = ["contacts", "category"];
-  board.addEventListener("click", (e) => {
-    if (dropdowns.some((id) => document.getElementById(id)?.contains(e.target))) {
-      e.stopPropagation();
-    }
-  });
-});
-
-/** Adds visual feedback for drag-and-drop on task columns. */
-function setupDropzoneHighlight() {
-  const columnIds = ["to_do","in_progress","await_feedback","done"];
-  const counters = new WeakMap();
-
-  columnIds.forEach(id => {
-    const col = document.getElementById(id);
-    if (!col) return;
-    counters.set(col, 0);
-
-    const enter = () => { counters.set(col, (counters.get(col)||0)+1); col.classList.add("drop-target"); };
-    const leave = () => { let n = (counters.get(col)||1)-1; counters.set(col, n<=0?0:n); if(n<=0) col.classList.remove("drop-target"); };
-    const drop = () => { col.classList.remove("drop-target"); counters.set(col,0); };
-
-    col.addEventListener("dragenter", enter);
-    col.addEventListener("dragleave", leave);
-    col.addEventListener("drop", drop);
-  });
-}
-
-/** Renders the information of a task inside the overlay and makes it visible. */
-function renderInfoTask(t, key) {
-  let overlay = document.getElementById("infoOverlay");
-  let infoTask = document.getElementById("infoTask");
-  if (!overlay || !infoTask || !t) return;
-
-  infoTask.innerHTML = generateInfoTaskHTML(t, key);
-  overlay.classList.add("open");
-
-  document.body.classList.add("no-scroll");
 }
 
 /** Opens the info overlay by adding the 'open' class.*/
@@ -289,30 +119,6 @@ function openInfoOverlay() {
   if (overlay) {
     overlay.classList.add("open");
   }
-}
-
-/** Adds click event handlers to task cards to render their info in the overlay. */
-function addCardClickHandlers() {
-  Object.entries(task).forEach(([key, t]) => {
-    let card = document.getElementById(`card-${key}`);
-    if (card) {
-      card.addEventListener("click", () => renderInfoTask(t, key));
-    }
-  });
-}
-
-/** Change format of date */
-function formatDate(dateString) {
-  if (!dateString) return "";
-
-  let [year, month, day] = dateString.split("-");
-  return `${day}/${month}/${year}`;
-}
-
-/** Generates an HTML element for a user's initials inside a circle. */
-function generateAssignedUserCircle(name) {
-  const initials = name.split(" ").map((n) => n[0]?.toUpperCase()).join("").slice(0, 2);
-  return `<div class="user-circle">${initials}</div>`;
 }
 
 /** Checks if the given name matches the current logged-in user. */
@@ -487,24 +293,6 @@ function resetPriorityButtons() {
   });
 }
 
-/** Renders assigned users as profile icons in the edit overlay. */
-function renderAssignedEdit(assigned) {
-  const container = document.getElementById("editAssignedUsers");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  if (!assigned || !Array.isArray(assigned) || assigned.length === 0) return;
-
-  container.innerHTML = assigned
-    .map((name) => {
-      let initials = getInitials(name);
-      let color = getColorForName(name);
-      return `<div class="profile-icon" style="background-color:${color}">${initials}</div>`;
-    })
-    .join("");
-}
-
 /** Opens the edit task overlay and fills in all task details. */
 function openEditTaskOverlay(task) {
   if (!task) return;
@@ -561,32 +349,6 @@ function createEditContactLabels(contacts) {
   dropdown.innerHTML = contacts.map((c, i) => editContactLabelTemplate(c, circleColors[i % circleColors.length], editSelected[i]===1)).join("");
 }
 
-/** Renders the contact dropdown in the edit overlay */
-function renderEditContactDropdown() {
-  const dropdown = document.getElementById("editTaskContactDropDown");
-  if (!dropdown || !editGlobalContacts) return;
-
-  dropdown.innerHTML = "";
-  editGlobalContacts.forEach((contact, i) => {
-    const label = document.createElement("label");
-    label.id = `editContactLabel-${i}`;
-    label.classList.add("contact-item");
-    label.style.display = "flex";
-    label.style.justifyContent = "space-between";
-    label.style.alignItems = "center";
-    label.style.padding = "5px 10px";
-    label.style.cursor = "pointer";
-
-    label.innerHTML = editContactInnerHTML(contact, editSelected[i] === 1);
-
-    label.addEventListener("mouseenter", () => label.style.backgroundColor = "#f0f0f0");
-    label.addEventListener("mouseleave", () => label.style.backgroundColor = "transparent");
-    label.addEventListener("click", () => toggleEditSelection(i));
-
-    dropdown.appendChild(label);
-  });
-}
-
 /** Toggles the selection of a contact in the edit overlay. */
 function toggleEditSelection(index) {
   editSelected[index] = editSelected[index] === 1 ? 0 : 1;
@@ -606,48 +368,6 @@ function toggleEditSelection(index) {
   renderEditContactCircles();
 }
 
-/** Renders selected contact circles in the edit overlay */
-function renderEditContactCircles() {
-  const c = document.getElementById("editTaskContactsSelected");
-  if (!c) return;
-
-  const selected = editGlobalContacts.filter((_, i) => editSelected[i] === 1);
-  const visible = selected.slice(0, 4);
-  c.innerHTML = visible.map(editContactCircleHTML).join("");
-  if (selected.length > 4) c.innerHTML += `<span class="circle circleEdit more" style="background-color:black">+${selected.length-4}</span>`;
-}
-
-/** Renders subtasks in the edit overlay */
-function renderEditSubtasks() {
-  const list = document.getElementById("editSubtaskList");
-  if (!list) return;
-
-  if (editSubtasks.length === 0 && editSubtasksDone.length === 0) return list.classList.add("d_none");
-  list.classList.remove("d_none");
-
-  list.innerHTML =
-    editSubtasks.map(activeSubtaskTemplate).join("") +
-    editSubtasksDone.map(doneSubtaskTemplate).join("");
-}
-
-/** Toggles the visibility of a dropdown menu by its ID. */
-function toggleDropdownById(id) {
-  const dropdown = document.getElementById(id);
-  if (!dropdown) return;
-  dropdown.classList.toggle("d_none");
-}
-
-/** Toggles the visibility of the contacts dropdown in the edit task overlay. */
-function toggleEditDropdown() {
-  const input = document.getElementById("editTaskContacts");
-  const dropdown = document.getElementById("editContactsDropdown");
-
-  if (!input || !dropdown) return;
-
-  dropdown.classList.toggle("d_none");
-  input.classList.toggle("dropdownOpen");
-}
-
 /** Closes the edit task overlay and resets the UI. */
 function closeEditTaskOverlay() {
   const overlay = document.getElementById("editTaskOverlay");
@@ -660,18 +380,6 @@ function closeEditTaskOverlay() {
   const dropdown = document.getElementById("editContactsDropdown");
   if (dropdown) {
     dropdown.classList.add("d_none");
-  }
-}
-
-/** Toggles the visibility of the subtask input icons in the edit overlay. Shows the confirm icon only when the subtask input is not empty. */
-function toggleEditSubtaskIcons() {
-  const input = document.getElementById("editSubtaskInput");
-  const icons = document.getElementById("editSubtaskConfirm");
-
-  if (input.value.trim().length > 0) {
-    icons.classList.remove("d_none");
-  } else {
-    icons.classList.add("d_none");
   }
 }
 
@@ -751,4 +459,39 @@ function handleResizeAddTaskOverlay() {
     document.body.classList.remove("no-scroll");
     window.location.href = "addtask.html";
   }
+}
+
+/** Listen for window resize events to adapt the Add Task overlay behavior. */
+window.addEventListener("resize", handleResizeAddTaskOverlay);
+
+function clearBoardOverlay() {
+  const container = document.getElementById("boardAddTask");
+  if (!container) return;
+
+  container.querySelectorAll("input, textarea").forEach((el) => {
+    el.value = "";
+  });
+
+  container.querySelectorAll(".errorTextAddTask").forEach((e) => e.classList.add("d_none"));
+  container.querySelectorAll(".inputError").forEach((e) => e.classList.remove("inputError"));
+
+  ["urgent", "medium", "low"].forEach((prio) => {
+    const btn = container.querySelector(`#${prio}`);
+    if (btn) btn.classList.remove(prio);
+    const active = container.querySelector(`#${prio}Active`);
+    const notActive = container.querySelector(`#${prio}NotActive`);
+    if (active) active.classList.add("d_none");
+    if (notActive) notActive.classList.remove("d_none");
+  });
+
+  activate("medium");
+
+  const selectedContainer = container.querySelector("#addTaskContaktsSelected");
+  if (selectedContainer) selectedContainer.innerHTML = "";
+  
+  const subtaskList = container.querySelector("#addTaskSubtaskList");
+  if (subtaskList) subtaskList.innerHTML = "";
+
+  selected = [];
+  selectedPriority = null;
 }

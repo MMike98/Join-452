@@ -16,8 +16,9 @@
     <script src="../scripts/addTask.js"></script>
     <script src="../scripts/addTaskTemplates.js"></script>
     <script src="../scripts/contacts.js"></script>
-    <script src="../scripts/window.js"></script>
+    <script src="../scripts/noFunction.js"></script>
     <script src="../scripts/dragndrop.js"></script>
+    <script src="../scripts/boardRendering.js"></script>
 
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../css/navbar&header.css">
@@ -125,7 +126,7 @@
                         </div>
                         <div class="requiredMobile"><span class="requiredStar">*</span>This field is required</div>
                         <div class="addTaskConfirmAlignment addTaskConfirmAlignmentBoard">
-                            <button type="button" class="addTaskButtonClearBoard" onclick="clearAll()">Clear</button>
+                            <button type="button" class="addTaskButtonClearBoard" onclick="clearBoardOverlay()">Clear</button>
                             <button type="submit" class="addTaskButtonCreateTask"
                                 onclick="saveNewTaskOverlay(event)">Create
                                 Task</button>

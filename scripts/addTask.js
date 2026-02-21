@@ -279,9 +279,11 @@ function clearAll() {
 
 /** Clears all form input fields */
 function clearFormFields() {
-  ["Title", "Description", "Date", "Category", "Contacts"].forEach(
-    (id) => (document.getElementById(`addTask${id}`).value = ""),
-  );
+  const ids = ["addTaskTitle", "addTaskDescription", "addTaskDate", "addTaskCategory"];
+  ids.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
 }
 
 /** Hides all error messages and removes input error styling */

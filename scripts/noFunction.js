@@ -51,5 +51,25 @@ window.toggleMobileMenu = () => {
   }
 };
 
-/** Listen for window resize events to adapt the Add Task overlay behavior. */
-window.addEventListener("resize", handleResizeAddTaskOverlay);
+/** Stops overlay clicks from closing dropdowns when interacting inside them. */
+document.addEventListener("DOMContentLoaded", () => {
+  const board = document.getElementById("boardAddTask");
+  if (!board) return;
+
+  const dropdowns = ["contacts", "category"];
+  board.addEventListener("click", (e) => {
+    if (dropdowns.some((id) => document.getElementById(id)?.contains(e.target))) {
+      e.stopPropagation();
+    }
+  });
+});
+
+/** Hides the dropdown menu when the user clicks outside of it.
+ * Listens for mouseup events on the whole window.
+ * @param {MouseEvent} event - The mouseup event object. */
+window.addEventListener("mouseup", function (event) {
+  let menu = document.getElementById("myDropdown");
+  if (menu && event.target != menu && event.target.parentNode != menu) {
+    menu.style.display = "none";
+  }
+});

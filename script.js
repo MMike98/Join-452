@@ -1,5 +1,4 @@
-const BASE_URL =
-  "https://join-gruppenarbeit-a540b-default-rtdb.europe-west1.firebasedatabase.app";
+const BASE_URL = "https://join-gruppenarbeit-a540b-default-rtdb.europe-west1.firebasedatabase.app";
 
 let circleColors = [
   "#FF7A00",
@@ -13,58 +12,29 @@ let circleColors = [
   "#00BEE8",
 ];
 
-/** Fetches a user from Firebase by email */
-async function getUserByEmail(email) {
-  let url = `${BASE_URL}/users.json?orderBy=%22email%22&equalTo=%22${email}%22`;
-  let response = await fetch(url);
-  let data = await response.json();
-  return data;
-}
-
+/** Toggles the visibility of the dropdown menu. */
 function toggleDropdown() {
   document.getElementById("myDropdown").style.display = "block";
 }
 
-window.addEventListener("mouseup", function (event) {
-  let menu = document.getElementById("myDropdown");
-  if (menu && event.target != menu && event.target.parentNode != menu) {
-    menu.style.display = "none";
-  }
-});
-
-/** Fetches the current user's name or returns 'Guest' if not logged in */
+/** Fetches the current user's name from localStorage or backend, defaults to "Guest".
+ * @returns {Promise<string>} The user's name or "Guest" if not available. */
 async function fetchCurrentUser() {
-  let userRole = localStorage.getItem("userRole");
-  let email = localStorage.getItem("userEmail");
-
-  if (userRole === "guest" || !email) {
-    return "Guest";
-  }
+  const email = localStorage.getItem("userEmail");
+  if (localStorage.getItem("userRole") === "guest" || !email) return "Guest";
 
   try {
-    let userData = await getUserByEmail(email);
-
-    if (!userData || Object.keys(userData).length === 0) {
-      console.warn("No user found for email:", email);
-      return "Guest";
-    }
-
-    let userId = Object.keys(userData)[0];
-    let user = userData[userId];
-
-    if (!user || !user.name) {
-      console.warn("User data is missing 'name' field:", user);
-      return "Guest";
-    }
-
-    return user.name;
-  } catch (error) {
-    console.error("Error fetching current user:", error);
+    const userData = await getUserByEmail(email);
+    const user = userData ? Object.values(userData)[0] : null;
+    return user?.name || "Guest";
+  } catch {
     return "Guest";
   }
 }
 
-/** Fetches a user from Firebase by email */
+/** Fetches a user from Firebase by email.
+ * @param {string} email - The email of the user.
+ * @returns {Promise<Object>} The user data from Firebase. */
 async function getUserByEmail(email) {
   if (!email) return {};
 
@@ -81,8 +51,8 @@ async function getUserByEmail(email) {
   }
 }
 
-
-/** Fetchs Contacts from API */
+/** Fetches contacts from Firebase.
+ * @returns {Promise<Object>} The contacts data from Firebase. */
 async function fetchContacts() {
   let url = `${BASE_URL}/contacts.json`;
   let response = await fetch(url);
@@ -90,7 +60,8 @@ async function fetchContacts() {
   return contacts;
 }
 
-/** Fetchs Categories from API */
+/** Fetches tasks from Firebase.
+ * @returns {Promise<Object>} The tasks data from Firebase. */
 async function fetchTasks() {
   const url = `${BASE_URL}/tasks.json`;
   const response = await fetch(url);
@@ -98,71 +69,38 @@ async function fetchTasks() {
   return tasks;
 }
 
-/** Extracts the initials of the signed up name */
+/** Returns the initials of a name (first two letters of first and last word, or first character if numeric/single word).
+ * @param {string} name - The full name of the user.
+ * @returns {string} Initials in uppercase. */
 function getInitials(name) {
   if (!name) return "";
-
-  let trimmedName = name.trim();
-  let firstChar = trimmedName.charAt(0);
-
-  if (!isNaN(firstChar)) {
-    return firstChar;
-  }
-
-  let nameParts = trimmedName.split(" ");
-
-  if (nameParts.length === 1) {
-    return nameParts[0].charAt(0).toUpperCase();
-  }
-
-  let firstInitial = nameParts[0].charAt(0).toUpperCase();
-  let secondInitial = nameParts[1].charAt(0).toUpperCase();
-
-  return firstInitial + secondInitial;
+  const parts = name.trim().split(" ");
+  const first = parts[0].charAt(0).toUpperCase();
+  const second = parts[1]?.charAt(0).toUpperCase() || "";
+  return isNaN(first) ? first + second : first;
 }
 
-/** Closes overlays and resets the form. */
+/** Closes all open overlays and resets the form if necessary.
+ * @param {Event} [event] - The click event that triggered the overlay close. */
 function closeOverlay(event) {
-  if (event && event.target !== event.currentTarget) {
-    return;
-  }
+  if (event && event.target !== event.currentTarget) return;
 
   const overlayIds = [
-    "contactAdd",
-    "contactEdit",
-    "contactDetails",
-    "addTaskBoard",
-    "infoOverlay",
-    "editTaskOverlay",
+    "contactAdd", "contactEdit", "contactDetails", 
+    "addTaskBoard", "infoOverlay", "editTaskOverlay"
   ];
 
   overlayIds.forEach((id) => {
     const overlay = document.getElementById(id);
-    if (overlay && overlay.classList.contains("open")) {
+    if (overlay?.classList.contains("open")) {
       overlay.classList.remove("open");
-
-      if (["contactAdd", "contactEdit", "contactDetails"].includes(id)) {
-        resetContactForm(id);
-      }
-      if (id === "addTaskBoard") {
-        clearAll();
-      }
-      if (id === "editTaskOverlay") {
-        resetPriorityButtons();
-      }
+      if (id === "addTaskBoard") clearBoardOverlay();
+      if (id === "editTaskOverlay") resetPriorityButtons();
+      if (["contactAdd", "contactEdit", "contactDetails"].includes(id)) resetContactForm(id);
     }
   });
 
-  const anyOverlayOpen = overlayIds.some((id) => {
-    const o = document.getElementById(id);
-    return o && o.classList.contains("open");
-  });
-  
-  if (anyOverlayOpen) {
-    document.body.classList.add("no-scroll");
-  } else {
-    document.body.classList.remove("no-scroll");
-  }
+  document.body.classList.toggle("no-scroll", overlayIds.some(id => document.getElementById(id)?.classList.contains("open")));
 }
 
 /** Sets the minimum and maximum allowed date for the task input. Minimum is today's date, maximum is 5 years from today. */
@@ -191,4 +129,14 @@ function validateDateInput() {
   }
 
   if (isManual) document.getElementById("addTaskDateError").classList.add("d_none");
+}
+
+/** Change the format of the date (from YYYY-MM-DD to DD/MM/YYYY).
+ * @param {string} dateString - The date string in YYYY-MM-DD format.
+ * @returns {string} The formatted date string in DD/MM/YYYY format. */
+function formatDate(dateString) {
+  if (!dateString) return "";
+
+  let [year, month, day] = dateString.split("-");
+  return `${day}/${month}/${year}`;
 }
