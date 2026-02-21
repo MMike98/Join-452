@@ -1,3 +1,9 @@
+/** Generates the HTML for a single contact entry in the contacts list.
+ * @param {Object} contact - The contact object containing name and email.
+ * @param {number} index - The index of the contact in the list.
+ * @param {string} color - The background color for the contact's circle.
+ * @returns {string} HTML string representing a contact entry.
+ */
 function contactsHTML(contact, index, color) {
   return `
     <div id="contact${index}" class="contactEntry" onclick="toggleContactDetails(${index})">
@@ -10,6 +16,9 @@ function contactsHTML(contact, index, color) {
   `;
 }
 
+/** Generates the HTML for a letter separator in the contacts list.
+ * @param {string} currentLetter - The letter to display as the separator.
+ * @returns {string} HTML string representing a letter separator. */
 function seperatorHTML(currentLetter) {
   return `
     <div class="contactsLetterSeparator">${currentLetter}</div>
@@ -17,6 +26,11 @@ function seperatorHTML(currentLetter) {
   `;
 }
 
+/** Generates the HTML for the detailed view of a selected contact.
+ * @param {Object} contact - The contact object containing name, email, and phonenumber.
+ * @param {string} color - The background color for the contact's circle.
+ * @param {number} index - The index of the contact in the list.
+ * @returns {string} HTML string representing the contact details view. */
 function contactDetailsHTML(contact, color, index) {
   return `
     <div class="contactSelectedMain">

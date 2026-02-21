@@ -165,4 +165,30 @@ function closeOverlay(event) {
   }
 }
 
+/** Sets the minimum and maximum allowed date for the task input. Minimum is today's date, maximum is 5 years from today. */
+function setMinDate() {
+  const input = document.getElementById("addTaskDate");
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
+  const yyyy = today.getFullYear(),
+    mm = String(today.getMonth() + 1).padStart(2, "0"),
+    dd = String(today.getDate()).padStart(2, "0");
+
+  input.min = `${yyyy}-${mm}-${dd}`;
+  input.max = `${yyyy + 5}-${mm}-${dd}`;
+}
+
+/** Validates the selected date in the task form. */
+function validateDateInput() {
+  const input = document.getElementById("addTaskDate");
+  const today = new Date(); today.setHours(0,0,0,0);
+  const selectedDate = new Date(input.value);
+  const isManual = input.value && !input.value.includes("-");
+
+  if (selectedDate < today && !isManual) {
+    input.value = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+  }
+
+  if (isManual) document.getElementById("addTaskDateError").classList.add("d_none");
+}

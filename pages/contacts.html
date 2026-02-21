@@ -17,6 +17,7 @@
     <script src="../scripts/template.js"></script>
     <script src="../scripts/contacts.js"></script>
     <script src="../scripts/contactsTemplates.js"></script>
+    <script src="../scripts/window.js"></script>
 </head>
 
 <body class="bodyAddTask" onload="showUserInitial(), renderContacts()">
@@ -111,7 +112,7 @@
                     <div class="errorText errorTextPhoneAlignment d_none">Please enter your phone number.</div>
                     <div class="errorText errorTextPhoneAlignment d_none">Invalide number: +Country code followed by the telephone number without the leading zero</div>
                     <div class="overlayWhiteButtons">
-                        <button class="bottonWhite" onclick="closeOverlay()">Cancel</button>
+                        <button type="button" class="bottonWhite" onclick="closeOverlay()">Cancel</button>
                         <button type="submit" class="bottomGrey">
                             <span>Create contact</span>
                             <img src="../assets/icons/check.svg" alt="check">

@@ -1,4 +1,6 @@
-/** Gets E-Mail form signed up users from local storage */
+/** Retrieves the initials of the currently signed-up user from local storage.
+ * @async
+ * @returns {Promise<string|undefined>} The initials of the user, or undefined if no user is found. */
 async function getUserInitialsFromStorage() {
   let email = localStorage.getItem("userEmail");
 
@@ -11,7 +13,9 @@ async function getUserInitialsFromStorage() {
   }
 }
 
-/** Displays the initials of the signed up user in the header, if the user is a guest dispaly "G" */
+/** Displays the initials of the signed-up user in the header. If the user is a guest, displays "G".
+ * @async
+ * @returns {Promise<void>} */
 async function showUserInitial() {
   let userRole = localStorage.getItem("userRole");
   let userIcon = document.getElementById("userIcon");
@@ -24,7 +28,7 @@ async function showUserInitial() {
   }
 }
 
-/** Resets local storage */
+/** Logs out the current user by removing relevant local storage items. */
 function logOut() {
   localStorage.removeItem("userRole");
   localStorage.removeItem("userEmail");

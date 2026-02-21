@@ -1,3 +1,6 @@
+/** Generates HTML string for a new subtask entry in the list.
+ * @param {string} value - The subtask text.
+ * @returns {string} HTML string for a <li> element. */
 function confirmSubtaskEntryHTML(value) {
   return `
     <li class="addTaskSubtaskItem" ondblclick="editSubtask(this)">
@@ -11,6 +14,9 @@ function confirmSubtaskEntryHTML(value) {
   `;
 }
 
+/** Generates HTML string for a subtask in edit mode.
+ * @param {string} text - The text of the subtask.
+ * @returns {string} HTML string for a div with input and action icons. */
 function editSubtaskHTML(text) {
   return `
     <div class="subtaskEditWrapper">
@@ -24,6 +30,9 @@ function editSubtaskHTML(text) {
   `;
 }
 
+/** Generates HTML string for a subtask item (same as confirmSubtaskEntryHTML).
+ * @param {string} value - The subtask text.
+ * @returns {string} HTML string for a <li> element. */
 function createSubtaskHTML(value) {
   return `
     <li class="addTaskSubtaskItem" ondblclick="editSubtask(this)">
@@ -37,13 +46,15 @@ function createSubtaskHTML(value) {
   `;
 }
 
+/** Generates HTML string for a contact label in the dropdown.
+ * @param {Object} contact - The contact object.
+ * @param {string} color - The color to use for the avatar circle.
+ * @returns {string} HTML string representing a contact label. */
 function contactLabelTemplate(contact, color) {
   return `
     <div id="contactChecked">
-      <span class="circle" style="background-color: ${color};">${getInitials(contact.name,)}</span>
+      <span class="circle" style="background-color: ${color};">${getInitials(contact.name)}</span>
       ${contact.name}
     </div>
   `;
 }
-
-

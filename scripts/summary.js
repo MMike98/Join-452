@@ -1,4 +1,6 @@
-/** Loads tasks data, analyzes counts and nearest urgent due date, then renders the results. */
+/**  Loads tasks data, analyzes counts and nearest urgent due date, then renders the results.
+ * @async
+ * @returns {Promise<void>} */
 async function loadTasksAndCount() {
   try {
     let data = await fetchTasks();
@@ -9,13 +11,18 @@ async function loadTasksAndCount() {
   }
 }
 
-/** Fetches tasks data from the API endpoint. */
+/** Fetches all tasks from the backend API.
+ * @async
+ * @returns {Promise<Object>} A promise that resolves to the tasks object. */
 async function fetchTasks() {
   let response = await fetch(`${BASE_URL}/tasks.json`);
   return await response.json();
 }
 
-/** Validates if the task object has a valid status that we can count. */
+/** Validates if a task object has a valid status that can be counted.
+ * @param {Object} task - The task object to validate.
+ * @param {Object} counts - The object containing valid status keys.
+ * @returns {boolean} True if the task is valid, false otherwise. */
 function isValidTask(task, counts) {
   return (
     typeof task === "object" &&
@@ -25,30 +32,25 @@ function isValidTask(task, counts) {
   );
 }
 
-/** Analyzes the tasks data to count tasks by status, count urgent tasks, and find the nearest due date among urgent tasks. */
+/** Analyzes tasks data to count tasks by status, count urgent tasks, and find nearest urgent due date.
+ * @param {Object} data - The object containing all tasks.
+ * @returns {{ counts: Object, nearestUrgentDate: Date|null }} Task counts and nearest urgent due date. */
 function analyzeTasks(data) {
-  let counts = {total: 0, to_do: 0, in_progress: 0, await_feedback: 0, done: 0, urgent: 0, };
-  let urgentDueDates = [];
+  const counts = { total: 0, to_do: 0, in_progress: 0, await_feedback: 0, done: 0, urgent: 0 };
+  const urgentDates = [];
 
-  Object.values(data).forEach(task => {
-    if (!isValidTask(task, counts)) return;
-
-    counts[task.status]++;
-    counts.total++;
-
-    if (task.priority === "Urgent") {
-      counts.urgent++;
-      if (task.duedate) urgentDueDates.push(new Date(task.duedate));
-    }
+  Object.values(data).forEach(t => {
+    if (!isValidTask(t, counts)) return;
+    counts[t.status]++; counts.total++;
+    if (t.priority === "Urgent" && t.duedate) { counts.urgent++; urgentDates.push(new Date(t.duedate)); }
   });
 
-  return {
-    counts,
-    nearestUrgentDate: getNearestDate(urgentDueDates),
-  };
+  return { counts, nearestUrgentDate: getNearestDate(urgentDates) };
 }
 
-/** Returns the earliest date from an array of dates or null if empty. */
+/** Returns the earliest date from an array of Date objects.
+ * @param {Date[]} dates - Array of Date objects.
+ * @returns {Date|null} The earliest date or null if array is empty. */
 function getNearestDate(dates) {
   if (dates.length === 0) return null;
 
@@ -56,7 +58,9 @@ function getNearestDate(dates) {
   return dates[0];
 }
 
-/** Renders task counts and the nearest urgent due date */
+/** Updates the DOM elements with task counts and the nearest urgent due date.
+ * @param {Object} counts - Object containing counts of tasks per status.
+ * @param {Date|null} nearestUrgentDate - The nearest due date of urgent tasks. */
 function renderTaskCounts(counts, nearestUrgentDate) {
   document.getElementById("countToDo").textContent = counts.to_do;
   document.getElementById("countInProgress").textContent = counts.in_progress;
@@ -67,7 +71,9 @@ function renderTaskCounts(counts, nearestUrgentDate) {
   document.getElementById("dateUrgent").textContent = formatDateLongUS(nearestUrgentDate);
 }
 
-/** Formats a Date object into "Month day, Year" or returns "–" if no date. */
+/** Formats a Date object into "Month day, Year" string.
+ * @param {Date|null} date - The date to format.
+ * @returns {string} Formatted date or "–" if date is null. */
 function formatDateLongUS(date) {
   return date
     ? date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
@@ -76,7 +82,7 @@ function formatDateLongUS(date) {
 
 window.addEventListener("load", loadTasksAndCount);
 
-//** Fades out and hides the greeting text in the mobile view */
+/** Fades out and hides the greeting text in the mobile view */
 setTimeout(function () {
   let summary = document.querySelector(".summary-right");
   if (summary) {
@@ -87,7 +93,9 @@ setTimeout(function () {
   }
 }, 2000);
 
-/** Displays the greeting and user name depending on the user role (guest/user) and time of day. */
+/** Displays the greeting and user name depending on role and time of day.
+ * @async
+ * @returns {Promise<void>} */
 async function showGreetingAndName() {
   let userRole = localStorage.getItem("userRole");
   let greetingDisplay = document.getElementById("greetingDisplay");
@@ -104,7 +112,9 @@ async function showGreetingAndName() {
   } 
 }
 
-/** Retrieves the full name of the user based on the email stored in localStorage. */
+/** Retrieves the full name of the logged-in user based on stored email.
+ * @async
+ * @returns {Promise<string|null>} Full name or null if not found. */
 async function getUserFullNameFromStorage() {
   let email = localStorage.getItem("userEmail");
 
@@ -118,7 +128,8 @@ async function getUserFullNameFromStorage() {
   return null;
 }
 
-/** Determines the greeting based on the current hour of the day. */
+/** Determines the greeting text based on current hour.
+ * @returns {string} Greeting message: "Good morning", "Good afternoon", or "Good evening". */
 function getGreetingByTime() {
   let now = new Date();
   let hour = now.getHours();

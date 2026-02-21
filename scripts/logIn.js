@@ -1,4 +1,8 @@
-/** Handles the login process by validating inputs and authenticating the user. */
+/** Handles the login process by validating inputs and authenticating the user.
+ * @async
+ * @param {Event} event - The submit event from the login form.
+ * @returns {Promise<void>}
+ */
 async function logIn(event) {
     event.preventDefault();
 
@@ -15,7 +19,13 @@ async function logIn(event) {
     await authenticateUser(email, password, passwordInput, errorLogIn);
 }
 
-/** Checks if email or password fields are empty and handles UI errors. */
+/** Checks if email or password fields are empty and handles UI errors.
+ * @param {string} email - The entered email.
+ * @param {string} password - The entered password.
+ * @param {HTMLInputElement} emailInput - The email input element.
+ * @param {HTMLInputElement} passwordInput - The password input element.
+ * @param {HTMLElement} errorContainer - The container for showing errors.
+ * @returns {boolean} True if any field is empty, otherwise false. */
 function hasEmptyFields(email, password, emailInput, passwordInput, errorContainer) {
     let isEmailEmpty = email === "";
     let isPasswordEmpty = password === "";
@@ -31,7 +41,11 @@ function hasEmptyFields(email, password, emailInput, passwordInput, errorContain
     return false;
 }
 
-/** Validates the email format and handles UI errors. */
+/** Validates the email format and handles UI errors.
+ * @param {string} email - The entered email.
+ * @param {HTMLInputElement} emailInput - The email input element.
+ * @param {HTMLElement} errorContainer - The container for showing errors.
+ * @returns {boolean} True if email format is valid, otherwise false. */
 function isValidEmail(email, emailInput, errorContainer) {
     let emailPattern = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 
@@ -47,7 +61,13 @@ function isValidEmail(email, emailInput, errorContainer) {
     return true;
 }
 
-/** Authenticates the user by comparing the entered credentials to stored ones. Handles success or failure with UI feedback or redirect. */
+/** Authenticates the user by comparing the entered credentials to stored ones. Updates the UI on success or failure.
+ * @async
+ * @param {string} email - The entered email.
+ * @param {string} password - The entered password.
+ * @param {HTMLInputElement} passwordInput - The password input element.
+ * @param {HTMLElement} errorContainer - The container for showing errors.
+ * @returns {Promise<void>} */
 async function authenticateUser(email, password, passwordInput, errorContainer) {
     let users = await getUserByEmail(email);
     let user = Object.values(users)[0];
@@ -75,7 +95,7 @@ function logInUser() {
     localStorage.setItem("userEmail", email);
 }
 
-// Shows the visibility toggle icon and updates the password input style when text is entered.
+/** Shows or hides the password visibility toggle icon and updates input style. */
 function changeIcon() {
     let passwordLogIn = document.getElementById('passwordLogIn');
     let icon = document.getElementById('togglePasswordIcon');
@@ -91,7 +111,7 @@ function changeIcon() {
     }
 }
 
-// Toggles the password visibility and updates the icon accordingly.
+/** Toggles password visibility and updates the visibility icon accordingly. */
 function togglePassword() {
     let passwordLogIn = document.getElementById('passwordLogIn');
 

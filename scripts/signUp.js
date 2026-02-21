@@ -1,56 +1,41 @@
-/**Saves new user. Handles manual validation and saves a new user if inputs are valid. */
+/** Handles new user registration: validates input, checks email, saves to backend.
+ * @async
+ * @param {Event} event
+ * @returns {Promise<void>} */
 async function saveNewUser(event) {
   event.preventDefault();
-
   clearSignUpErrors();
+  const { name, email, password, confirm } = getUserInformation();
+  const checkbox = document.getElementById("checkPP");
 
-  let { name, email, password, confirm } = getUserInformation();
-  let checkbox = document.getElementById("checkPP");
+  if (!name || !email || !password || !confirm) return showSignUpError("Please fill in all fields."), highlightEmptyFields({ name, email, password, confirm });
+  if (!isValidEmail(email)) return showSignUpError("Invalid email: @ or top level domain (e.g. .de) is missing."), document.getElementById("emailSignUp").classList.add("inputError");
+  if (!checkbox.checked) return showSignUpError("You must accept the privacy policy.");
+  if (password !== confirm) return handlePasswordMismatch();
+  if (await isEmailTaken(email)) return;
 
-  if (!name || !email || !password || !confirm) {
-    showSignUpError("Please fill in all fields.");
-    highlightEmptyFields({ name, email, password, confirm });
-    return;
-  }
-
-  if (!isValidEmail(email)) {
-    showSignUpError("Invalid email: @ or top level domain (e.g. .de) is missing.");
-    document.getElementById("emailSignUp").classList.add("inputError");
-    return;
-  }
-
-  if (!checkbox.checked) {
-    showSignUpError("You must accept the privacy policy.");
-    return;
-  }
-
-  if (password !== confirm) {
-    return handlePasswordMismatch();
-  }
-
-  if (await isEmailTaken(email)) {
-    return;
-  }
-
-  let newUser = { name, email, password };
-  await loadIntoAPI(newUser);
+  await loadIntoAPI({ name, email, password });
   resetSignUpForm();
   successSignUp();
 }
 
-/** Validates the email format manually. */
+/** Validates the email format manually.
+ * @param {string} email - The email to validate.
+ * @returns {boolean} True if the email is valid. */
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(email.toLowerCase());
 }
 
-/** Displays a signup error message. */
+/** Displays a signup error message.
+ * @param {string} message - The error message to display. */
 function showSignUpError(message) {
   let error = document.getElementById("errorSignUp");
   error.classList.remove("d_none");
   error.textContent = message;
 }
 
-/** Highlights empty fields by adding the inputError class. */
+/** Highlights empty fields by adding the inputError class.
+ * @param {{name:string,email:string,password:string,confirm:string}} fields - Object containing form field values. */
 function highlightEmptyFields({ name, email, password, confirm }) {
   if (!name) document.getElementById("nameSignUp").classList.add("inputError");
   if (!email) document.getElementById("emailSignUp").classList.add("inputError");
@@ -76,7 +61,9 @@ function successSignUp() {
   }, 2000)
 }
 
-/** Checks if the Email already exists */
+/** Checks if the Email already exists in the backend.
+ * @param {string} email - Email to check.
+ * @returns {Promise<boolean>} True if email is taken. */
 async function isEmailTaken(email) {
   let taken = false
   const users = await getUserByEmail(email);
@@ -90,7 +77,9 @@ async function isEmailTaken(email) {
   return taken;
 }
 
-/** Loads data into the API */
+/** Loads a new user object into the backend API.
+ * @param {{name:string,email:string,password:string}} newUser - New user object.
+ * @returns {Promise<void>} */
 async function loadIntoAPI(newUser) {
   let lastIdRes = await fetch(`${BASE_URL}/users/lastUserId.json`);
   let lastId = parseInt(await lastIdRes.json()) || 0;
@@ -109,7 +98,8 @@ async function loadIntoAPI(newUser) {
   });
 }
 
-/** Get user information from the form */
+/** Retrieves user input from the sign-up form.
+ * @returns {{name:string,email:string,password:string,confirm:string}} Object containing form field values. */
 function getUserInformation() {
   let name = document.getElementById("nameSignUp").value;
   let email = document.getElementById("emailSignUp").value;
@@ -119,7 +109,8 @@ function getUserInformation() {
   return { name, email, password, confirm };
 }
 
-/** If the mail already exists: Resets the form and displays an error message */
+/** Handles case when email already exists: resets fields and displays message.
+ * @param {string} message - Error message to display. */
 function userAlreadyExists(message) {
   document.getElementById("emailSignUp").value = "";
   document.getElementById("passwordSignUp").value = "";

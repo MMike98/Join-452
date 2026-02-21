@@ -1,3 +1,8 @@
+/** Generates the HTML for a task card in the main board view.
+ * @param {Object} task - The task object containing title, description, category, priority, and subtasks.
+ * @param {string} key - The unique key of the task.
+ * @param {string} [categoryClass="default"] - Optional CSS class for the category label.
+ * @returns {string} HTML string for the task card. */
 function generateTaskHTML(task, key, categoryClass = "default") {
   const openSubtasks = task.subtasks?.length || 0;
   const doneSubtasks = task.subtasksDone?.length || 0;
@@ -50,6 +55,10 @@ function generateTaskHTML(task, key, categoryClass = "default") {
   `;
 }
 
+/** Generates the HTML for the detailed info overlay of a task.
+ * @param {Object} t - Task object with all task details.
+ * @param {string} key - Unique task key.
+ * @returns {string} HTML string for the task info overlay. */
 function generateInfoTaskHTML(t, key) {
   let categoryClass = getCategoryClass(t.category); 
   let dueDateFormatted = formatDate(t.duedate);
@@ -162,10 +171,18 @@ function generateInfoTaskHTML(t, key) {
   `;
 }
 
+/** Returns a placeholder HTML for an empty column.
+ * @param {string} message - The message to display when no tasks exist.
+ * @returns {string} HTML string for the empty column. */
 function emptyColumnTemplate(message) {
   return `<div class="no-task"><p>${message}</p></div>`;
 }
 
+/** Generates a label HTML for editing assigned contacts.
+ * @param {Object} contact - Contact object with a name property.
+ * @param {string} color - Circle color for the contact.
+ * @param {boolean} selected - Whether the contact is selected.
+ * @returns {string} HTML string for the contact label. */
 function editContactLabelTemplate(contact, color, selected) {
   const selectedClass = selected ? "contactSelected" : "";
   const initials = getInitials(contact.name);
@@ -179,6 +196,10 @@ function editContactLabelTemplate(contact, color, selected) {
   `;
 }
 
+/** Generates inner HTML for a contact item in the edit overlay.
+ * @param {Object} contact - Contact object with a name property.
+ * @param {boolean} selected - Whether the contact is currently selected.
+ * @returns {string} HTML string for the contact item. */
 function editContactInnerHTML(contact, selected) {
   const color = getColorForName(contact.name);
   const initials = getInitials(contact.name);
@@ -195,12 +216,19 @@ function editContactInnerHTML(contact, selected) {
   `;
 }
 
+/** Generates a circle avatar HTML for a contact in the edit overlay.
+ * @param {Object} contact - Contact object with a name property.
+ * @returns {string} HTML string for the contact circle. */
 function editContactCircleHTML(contact) {
   return `<span class="circle circleEdit" style="background-color:${getColorForName(contact.name)}">
     ${getInitials(contact.name)}
   </span>`;
 }
 
+/** Generates the HTML for an active subtask in the edit overlay.
+ * @param {string} subtask - The subtask text.
+ * @param {number} index - The subtask index.
+ * @returns {string} HTML string for an active subtask item. */
 function activeSubtaskTemplate(subtask, index) {
   return `<li class="subtask-item">
     <div class="subtask-content"><span>${subtask}</span></div>
@@ -211,6 +239,10 @@ function activeSubtaskTemplate(subtask, index) {
   </li>`;
 }
 
+/** Generates the HTML for a completed (done) subtask in the edit overlay.
+ * @param {string} subtask - The subtask text.
+ * @param {number} index - The subtask index.
+ * @returns {string} HTML string for a done subtask item. */
 function doneSubtaskTemplate(subtask, index) {
   return `<li class="subtask-item done">
     <div class="subtask-content"><span>${subtask}</span></div>
@@ -221,6 +253,11 @@ function doneSubtaskTemplate(subtask, index) {
   </li>`;
 }
 
+/** Generates HTML for an editable subtask input in the edit overlay.
+ * @param {string} text - Current text of the subtask.
+ * @param {number} index - Subtask index.
+ * @param {boolean} [done=false] - Whether the subtask is completed.
+ * @returns {string} HTML string for the editable subtask input. */
 function editSubtaskTemplate(text, index, done = false) {
   return `
     <div class="subtask-wrapper subtask-wrapper-edit">
